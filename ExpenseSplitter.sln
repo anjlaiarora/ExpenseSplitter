@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35312.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseSplitter.Server", "ExpenseSplitter.Server\ExpenseSplitter.Server.csproj", "{908E1346-9598-4D9D-9B48-CD6D6AC90E70}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "expensesplitter.client", "expensesplitter.client\expensesplitter.client.esproj", "{905E5EF8-DA94-48C0-9FA9-713B21ACEA14}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{908E1346-9598-4D9D-9B48-CD6D6AC90E70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{908E1346-9598-4D9D-9B48-CD6D6AC90E70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{908E1346-9598-4D9D-9B48-CD6D6AC90E70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{908E1346-9598-4D9D-9B48-CD6D6AC90E70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{905E5EF8-DA94-48C0-9FA9-713B21ACEA14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{905E5EF8-DA94-48C0-9FA9-713B21ACEA14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{905E5EF8-DA94-48C0-9FA9-713B21ACEA14}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{905E5EF8-DA94-48C0-9FA9-713B21ACEA14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{905E5EF8-DA94-48C0-9FA9-713B21ACEA14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{905E5EF8-DA94-48C0-9FA9-713B21ACEA14}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A657E89C-EFB7-4EB2-BDDB-EB2883D852DA}
+	EndGlobalSection
+EndGlobal

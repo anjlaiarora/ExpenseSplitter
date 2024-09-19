@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\ExpenseSplitter.Server.props" />
+</Project>
