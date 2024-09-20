@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Dashboard from './Components/DashBoard';
+import Dashboard from './Components/Dashboard';
 import MainLayout from './Components/MainLayout';
 import Register from './Components/Register';
 import Login from './Components/Login';
 import About from './Components/About';
 import Explore from './Components/Explore';
 import Contact from './Components/Contact';
-import Splitter from './Components/Splitter';
+// import Splitter from './Components/Splitter';
 import Footer from './Components/Footer';
 
 // interface Forecast {
@@ -49,7 +49,7 @@ const router = createBrowserRouter([
 },
 {
   path:'splitter',
-  element:<Splitter/>
+  // element:<Splitter/>
 },
 {
   path:'footer',
