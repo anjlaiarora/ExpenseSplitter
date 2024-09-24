@@ -8,7 +8,7 @@ import Login from './Components/Login';
 import About from './Components/About';
 import Contact from './Components/Contact';
 import Splitter from './Components/Splitter';
-import Footer from './Components/Footer';
+// import Footer from './Components/Footer';
 import Blog from './Components/Blog';
 
 
@@ -46,10 +46,10 @@ const router = createBrowserRouter([
   path:'splitter',
   element:<Splitter/>
 },
-{
-  path:'footer',
-  element:<Footer/>
-},
+// {
+//   path:'footer',
+//   element:<Footer/>
+// },
 {
   path:'/',
   element:<MainLayout/>,
