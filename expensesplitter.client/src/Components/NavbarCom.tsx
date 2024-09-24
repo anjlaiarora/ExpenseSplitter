@@ -22,7 +22,7 @@ const NavbarCom = () => {
       if (savedUser) {
         setLoggedInUser(savedUser);
       } else {
-        navigate('/login');
+        // navigate('/login');
       }
     }
   }, [loggedInUser, navigate, setLoggedInUser]);
@@ -30,7 +30,7 @@ const NavbarCom = () => {
   const handleLogout = () => {
     localStorage.removeItem('loggedInUser');
     setLoggedInUser(null);
-    navigate('/login');
+    // navigate('/login');
   };
   const navigate2 = useNavigate();
   const handleButtonClick = () => {
@@ -39,7 +39,7 @@ const NavbarCom = () => {
     if (loggedInUser) {
       navigate2('/splitter');
     } else {
-      navigate2('/login');
+      // navigate2('/login');
     }
   };
 
