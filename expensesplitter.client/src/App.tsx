@@ -6,17 +6,12 @@ import MainLayout from './Components/MainLayout';
 import Register from './Components/Register';
 import Login from './Components/Login';
 import About from './Components/About';
-import Explore from './Components/Explore';
 import Contact from './Components/Contact';
-// import Splitter from './Components/Splitter';
+import Splitter from './Components/Splitter';
 import Footer from './Components/Footer';
+import Blog from './Components/Blog';
 
-// interface Forecast {
-//     date: string;
-//     temperatureC: number;
-//     temperatureF: number;
-//     summary: string;
-// }
+
 
 interface User {
     id: number;
@@ -49,7 +44,7 @@ const router = createBrowserRouter([
 },
 {
   path:'splitter',
-  // element:<Splitter/>
+  element:<Splitter/>
 },
 {
   path:'footer',
@@ -67,8 +62,8 @@ const router = createBrowserRouter([
     element:<About/>
   },
   {
-    path:'/explore',
-    element:<Explore/>
+    path:'/blog',
+    element:<Blog/>
   },
   {
     path:'/contact',
@@ -79,10 +74,11 @@ const router = createBrowserRouter([
 ])
   return (
     <>
+    <div>
     <RouterProvider router={router}>
       
     </RouterProvider>
-      
+    </div>
 
     </>
   );

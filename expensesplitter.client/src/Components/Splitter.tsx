@@ -1,7 +1,7 @@
 
 const Splitter = () => {
   return (
-    <div>Splitter</div>
+    <div style={{color:'black'}}>Splitter</div>
   )
 }
 

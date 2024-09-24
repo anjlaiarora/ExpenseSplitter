@@ -1,7 +1,7 @@
 
 const Contact = () => {
   return (
-    <div>Contact</div>
+    <div style={{width:'1150px'}}>Contact</div>
   )
 }
 
