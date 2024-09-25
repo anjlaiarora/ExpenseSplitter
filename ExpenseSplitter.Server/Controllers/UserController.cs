@@ -8,11 +8,16 @@ namespace ExpenseSplitter.Server.Controllers
     {
         private readonly UserService userService;
 
-        [HttpPost]
-        public async Task<UserModel> Create(UserModel model)
+        public UserController(UserService userServices)
         {
-            var resultVal = await userService.Create(model);
-            return resultVal;
+            this.userService = userServices;
+        }
+
+        [HttpPost]
+        public async Task<bool> Create(UserModel model)
+        {
+             var result = userService.CreateAsync(model);
+            return true;
         }
     }
 }
