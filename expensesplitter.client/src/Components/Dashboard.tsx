@@ -3,7 +3,7 @@ const Dashboard = () => {
 
   return (
     <>
-    <div style={{display:'flex', justifyContent:'space-between',paddingTop:'100px',gap:'30px',paddingLeft:'40px' }}>
+    <div style={{display:'flex', justifyContent:'space-between',paddingTop:'100px',gap:'30px',paddingLeft:'40px',width:'1350px'}}>
       <div >
         <p  style={{color:'blue', fontSize:'50px',fontWeight:'bold',paddingTop:'180px'}}>SPLIT YOUR AMOUNT</p>
         <p  style={{color:'black', fontSize:'17px',paddingTop:'25px'}}>A split payment is when a total purchase cost is divided<br/> up among multiple payment methods or sources.<br/> This can be useful when sharing expenses with roommates,<br/> buying group gifts, or dining out with friends. 
