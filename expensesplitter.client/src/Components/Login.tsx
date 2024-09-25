@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './LoginSignup.css';
 import email_icon from '../../public/email.png'
 import password_icon from '../../public/password.png'
-
+import { Button, Modal } from 'antd';
 const Login = () => {
+
+    const [open, setOpen] = useState(false);
+
     return (
         <div className='container'>
 
@@ -35,7 +38,20 @@ const Login = () => {
             </div>
 
 
-            <div className='forget-pass'>Forget password? <span>Click here!</span> </div>
+            <div className='forget-pass'>Forget password? <span onClick={() => setOpen(true)}>Click here!</span>
+                <Modal
+                    title="Modal 1000px width"
+                    centered
+                    open={open}
+                    onOk={() => setOpen(false)}
+                    onCancel={() => setOpen(false)}
+                    width={1000}
+                >
+                    <p>some contents...</p>
+                    <p>some contents...</p>
+                    <p>some contents...</p>
+                </Modal>
+            </div>
 
             <div className="submitt">
                 <div className='submit'>Login</div>
