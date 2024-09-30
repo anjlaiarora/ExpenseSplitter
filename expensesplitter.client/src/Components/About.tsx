@@ -2,8 +2,8 @@
 const About = () => {
   return (
     <>
-      <div style={{width:'1150px'}}>
-        <div style={{ display: 'flex', gap: '100px', justifyContent:'center',paddingTop:'180px'}}>
+      <div >
+        <div style={{ display: 'flex', gap: '100px', justifyContent:'center',paddingTop:'50px'}}>
           <img src="https://img.freepik.com/free-vector/discussion-concept-illustration_114360-5209.jpg?size=338&ext=jpg&ga=GA1.1.2008272138.1726963200&semt=ais_hybrid" alt="" width={450} height={450}/>
           <div>
             <p style={{ color: 'black', fontSize: '30px' }}>About Us</p>
@@ -26,7 +26,7 @@ const About = () => {
             <img src="https://media.istockphoto.com/id/1493201691/vector/account-managers-liaise-between-the-agency-and-clients.jpg?s=612x612&w=0&k=20&c=u2XghPG17wPVL_j0JMImXRRd1jPJozFETWnzkN3v8qc=" alt="" width={700} height={600} />
           </div>
         </div>
-        <div style={{ display: 'flex', gap: '150px'}}>
+        <div style={{ display: 'flex', gap: '150px',marginLeft:'80px'}}>
           <img src="https://img.freepik.com/free-vector/cooperation-collaboration-work-business-meeting-coworkers-briefing-employees-teamwork-colleagues-conference-room-discussing-project-vector-isolated-concept-metaphor-illustration_335657-2778.jpg?size=338&ext=jpg&ga=GA1.1.2008272138.1726963200&semt=ais_hybrid" alt="" width={520}/>
           <div>
             <p style={{ color: 'black', fontSize: '30px',marginTop:'100px'  }}>Our Vision</p>

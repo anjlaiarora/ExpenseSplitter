@@ -1,16 +1,15 @@
 import { useEffect, useState } from 'react';
-import './App.css';
+import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Dashboard from './Components/Dashboard';
 import MainLayout from './Components/MainLayout';
-
-
-import 'bootstrap/dist/css/bootstrap.min.css';
 import About from './Components/About';
 import Contact from './Components/Contact';
 import Blog from './Components/Blog';
 import Signup from './Components/Signup';
 import Login from './Components/Login';
+import Splitter from './Components/Splitter';
+import Profile from './Components/Profile';
 
 
 
@@ -34,6 +33,14 @@ const router = createBrowserRouter([
   path:'login',
   element:<Login/>
 },
+{
+  path:'/profile',
+  element:<Profile/>
+},
+{
+path:'/splitter',
+element:<Splitter/>
+},
 
 {
   path:'/',
@@ -47,19 +54,21 @@ const router = createBrowserRouter([
     element:<About/>
   },
   {
-    path:'/explore',
+    path:'/blog',
     element:<Blog/>
   },
   {
     path:'/contact',
     element:<Contact/>
-  }
+  },
+  
 ]
 }
 ])
   return (
     <>
-    <div>
+    <div  className='mx-auto w-100 overflow-hidden'>
+      
     <RouterProvider router={router}>
       
     </RouterProvider>
