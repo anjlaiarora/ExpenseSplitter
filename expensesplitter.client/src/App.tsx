@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+// import { useEffect, useState } from 'react';
 import './index.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Dashboard from './Components/Dashboard';
 import MainLayout from './Components/MainLayout';
