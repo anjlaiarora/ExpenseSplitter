@@ -1,3 +1,4 @@
+using ExpenseSplitter.Server.Services;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 
@@ -6,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 builder.Services.AddControllers();
+builder.Services.AddSingleton<IUserService, UserService>();
 
 IConfiguration configuration = new ConfigurationBuilder()
     .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
