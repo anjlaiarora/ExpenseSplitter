@@ -4,20 +4,55 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ExpenseSplitter.Server.Controllers
 {
+
+    [ApiController]
+    [Route("api/[controller]")]
     public class UserController : Controller
     {
-        private readonly UserService userService;
 
-        public UserController(UserService userServices)
+
+        private readonly IUserService _userService;
+
+        public UserController(IUserService userService)
         {
-            this.userService = userServices;
+            _userService = userService;
         }
 
-        [HttpPost]
-        public async Task<bool> Create(UserModel model)
+
+
+
+
+        // Register a new user
+        [HttpPost("register")]
+        public IActionResult Register([FromBody] User user)
         {
-             var result = userService.CreateAsync(model);
-            return true;
+            if (_userService.GetUserByEmail(user.Email) != null)
+            {
+                return BadRequest("Email already exist");
+            }
+
+            
+            user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+            _userService.CreateUser(user);
+            return Ok("User registere successfully");
         }
+
+
+
+        // Login existing user
+        [HttpPost("login")]
+        public IActionResult Login([FromBody] Login login)
+        {
+            var user = _userService.GetUserByEmail(login.Email);
+            if (user == null || !BCrypt.Net.BCrypt.Verify(login.Password, user.Password))
+            {
+                return Unauthorized("Invalid credentials.");
+            }
+
+            
+            return Ok("Login successful.");
+        }
+
+       
     }
 }
