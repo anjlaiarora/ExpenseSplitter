@@ -1,9 +1,9 @@
-﻿using ExpenseSplitAPI.Models;
+﻿using ExpenseSplitter.Server.Models;
 using ExpenseSplitter.Server.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace ExpenseSplitAPI.Controllers
+namespace ExpenseSplitter.Server.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -20,7 +20,7 @@ namespace ExpenseSplitAPI.Controllers
         public async Task<IActionResult> GetAllGroups()
         {
             var groups = await _groupService.GetAllGroups();
-            return Ok(groups); 
+            return Ok(groups);
         }
 
         [HttpGet("{id}")]

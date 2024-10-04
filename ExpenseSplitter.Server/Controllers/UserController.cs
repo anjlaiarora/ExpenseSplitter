@@ -35,7 +35,7 @@ namespace ExpenseSplitter.Server.Controllers
             
             user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
             _userService.CreateUser(user);
-            return Ok("User registere successfully");
+            return Ok("User register successfully");
         }
 
 
