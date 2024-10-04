@@ -1,5 +1,5 @@
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
-import { Button, Form, Input, Modal } from "antd";
+import { Button, Form, Input, Modal, notification } from "antd";
 import './group.css';
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -30,16 +30,24 @@ const Group = () => {
   const [members, setMembers] = useState('');
   const [isFormVisible, setIsFormVisible] = useState(false);
 
-  const handleSubmit = (e:any) => {
-    e.preventDefault();
-    const memberList = members.split(',').map(member => member.trim());
-    if (groupName && memberList.length > 1) {
-      // addGroup({ groupName, members: memberList });
-      setGroupName('');
-      setMembers('');
-      setIsFormVisible(false);  // Close form after submission
-    }
-  };
+  // const handleSubmit = (e:any) => {
+  //   e.preventDefault();
+  //   const memberList = members.split(',').map(member => member.trim());
+  //   if (groupName && memberList.length > 1) {
+  //     // addGroup({ groupName, members: memberList });
+  //     setGroupName('');
+  //     setMembers('');
+  //     setIsFormVisible(false);  // Close form after submission
+  //     notification.success({
+  //      message:'Group Created'
+  //     })
+  //   }else{
+  //     notification.error({
+  //       message:'Group not Created'
+  //      })
+  //   }
+    
+  // };
   const toggleFormVisibility = () => {
     setIsFormVisible(!isFormVisible);
   };
@@ -54,14 +62,13 @@ const Group = () => {
   return (
     <>
    <button 
-        className="btn btn-primary mb-3"
+        className="btn btn-primary mb-3 w-75"
         onClick={toggleFormVisibility}
       >
         {isFormVisible ? 'Hide Form' : 'Create Group'}
       </button>
 
-      {isFormVisible && (
-        
+      {isFormVisible && ( 
     <Form
     name="dynamic_form_item"
     {...formItemLayoutWithOutLabel}
@@ -69,6 +76,9 @@ const Group = () => {
     style={{ maxWidth: 600, borderColor:'blue', }}
     
     >
+    <Form.Item name="group" rules={[{ required: true }]}>
+          <Input placeholder="Group Name" className="w-100"/>
+        </Form.Item>
     <Form.List
       name="names"
       rules={[
@@ -86,7 +96,7 @@ const Group = () => {
           {fields.map((field, index) => (
               <Form.Item
               {...(index === 0 ? formItemLayout : formItemLayoutWithOutLabel)}
-              label={index === 0 ? 'Members' : ''}
+              // label={index === 0 ? 'Members' : ''}
               required={false}
               key={field.key}
               >
@@ -101,6 +111,7 @@ const Group = () => {
                     },
                 ]}
                 noStyle
+                className="w-100"
               >
                 <Input placeholder="Members name" style={{ width: '60%' }} />
               </Form.Item>
@@ -118,7 +129,7 @@ const Group = () => {
               onClick={() => add()}
               style={{ width: '60%' }}
               icon={<PlusOutlined />}
-            >
+            >Add a member
             </Button>
             {/* <Button
               type="dashed"
@@ -137,7 +148,7 @@ const Group = () => {
     </Form.List>
 
     <Form.Item>
-      <Button type="primary" htmlType="submit" onSubmit={handleSubmit}>
+      <Button type="primary" htmlType="submit" >
         Submit
       </Button>
     </Form.Item>

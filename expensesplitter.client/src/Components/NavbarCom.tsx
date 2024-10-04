@@ -29,15 +29,15 @@ const NavbarCom = () => {
     <div>
 
       <Nav>
-        <Navbar collapseOnSelect expand="lg" className="bg-body-dark navbar-expand-xxl w-100">
+        <Navbar collapseOnSelect expand="lg" className="bg-body-light navbar-expand-xxl w-100 d-flex flex-row">
           
             <Navbar.Brand className='text-primary ps-5 mt-2'><h2>Splitify<img src='https://cdn-icons-png.freepik.com/512/8436/8436281.png' width={40} className="ps-1" /></h2></Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" className='float-sm-left' />
             <Navbar.Collapse id="responsive-navbar-nav" className='w-25'>
-              <Nav className="bg-body-light text-center ms-lg-5">
-              <NavLink to="/" className={({ isActive }) =>
+              <Nav className="bg-body-light text-center ms-lg-5 ">
+              <NavLink to="/" className= {({ isActive }) =>
                     isActive
-                      ? 'nav-link bg-primary rounded-4 mt-4 ms-lg-3 mb-3 ps-3 pe-3 text-light active'
+                      ? 'nav-link bg-primary rounded-4 mt-4 ms-lg-3 mb-3 ps-3 pe-3 text-light active '
                       : 'nav-link text-primary mt-4'
                   }><HomeOutlined className='pe-2'/> 
                   Home

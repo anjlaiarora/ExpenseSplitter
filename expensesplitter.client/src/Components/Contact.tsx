@@ -1,7 +1,7 @@
 
 import React from 'react'
 import { Col, FormProps, Row } from 'antd'
-import { Button, Checkbox, Form, Input } from 'antd';
+import { Button, Form, Input } from 'antd';
 type FieldType = {
   firstname?: string;
   lastname?:string;
@@ -20,14 +20,14 @@ const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
 
 const Contact = () => {
   return (
-<div style={{width:'1150px',paddingTop:"150px"}}>
- <Row gutter={24} style={{backgroundColor:"blue",height:"60vh",padding:"30px"}}>
+<div>
+ <Row gutter={24} className='bg-primary'>
 <Col lg={8}>
-<h1>Talk with Our salse</h1>
+<h1 className='ps-5 pt-5'>Talk with Our salse</h1>
 
 </Col>
-<Col lg={12} style={{position:"relative"}}>
-<div style={{position:"absolute",top:"50px",backgroundColor:"#fff",padding:"50px",left:"130px", boxShadow: "h-shadow v-shadow blur spread color inset",}}>
+<Col lg={12} >
+<div className='pb-3 pt-5 bg-light mt-5 mb-5'>
 <Form
     name="basic"
     labelCol={{ span: 8 }}

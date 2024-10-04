@@ -6,7 +6,7 @@ import Dashboard from './Components/Dashboard';
 import MainLayout from './Components/MainLayout';
 import About from './Components/About';
 import Contact from './Components/Contact';
-import Blog from './Components/Blog';
+// import Blog from './Components/Blog';
 import Signup from './Components/Signup';
 import Login from './Components/Login';
 import Splitter from './Components/Splitter';
@@ -54,10 +54,10 @@ element:<Splitter/>
     path:'/aboutus',
     element:<About/>
   },
-  {
-    path:'/blog',
-    element:<Blog/>
-  },
+  // {
+  //   path:'/blog',
+  //   element:<Blog/>
+  // },
   {
     path:'/contact',
     element:<Contact/>

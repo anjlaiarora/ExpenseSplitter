@@ -17,7 +17,7 @@ const Dashboard = () => {
         </Row> */}
         <Carousel data-bs-theme="dark">
       <Carousel.Item>
-        <div className="d-flex flex-row pt-5">
+        <div className="d-flex flex-row">
         <img
           className="d-block w-50"
           src="https://media.gettyimages.com/id/1142243912/photo/group-of-friends-paying-with-a-credit-card-at-a-restaurant-and-splitting-the-bill.jpg?s=612x612&w=0&k=20&c=-ai3qtpcRXlSo-syi68qGL1Lx9hRiu1DkGXPEBu81zA="
@@ -34,7 +34,7 @@ const Dashboard = () => {
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
-        <div className="d-flex flex-row pt-5">
+        <div className="d-flex flex-row">
         <img
           className="d-block w-50"
           src="https://www.togetherprice.com/us/static/6b52ad2e41287219c2f2207d29fc1642/2b1ae/3a4b719a-577e-4f39-8751-f9af68f6ccb5.jpg"
@@ -51,10 +51,10 @@ const Dashboard = () => {
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
-        <div className="d-flex flex-row pt-5">
+        <div className="d-flex flex-row">
         <img
           className="d-block w-50"
-          src="https://www.rentcafe.com/blog/wp-content/uploads/sites/62/2021/02/Splitting-Rent-with-Roommates.jpg"
+          src="https://www.honorsociety.org/sites/default/files/styles/fb_sharing/public/How_to_Find_a_Roommate_For_College.jpeg?itok=Fsld3Gz7"
           alt="Third slide"
         />
         <img
