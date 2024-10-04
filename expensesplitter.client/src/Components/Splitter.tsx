@@ -2,6 +2,7 @@ import { Card, InputNumber, InputNumberProps, Modal, Steps } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"
+import Group from "./Group";
 
 const Splitter = () => {
   const nevigate = useNavigate();
@@ -37,8 +38,9 @@ const Splitter = () => {
     <div>
       <h2 onClick={handleClick} className="text-primary text-center pe-5 pt-5">Splitify<img src='https://cdn-icons-png.freepik.com/512/8436/8436281.png' width={40} className="ps-1" /></h2>
       <div className="d-flex flex-row justify-content-center justify-content-evenly p-5">
-        <div className="">
+        <div className="w-25">
           <h5>Expense</h5>
+          <Group/>
         </div>
         <Card className="bg-secondary w-25 text-center">
           <h5 className="text-light">SPLIT EXPENSES</h5>

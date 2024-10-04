@@ -5,14 +5,10 @@ import Footer from "./Footer"
 const MainLayout = () => {
   return (
     <>
-    
         <NavbarCom/>
         <hr/>
         <Outlet/>
         <Footer/>
-        
-        {/* <CheckNavRes
-        /> */}
     </>
   )
 }

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Suraj Arora\\Desktop\\ExpenseSplitter\\ExpenseSplitter.Server\\ExpenseSplitter.Server.csproj": {}
+    "E:\\ExpenseSplitter\\ExpenseSplitter.Server\\ExpenseSplitter.Server.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Suraj Arora\\Desktop\\ExpenseSplitter\\ExpenseSplitter.Server\\ExpenseSplitter.Server.csproj": {
+    "E:\\ExpenseSplitter\\ExpenseSplitter.Server\\ExpenseSplitter.Server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Suraj Arora\\Desktop\\ExpenseSplitter\\ExpenseSplitter.Server\\ExpenseSplitter.Server.csproj",
+        "projectUniqueName": "E:\\ExpenseSplitter\\ExpenseSplitter.Server\\ExpenseSplitter.Server.csproj",
         "projectName": "ExpenseSplitter.Server",
-        "projectPath": "C:\\Users\\Suraj Arora\\Desktop\\ExpenseSplitter\\ExpenseSplitter.Server\\ExpenseSplitter.Server.csproj",
-        "packagesPath": "C:\\Users\\Suraj Arora\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Suraj Arora\\Desktop\\ExpenseSplitter\\ExpenseSplitter.Server\\obj\\",
+        "projectPath": "E:\\ExpenseSplitter\\ExpenseSplitter.Server\\ExpenseSplitter.Server.csproj",
+        "packagesPath": "C:\\Users\\Mahesh\\.nuget\\packages\\",
+        "outputPath": "E:\\ExpenseSplitter\\ExpenseSplitter.Server\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Suraj Arora\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Mahesh\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -46,9 +46,25 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.0.3, )"
+            },
             "Microsoft.AspNetCore.SpaProxy": {
               "target": "Package",
               "version": "[8.*-*, )"
+            },
+            "MongoDB.Bson": {
+              "target": "Package",
+              "version": "[2.29.0, )"
+            },
+            "MongoDB.Driver": {
+              "target": "Package",
+              "version": "[2.29.0, )"
+            },
+            "MongoDB.Driver.Core": {
+              "target": "Package",
+              "version": "[2.29.0, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

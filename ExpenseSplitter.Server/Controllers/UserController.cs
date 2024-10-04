@@ -1,6 +1,7 @@
-﻿using ExpenseSplitter.Server.Models;
+﻿
 using ExpenseSplitter.Server.Services;
 using Microsoft.AspNetCore.Mvc;
+using SimpleAuthApi.Models;
 
 namespace ExpenseSplitter.Server.Controllers
 {
@@ -47,7 +48,7 @@ namespace ExpenseSplitter.Server.Controllers
             if (user == null || !BCrypt.Net.BCrypt.Verify(login.Password, user.Password))
             {
                 return Unauthorized("Invalid credentials.");
-            }
+            } 
 
             
             return Ok("Login successful.");

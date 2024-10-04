@@ -20,14 +20,14 @@ const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
 
 const Contact = () => {
   return (
-<div style={{width:'1150px',paddingTop:"150px"}}>
- <Row gutter={24} style={{backgroundColor:"blue",height:"60vh",padding:"30px"}}>
+<div style={{paddingTop:"10px"}}>
+ <Row gutter={24} style={{backgroundColor:"blue",height:"90vh",padding:"30px",marginBottom:'50px'}}>
 <Col lg={8}>
-<h1>Talk with Our salse</h1>
+<h1>Contact</h1>
 
 </Col>
 <Col lg={12} style={{position:"relative"}}>
-<div style={{position:"absolute",top:"50px",backgroundColor:"#fff",padding:"50px",left:"130px", boxShadow: "h-shadow v-shadow blur spread color inset",}}>
+<div style={{position:"absolute",top:"50px",backgroundColor:"#fff",padding:"50px",left:"130px", boxShadow: "h-shadow v-shadow blur spread color inset"}}>
 <Form
     name="basic"
     labelCol={{ span: 8 }}
