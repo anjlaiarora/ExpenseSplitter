@@ -51,10 +51,11 @@ const Dashboard = () => {
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
-        <div className="d-flex flex-row">
+        <div className="d-flex flex-row ">
         <img
           className="d-block w-50"
-          src="https://www.honorsociety.org/sites/default/files/styles/fb_sharing/public/How_to_Find_a_Roommate_For_College.jpeg?itok=Fsld3Gz7"
+          src="https://www.honorsociety.org/sites/default/files/styles/fb_sharing/public/How_to_Find_a_Roommate_For_College.jpeg?itok=Fsld3Gz7
+ "
           alt="Third slide"
         />
         <img

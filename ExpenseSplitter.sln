@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseSplitter.Server", "ExpenseSplitter.Server\ExpenseSplitter.Server.csproj", "{908E1346-9598-4D9D-9B48-CD6D6AC90E70}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpenseSplitter.Server", "ExpenseSplitter.Server\ExpenseSplitter.Server.csproj", "{908E1346-9598-4D9D-9B48-CD6D6AC90E70}"
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "expensesplitter.client", "expensesplitter.client\expensesplitter.client.esproj", "{905E5EF8-DA94-48C0-9FA9-713B21ACEA14}"
 EndProject

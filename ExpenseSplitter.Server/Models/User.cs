@@ -1,29 +1,33 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson;
-namespace ExpenseSplitter.Server.Models
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+
+namespace SimpleAuthApi.Models
 {
     [BsonIgnoreExtraElements]
     public class User
     {
 
-        [BsonElement("Username"),BsonIgnoreIfDefault,BsonIgnoreIfNull]
+
+        //[BsonIgnoreIfDefault, BsonIgnoreIfNull]
+        //public string Id { get; set; } 
+
+        [BsonElement("Username")]
         public string Username { get; set; }
 
-        [BsonElement("Email"), BsonIgnoreIfDefault, BsonIgnoreIfNull]
+        [BsonElement("Email")]
         public string Email { get; set; }
 
-        [BsonElement("Password"), BsonIgnoreIfDefault, BsonIgnoreIfNull]
+        [BsonElement("Password")]
         public string Password { get; set; }
-        
     }
     public class Login
     {
 
-        [BsonElement("Email"), BsonIgnoreIfDefault, BsonIgnoreIfNull]
+
+        [BsonElement("Email")]
         public string Email { get; set; }
 
-        [BsonElement("Password"), BsonIgnoreIfDefault, BsonIgnoreIfNull]
+        [BsonElement("Password")]
         public string Password { get; set; }
-
     }
 }

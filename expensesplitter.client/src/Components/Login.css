@@ -1,7 +1,6 @@
 
 
-
-.container{
+.container2{
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
    width: 500px;
    height: 600px;
@@ -9,9 +8,10 @@
    border-radius: 10px;
    margin-top: 20px;
    margin-bottom: 20px;
+   
 }
 
-.header2{
+.header23{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -20,15 +20,14 @@
     /* margin-top: 30px; */
 }
 
-.text{
+.text1{
     color: #3c009d;
     padding-top: 20px;
     font-size: 48px;
     font-weight: 700;
-
 }
 
-.underline{
+.underline1{
     width: 61px;
     height: 6px;
     background: #3c009d;
@@ -36,14 +35,14 @@
 
 }
 
-.inputs{
+.inputss{
     margin-top: 55px;
     display: flex;
     flex-direction: column;
     gap: 25px;
 }
 
-.input{
+.inputt{
     display: flex;
     align-items: center;
     margin: auto;
@@ -53,12 +52,11 @@
     border-radius: 6px;
 }
 
-.input img{
+.inputt img{
     margin: 0px 30px;
-    
 }
 
-.input input{
+.inputt input{
     height: 50px;
     width: 400px;
     background: transparent;
@@ -68,18 +66,29 @@
     font-size: 18px;
 }
 
+.forget-passw{
+    padding-left: 62px;
+    margin-top: 27px;
+    color: #797979;
+    font-size: 18px;
+    margin-left: -25px;
+}
 
 
+.forget-passw span{
+    color: #3c009d;
+    cursor: pointer;
+    font-size: 15px;
+}
 
-
-.submitt{
+.submitt1{
     display: flex;
     gap:30px ;
     margin: 60px auto;
     margin-top: 40px;
 }
 
-.submit{
+.submit1{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -93,19 +102,23 @@
     cursor: pointer;
 }
 
-.link{
+.link1{
     font-size: large;
     font-weight: 400;
     padding-top: -30px;
     text-align: center;
-    margin-top: 20px;
+    padding-top: -10px;
 }
 
 
-.social{
+
+
+.social1{
     text-align: center;
     margin-top: -40px;
 }
+
+
 
 
 

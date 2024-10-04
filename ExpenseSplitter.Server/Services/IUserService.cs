@@ -1,4 +1,5 @@
-﻿using ExpenseSplitter.Server.Models;
+﻿
+using SimpleAuthApi.Models;
 
 namespace ExpenseSplitter.Server.Services
 {
