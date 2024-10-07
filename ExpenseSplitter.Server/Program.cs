@@ -28,8 +28,8 @@ IConfiguration configuration = new ConfigurationBuilder()
     .Build();
 
 
-var mongoclient = new MongoClient(configuration.GetConnectionString("MongoDb"));
-builder.Services.AddSingleton<IMongoClient>(mongoclient);
+//var mongoclient = new MongoClient(configuration.GetConnectionString("mongodb+srv://anjaliaroraa908:expensesplitter@cluster0.bmxdz.mongodb.net/"));
+//builder.Services.AddSingleton<IMongoClient>(mongoclient);
 
 
 

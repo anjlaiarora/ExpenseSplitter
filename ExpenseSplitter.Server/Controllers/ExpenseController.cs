@@ -7,7 +7,7 @@ namespace ExpenseSplitter.Server.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ExpenseController : ControllerBase
+    public class ExpenseController : Controller
     {
         private readonly ExpenseService _expenseService;
 
@@ -19,7 +19,7 @@ namespace ExpenseSplitter.Server.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllExpenses()
         {
-            var expenses = await _expenseService.GetAllExpenses();
+            var expenses = await _expenseService.GetAllExpenses(); 
             return Ok(expenses);
         }
 
@@ -30,7 +30,7 @@ namespace ExpenseSplitter.Server.Controllers
             return expense == null ? NotFound() : Ok(expense);
         }
 
-        [HttpPost]
+        [HttpPost]  
         public async Task<IActionResult> CreateExpense([FromBody] Expense expense)
         {
             await _expenseService.CreateExpense(expense);
@@ -38,3 +38,4 @@ namespace ExpenseSplitter.Server.Controllers
         }
     }
 }
+
