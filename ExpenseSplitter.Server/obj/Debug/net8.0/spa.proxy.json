@@ -3,7 +3,7 @@
 "ServerUrl": "https://localhost:5173",
 "RedirectUrl": "",
 "LaunchCommand": "npm run dev",
-"WorkingDirectory": "E:\\ExpenseSplitter\\ExpenseSplitter.Server\\..\\expensesplitter.client",
+"WorkingDirectory": "C:\\Users\\Suraj Arora\\Desktop\\ExpenseSplitter\\ExpenseSplitter.Server\\..\\expensesplitter.client",
 "MaxTimeoutInSeconds": "120",
 "KeepRunning": "false"
 }

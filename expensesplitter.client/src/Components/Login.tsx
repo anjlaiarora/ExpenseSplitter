@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import email_icon from '../../public/email.png';
 import password_icon from '../../public/password.png';
 import linkedin_icon from '../../public/linkedin.png';
 import goggle_icon from '../../public/google.png';
 import { Button, Modal } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import './Login.css';
+import UserContext from './UserContext';
 
 const Login = () => {
+  const {setLogin} = useContext(UserContext)
+  // const [loginData, setLoginData] = React.useState('')
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
@@ -18,7 +21,28 @@ const Login = () => {
   const handleChange = (e: { target: { name: string; value: string } }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+  // const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  // useEffect(() => {
+  //   // Check if the user is authenticated
+  //   const checkAuthentication = async () => {
+  //     try {
+  //       const response = await fetch('https://localhost:7194/api/User/login'); 
+  //       if (response.ok) {
+  //         setIsAuthenticated(true);
+  //       }
+  //     } catch (error) {
+  //       console.error('Error checking authentication:', error);
+  //     }
+  //   };
+
+  //   checkAuthentication();
+  // }, []);
+
+  // if (isAuthenticated) {
+  //   // Redirect to the home page or another protected route
+  //   return <Navigate to="/" />; 
+  // }
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
@@ -28,6 +52,7 @@ const Login = () => {
       
       localStorage.setItem('userId', userId); 
       alert("User logged in successfully. ID stored in localStorage: " + userId);
+      setLogin(true)
       
     } catch (error: any) {
       alert(error.response.data);

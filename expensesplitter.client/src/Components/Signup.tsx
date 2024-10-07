@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import axios from "axios";
 import {useNavigate } from 'react-router-dom';
@@ -31,12 +31,14 @@ const Signup = () => {
     try {
       const response = await axios.post("https://localhost:7194/api/User/register", formData);
       alert(response.data);
+      navigate("/splitter")
     } catch (error:any) {
       alert(error.response.data);
     }
-    navigate("/splitter")
+    // navigate("/splitter")
   
   };
+
 
   return (
     <>
@@ -82,7 +84,7 @@ const Signup = () => {
         <div className="submitt">
 
 
-          <button type='submit' className='submit' >Sign Up</button>
+          <button type='submit' className='submit ms-5' >Sign Up</button>
 
         </div>
 

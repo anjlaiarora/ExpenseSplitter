@@ -123,7 +123,7 @@ const Splitter = () => {
           </div>
           <Card className="w-50 mt-2 ms-auto me-auto">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaR4rSWlR5dnMCXXlCONwjy1MGVcUKalxLerpbJpcMm-xGmt0ro-Z6COeKrzDn-e2wuvw&usqp=CAU" width={50} />
-            <p className="pt-1">Even</p>
+            <p className="pt-1">Groups</p>
           </Card>
         </Card>
         <div className="w-25">
