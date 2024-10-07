@@ -1,6 +1,7 @@
 ﻿using ExpenseSplitter.Server.Models;
 using ExpenseSplitter.Server.Services;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
 using System.Threading.Tasks;
 
 namespace ExpenseSplitter.Server.Controllers
@@ -17,9 +18,9 @@ namespace ExpenseSplitter.Server.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllGroups()
+        public async Task<IActionResult> GetAllGroups(string userId)
         {
-            var groups = await _groupService.GetAllGroups();
+            var groups = await _groupService.GetAllGroups(userId);
             return Ok(groups);
         }
 

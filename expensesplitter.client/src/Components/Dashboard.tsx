@@ -89,9 +89,9 @@ const Dashboard = () => {
         <p className="bg-info fs-2 text-light p-5">Collaboration made easy
         <p className="fs-5">After creating your group simply hit "Share Group Link".<br/> You can send the create link to your group to expense together.</p></p>
         <p className="bg-primary fs-2 text-light p-5">One click to pay
-        <p className="fs-5">Venmo integration makes payments easier! After<br/> settling, you can pay or request your expense amount<br/> with others.</p></p>
+        <p className="fs-5">Splitify makes payments easier! After<br/> settling, you can pay or request your expense amount<br/> with others.</p></p>
         </p>
-        </>
+        </>  
       </div>
     </div>
     <div className="text-center">

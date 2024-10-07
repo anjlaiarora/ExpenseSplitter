@@ -1,6 +1,7 @@
 ﻿
 using ExpenseSplitter.Server.Services;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Driver;
 using SimpleAuthApi.Models;
 
 namespace ExpenseSplitter.Server.Controllers
@@ -53,7 +54,8 @@ namespace ExpenseSplitter.Server.Controllers
             
             return Ok("Login successful.");
         }
-
+         
+            
        
     }
 }
