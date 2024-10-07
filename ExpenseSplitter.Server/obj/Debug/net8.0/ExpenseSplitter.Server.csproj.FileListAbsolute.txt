@@ -133,3 +133,18 @@ E:\ExpenseSplitter\ExpenseSplitter.Server\obj\Debug\net8.0\refint\ExpenseSplitte
 E:\ExpenseSplitter\ExpenseSplitter.Server\obj\Debug\net8.0\ExpenseSplitter.Server.pdb
 E:\ExpenseSplitter\ExpenseSplitter.Server\obj\Debug\net8.0\ExpenseSplitter.Server.genruntimeconfig.cache
 E:\ExpenseSplitter\ExpenseSplitter.Server\obj\Debug\net8.0\ref\ExpenseSplitter.Server.dll
+C:\Users\Suraj Arora\Desktop\ExpenseSplitter\ExpenseSplitter.Server\bin\Debug\net8.0\AWSSDK.Core.dll
+C:\Users\Suraj Arora\Desktop\ExpenseSplitter\ExpenseSplitter.Server\bin\Debug\net8.0\AWSSDK.SecurityToken.dll
+C:\Users\Suraj Arora\Desktop\ExpenseSplitter\ExpenseSplitter.Server\bin\Debug\net8.0\BCrypt.Net-Next.dll
+C:\Users\Suraj Arora\Desktop\ExpenseSplitter\ExpenseSplitter.Server\bin\Debug\net8.0\DnsClient.dll
+C:\Users\Suraj Arora\Desktop\ExpenseSplitter\ExpenseSplitter.Server\bin\Debug\net8.0\MongoDB.Bson.dll
+C:\Users\Suraj Arora\Desktop\ExpenseSplitter\ExpenseSplitter.Server\bin\Debug\net8.0\MongoDB.Driver.dll
+C:\Users\Suraj Arora\Desktop\ExpenseSplitter\ExpenseSplitter.Server\bin\Debug\net8.0\MongoDB.Driver.Core.dll
+C:\Users\Suraj Arora\Desktop\ExpenseSplitter\ExpenseSplitter.Server\bin\Debug\net8.0\MongoDB.Libmongocrypt.dll
+C:\Users\Suraj Arora\Desktop\ExpenseSplitter\ExpenseSplitter.Server\bin\Debug\net8.0\SharpCompress.dll
+C:\Users\Suraj Arora\Desktop\ExpenseSplitter\ExpenseSplitter.Server\bin\Debug\net8.0\Snappier.dll
+C:\Users\Suraj Arora\Desktop\ExpenseSplitter\ExpenseSplitter.Server\bin\Debug\net8.0\ZstdSharp.dll
+C:\Users\Suraj Arora\Desktop\ExpenseSplitter\ExpenseSplitter.Server\bin\Debug\net8.0\runtimes\linux\native\libmongocrypt.so
+C:\Users\Suraj Arora\Desktop\ExpenseSplitter\ExpenseSplitter.Server\bin\Debug\net8.0\runtimes\osx\native\libmongocrypt.dylib
+C:\Users\Suraj Arora\Desktop\ExpenseSplitter\ExpenseSplitter.Server\bin\Debug\net8.0\runtimes\win\native\mongocrypt.dll
+C:\Users\Suraj Arora\Desktop\ExpenseSplitter\ExpenseSplitter.Server\obj\Debug\net8.0\ExpenseSplitter.Server.sourcelink.json

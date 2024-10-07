@@ -17,15 +17,15 @@ const Footer = () => {
     <div className='bg-light border border-primary rounded mb-3 table-responsive-sm ps-5'>
       <div className='mt-5 mb-5 d-flex flex-row justify-content-center'>
         <div className='w-25 ms-5'>
-            <p className='text-dark fs-2 p-2 '><u>Splitify</u></p>
+            <p className='text-primary fs-2 p-2 font-monospace'><u>Splitify</u></p>
 
            
         </div > 
         <div className='w-25 ms-5'>
-        <p><a href='/' className='text-dark fs-5 p-5 text-decoration-none'>Home</a></p>
-            <p><a href='/aboutus' className='text-dark fs-5 p-5 text-decoration-none'>About Us</a></p>
+        <p><a className='text-dark fs-5 p-5 text-decoration-none'>Home</a></p>
+            <p><a className='text-dark fs-5 p-5 text-decoration-none'>About Us</a></p>
             {/* <p><a href='/blog' className='text-dark fs-5 p-5 text-decoration-none'>Blog</a></p> */}
-            <p><a href='/contact' className='text-dark fs-5 p-5 text-decoration-none'>Contact</a></p>
+            <p><a href='/' className='text-dark fs-5 p-5 text-decoration-none'>Contact</a></p>
         </div>
           {/* <div className='w-25'>
               <p className='text-light fs-3 p-5'>Downloading</p>
@@ -34,13 +34,13 @@ const Footer = () => {
         </div>
         
           <div>
-          {/* <div className='w-25 ms-5 d-flex flex-row'>
+          <div className='w-25 ms-5 d-flex flex-row ps-5'>
            
             <p className='text-dark fs-5 pt-2 ps-5'> <FaInstagram/></p>
             <p className='text-dark fs-5 pt-2 ps-5'> <LiaFacebook className="fs-4"/></p>
             <p className='text-dark fs-5 pt-2 ps-5'> <FiTwitter/></p>
             <p className='text-dark fs-5 pt-2 ps-5'> <TiSocialLinkedinCircular className='fs-4'/></p>
-          </div> */}
+          </div>
             <div style={{borderBottom:'100%', backgroundColor:'black', width:'90%', height:'2px',marginLeft:'50px'}}></div>
           </div>
       
