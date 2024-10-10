@@ -64,15 +64,15 @@ const Splitter: React.FC = () => {
   const handleOk = async () => {
     
     if (expenseName && amount &&  payer &&selectedGroup) {
-      if(equal==0){
-        var friend= array.forEach(element => {
-          return{
-            name:el,
-            amount:toa/arra.
-          }
-        }
-      );
-      }
+      // if(equal==0){
+      //   var friend= array.forEach(element => {
+      //     return{
+      //       name:el,
+      //       amount:toa/arra.
+      //     }
+      //   }
+      // );
+      // }
       try {
         const newExpense = {
           expenseName,
