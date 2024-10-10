@@ -20,22 +20,22 @@ const Group: React.FC = () => {
   const [isFormVisible, setIsFormVisible] = useState(false);
 
   
-  const userId = localStorage.getItem('userId');
+  const userId:any =JSON.parse(localStorage.getItem('userId') || '');
 
   
-  useEffect(() => {
-    const fetchGroups = async () => {
-      try {
-        const response = await axios.get<Group[]>("https://localhost:7194/api/Group");
+  // useEffect(() => {
+  //   const fetchGroups = async () => {
+  //     try {
+  //       const response = await axios.get<Group[]>(`https://localhost:7194/api/Group/${userId}`);
         
-        const userGroups = response.data.filter(group => group.ownerId === userId);
-        setGroups(userGroups);
-      } catch (error) {
-        notification.error({ message: "Error fetching groups" });
-      }
-    };
-    fetchGroups();
-  }, [userId]);
+  //       const userGroups = response.data.filter(group => group.ownerId === userId);
+  //       setGroups(userGroups);
+  //     } catch (error) {
+  //       notification.error({ message: "Error fetching groups" });
+  //     }
+  //   };
+  //   fetchGroups();
+  // }, [userId]);
 
   
   const toggleFormVisibility = () => {
@@ -50,7 +50,9 @@ const Group: React.FC = () => {
         ...values,
         ownerId: userId, 
       };
-      const response = await axios.post<Group>("https://localhost:7194/api/Group", groupData);
+      console.log("respone", groupData)
+      const response = await axios.post<Group>("https://localhost:7194/api/Group/CreatingGroup", groupData);
+      
       setGroups([...groups, response.data]); 
       notification.success({ message: "Group Created Successfully" });
       setIsFormVisible(false); 

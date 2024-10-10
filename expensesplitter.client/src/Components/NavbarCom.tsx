@@ -28,6 +28,9 @@ const NavbarCom = () => {
       }
   };
 
+
+
+
   const nav1 = useNavigate();
 
   const handleprofile = () => {
@@ -65,7 +68,7 @@ const NavbarCom = () => {
                   : 'nav-link text-primary mt-4'
               }><HomeOutlined className='pe-2' />
                 Home
-              </NavLink>
+              </NavLink>  
               <NavLink to="/aboutus" className={({ isActive }) =>
                 isActive
                   ? 'nav-link bg-primary mt-4 rounded-4 ms-lg-5 mb-3 ps-3 pe-3 text-light active'
@@ -115,13 +118,3 @@ const NavbarCom = () => {
 
 export default NavbarCom
 
-{/* <div >
-        <img src='/images.png' width={50} style={{ paddingTop: '5px', paddingLeft: '5px' }} />
-        <p style={{ color: 'blue', fontSize: '38px' }}>Splitify</p>
-      </div> */}
-{/* <NavLink to='/register' style={navStyle} className={({ isActive }) => (isActive ? 'active' : 'inactive')}>Register</NavLink> */ }
-{/* <div style={{ display: 'flex', justifyContent: 'space-between', gap: '10px', fontSize: '20px', color: 'black',marginRight:'-150px' }}>
-        <p style={{ fontSize: '20px', paddingTop: '15px' }}><RiAccountCircleLine /></p>
-        <p style={{ cursor: 'pointer', paddingTop: '15px' }} >Logout</p>
-        
-      </div> */}
