@@ -60,7 +60,7 @@
           }
         }
       },
-      "Microsoft.AspNetCore.SpaProxy/8.0.8": {
+      "Microsoft.AspNetCore.SpaProxy/8.0.10": {
         "type": "package",
         "compile": {
           "lib/net8.0/Microsoft.AspNetCore.SpaProxy.dll": {}
@@ -522,10 +522,10 @@
         "lib/netstandard2.1/DnsClient.xml"
       ]
     },
-    "Microsoft.AspNetCore.SpaProxy/8.0.8": {
-      "sha512": "T9Zhb64OmOr2nU0iND7br44EfJrQYHpopxvq33l33uZM2Uu/V2GTHKg5OmGMO3XJuUX59fhqvMyXOcFFj6k1pA==",
+    "Microsoft.AspNetCore.SpaProxy/8.0.10": {
+      "sha512": "8oqu48JT85gDrgkS8nbrIBYY4R+u3twEnycD8zSJJUVfw+Y14BmkymSGtH413ev3hc4hq4le9fD0P5468NlNbg==",
       "type": "package",
-      "path": "microsoft.aspnetcore.spaproxy/8.0.8",
+      "path": "microsoft.aspnetcore.spaproxy/8.0.10",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -533,7 +533,7 @@
         "THIRD-PARTY-NOTICES.TXT",
         "build/Microsoft.AspNetCore.SpaProxy.targets",
         "lib/net8.0/Microsoft.AspNetCore.SpaProxy.dll",
-        "microsoft.aspnetcore.spaproxy.8.0.8.nupkg.sha512",
+        "microsoft.aspnetcore.spaproxy.8.0.10.nupkg.sha512",
         "microsoft.aspnetcore.spaproxy.nuspec"
       ]
     },
@@ -1287,19 +1287,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Suraj Arora\\.nuget\\packages\\": {}
+    "C:\\Users\\Mahesh\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Suraj Arora\\Desktop\\ExpenseSplitter\\ExpenseSplitter.Server\\ExpenseSplitter.Server.csproj",
+      "projectUniqueName": "E:\\ExpenseSplitter\\ExpenseSplitter.Server\\ExpenseSplitter.Server.csproj",
       "projectName": "ExpenseSplitter.Server",
-      "projectPath": "C:\\Users\\Suraj Arora\\Desktop\\ExpenseSplitter\\ExpenseSplitter.Server\\ExpenseSplitter.Server.csproj",
-      "packagesPath": "C:\\Users\\Suraj Arora\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Suraj Arora\\Desktop\\ExpenseSplitter\\ExpenseSplitter.Server\\obj\\",
+      "projectPath": "E:\\ExpenseSplitter\\ExpenseSplitter.Server\\ExpenseSplitter.Server.csproj",
+      "packagesPath": "C:\\Users\\Mahesh\\.nuget\\packages\\",
+      "outputPath": "E:\\ExpenseSplitter\\ExpenseSplitter.Server\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Suraj Arora\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Mahesh\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

@@ -21,10 +21,14 @@ const NavbarCom = () => {
 
 
   const handleButtonClick = () => {
-      if(!userExist){
+    let user:any =localStorage.getItem("userId")
+    console.log("user ",user);
+    
+    setUserExist(user)
+      if(user!=null){
         navigate('/splitter')
       }else{
-        navigate2("/signup")
+        navigate2("/login")
       }
   };
 

@@ -50,6 +50,7 @@ const Group: React.FC = () => {
         ...values,
         ownerId: userId, 
       };
+      
       console.log("respone", groupData)
       const response = await axios.post<Group>("https://localhost:7194/api/Group/CreatingGroup", groupData);
       
