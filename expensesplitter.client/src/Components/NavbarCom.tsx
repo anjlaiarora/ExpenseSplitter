@@ -7,11 +7,9 @@ import Navbar from 'react-bootstrap/Navbar';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { HomeOutlined } from '@ant-design/icons';
 import { IoMdContacts } from "react-icons/io";
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import UserContext from './UserContext';
 import { CgProfile } from 'react-icons/cg';
-
-
 
 const NavbarCom = () => {
   const navigate2 = useNavigate(); //const variable for useNavigate.
