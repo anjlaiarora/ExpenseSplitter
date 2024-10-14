@@ -40,7 +40,7 @@ const Signup: React.FC = () => {
         localStorage.setItem('userId',JSON.stringify(data.userId));
         message.success('User registered successfully!');
         setFormData({ username: '', email: '', password: '' });
-        navigate('/splitter');
+        navigate('/checkNavRes');
       }
 
     } catch (error: any) {

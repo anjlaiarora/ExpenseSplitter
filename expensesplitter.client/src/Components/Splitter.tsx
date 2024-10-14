@@ -10,6 +10,7 @@ import Group from "./Group";
 import NavbarCom from "./NavbarCom";
 import axios from "axios";
 import { ExpenseType } from "../common/Enum";
+import form from "antd/es/form";
 
 interface Groups {
   members: SetStateAction<string[]>;
@@ -19,6 +20,8 @@ interface Groups {
 
 const Splitter: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [current, setCurrent] = useState<number>(0);
+
   const [groups, setGroups] = useState<Groups[]>([]);
   const [selectedGroup, setSelectedGroup] = useState<string | null>(null);
   const [selectedOpGroup, setSelectedOpGroup] = useState<any>(null);
@@ -38,8 +41,9 @@ const Splitter: React.FC = () => {
   // Fetch all groups on component mount
   useEffect(() => {
     const fetchGroups = async () => {
+
       try {
-        const response = await axios.get<Groups[]>("https://localhost:7194/api/Group");
+        const response = await axios.get<any>(`https://localhost:7194/api/Group?ownerId=${userId}`);
         setGroups(response.data);
         let data:any = response?.data?.map((e:any)=>{
           return {
@@ -48,6 +52,8 @@ const Splitter: React.FC = () => {
             member:e?.members
           }
         })
+        // console.log("data",response);
+        
         setSelectedOpGroup(data)
       } catch (error) {
         notification.error({ message: "Error fetching groups" });
@@ -69,7 +75,7 @@ const Splitter: React.FC = () => {
           TotalAmount: amount,
           payer,
           groupId: selectedGroup,
-          SplitType: expType === ExpenseType.Equal ? 0 : 1, // 0 for equal, 1 for custom
+          SplitType: expType === ExpenseType.Equal ? 0 : 1, 
         };
 
         if (expType === ExpenseType.Equal) {
@@ -92,10 +98,12 @@ const Splitter: React.FC = () => {
 
         await axios.post("https://localhost:7194/api/Expense", newExpense);
         setIsModalOpen(false);
+    form.resetFields();
+
         setExpenseName("");
         setAmount(0);
         setPayer("");
-        // setCurrent(0);
+        setCurrent(0);
         message.success('Expense added successfully');
       } catch (error) {
         console.error("Error adding expense", error);
@@ -105,7 +113,7 @@ const Splitter: React.FC = () => {
 
   const handleCancel = () => { 
     setIsModalOpen(false);
-    // form.resetFields();
+    form.resetFields();
   };
 
   const handleCustomAmountChange = (member: string, value: number) => {
@@ -222,7 +230,7 @@ const Splitter: React.FC = () => {
               >
                 <Steps
                   direction="vertical"
-                  // current={current}
+                  current={current}
                   // onChange={onStepChange}
                   items={steps}
                 />

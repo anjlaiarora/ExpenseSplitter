@@ -25,7 +25,7 @@ const Login: React.FC = () => {
             localStorage.setItem('userId', JSON.stringify(response.data));
         
             message.success('Login successful!');
-            navigate('/splitter');
+            navigate('/checkNavRes');
 
         } catch (error) {
             message.error('Login failed.');
