@@ -43,7 +43,10 @@ const Group: React.FC = () => {
         ...values,
         ownerId: userId, 
       };
-      const response = await axios.post<Group>("https://localhost:7194/api/Group", groupData);
+      
+      console.log("respone", groupData)
+      const response = await axios.post<Group>("https://localhost:7194/api/Group/CreatingGroup", groupData);
+      
       setGroups([...groups, response.data]); 
       notification.success({ message: "Group Created Successfully" });
       setIsModalVisible(false); 

@@ -2,6 +2,7 @@ import { Button, Modal, InputNumber, Select, Radio, Form } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { ExpenseType } from "../common/Enum";
 
 interface Groups {
   _id: string;
@@ -16,20 +17,33 @@ const Splitter: React.FC = () => {
   // Fetch all groups on component mount
   useEffect(() => {
     const fetchGroups = async () => {
+
       try {
         const response = await axios.get<Groups[]>("https://localhost:7194/api/Group");
         setGroups(response.data);
+        let data:any = response?.data?.map((e:any)=>{
+          return {
+            label:e?.groupName,
+            value:e?.id,
+            member:e?.members
+          }
+        })
+        // console.log("data",response);
+        
+        setSelectedOpGroup(data)
       } catch (error) {
-        console.error("Error fetching groups", error);
+        notification.error({ message: "Error fetching groups" });
       }
     };
     fetchGroups();
-  }, []);
+  }, [userId]);
+
 
   const showModal = () => {
     setIsModalOpen(true);
   };
 
+  
   const handleOk = async () => {
     form.validateFields().then(async (values) => {
       const { expenseName, amount, splitMethod, selectedGroup, selectPayer } = values;
@@ -37,6 +51,7 @@ const Splitter: React.FC = () => {
         const newExpense = {
           expenseName,
           amount,
+          payer,
           groupId: selectedGroup,
           splitMethod,
           payer: selectPayer,
@@ -54,6 +69,7 @@ const Splitter: React.FC = () => {
     setIsModalOpen(false);
     form.resetFields();
   };
+  
 
   return (
     <div>

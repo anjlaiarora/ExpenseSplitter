@@ -1,139 +1,98 @@
-// import email_icon from '../../public/email.png';
-// import password_icon from '../../public/password.png';
-import './Login.css';
-import React, { useState } from 'react';
-import { Button, Input, Form, message } from 'antd';
+
+
+import { Form, Input, Button, Row, Col, Card, Typography, message } from 'antd';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+
+
+const { Title } = Typography;
 
 const Login: React.FC = () => {
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
-  const onFinish = async (values: any) => {
-      try {
-          setLoading(true);
-          const response = await axios.post('https://localhost:7194/api/User/login', values);
-          const { data } = response;
-          localStorage.setItem('userId', data.userId); 
-          message.success('Login successful!');
-          navigate('/groups');
-      } catch (error) {
-          message.error('Login failed. Please check your credentials.');
-      } finally {
-          setLoading(false);
-      }
-  };
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
-  return (
-      <Form onFinish={onFinish} className='head'>
-        <div className='container2'>
-        <div className='header23'>
-        <div className='text1'>Login</div>
-        <div className='underline1'></div>
-          </div>
-          <div className='inputss'>
-          <Form.Item  name="Email" rules={[{ required: true, message: 'Please input your email!' }]}>
-              <Input placeholder="Email" className='inputt'/>
-          </Form.Item>
-          <Form.Item name="Password" rules={[{ required: true, message: 'Please input your password!' }]}>
-              <Input.Password placeholder="Password"  className='inputt'/>
-          </Form.Item>
-          </div>
-          {/* <div className="submitt1"> */}
-          <Button type="primary" htmlType="submit" loading={loading} className='w-25 fs-5 p-4 rounded-5 button'>
-              Login
-          </Button>
-          {/* </div> */}
-          <div className='link1'>
-         <p className="mt-5">
-             Create a new account? <Link to={'/signup'} style={{ fontSize: '15px' }}>SignUp here</Link>
-          </p> 
-                  </div>
-        </div>
-      </Form>
-  );
+    const onFinish = async (values: any) => {
+        try {
+            setLoading(true);
+            const response:any = await axios.post('https://localhost:7194/api/User/login', values);
+            // const { data } = response;
+            // console.log("response",response);
+            
+
+            localStorage.setItem('userId', JSON.stringify(response.data));
+        
+            message.success('Login successful!');
+            navigate('/splitter');
+
+        } catch (error) {
+            message.error('Login failed.');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+
+    return (
+        <Row justify="center" align="middle" style={{ minHeight: '100vh', backgroundColor: '#f0f2f5' }}>
+            <Col xs={22} sm={16} md={12} lg={8}>
+                <Card
+                    style={{ borderRadius: '10px', padding: '20px', boxShadow: '0 8px 24px rgba(0, 0, 0, 0.15)' }}
+                    bordered={false}
+                >
+                    <Title level={3} style={{ textAlign: 'center', marginBottom: '20px', color: "blueviolet", fontSize: "40px", fontWeight: "bold" }}>
+                        Login
+                    </Title>
+                    <Form
+                        name="login"
+                        layout="vertical"
+                        onFinish={onFinish}
+                    >
+                        <Form.Item
+                            name="Email"
+                            label="Email"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please input your email!'
+                                },
+                                {
+                                    type: 'email',
+                                    message: 'The input is not valid E-mail!'
+                                }
+                            ]}
+                        >
+                            <Input placeholder="Enter your email" />
+                        </Form.Item>
+
+                        <Form.Item
+                            name="Password"
+                            label="Password"
+                            rules={[{ required: true, message: 'Please input your password!' }]}
+                        >
+                            <Input.Password placeholder="Enter your password" />
+                        </Form.Item>
+
+                        <Form.Item>
+                            <Button
+                                // type="primary"
+                                htmlType="submit"
+                                loading={loading}
+                                style={{ width: '100%', height: "40px", marginTop: "15px", borderRadius: '50px', background: "blueviolet", color: "white", fontWeight: "bold" }}
+                            >
+                                Login
+                            </Button>
+                        </Form.Item>
+                        Already have an account? <Link to={'/signup'} style={{ fontSize: '15px' }} >SignUp here</Link>
+
+                    </Form>
+
+                </Card>
+            </Col>
+        </Row>
+    );
 };
 
 export default Login;
-// const Login = () => {
-//   const [open, setOpen] = useState(false);
-//   const [formData, setFormData] = useState({
-//     email: "",
-//     password: "",
-//   });
-
-//   const handleChange = (e: { target: { name: string; value: string } }) => {
-//     setFormData({ ...formData, [e.target.name]: e.target.value });
-//   }; 
-
-//   const handleSubmit = async (e: { preventDefault: () => void }) => {
-//     e.preventDefault();
-//     try {
-//       const response = await axios.post("https://localhost:7194/api/User/login", formData);
-      
-//       const userId = `user_${Math.random().toString(36).substr(2, 9)}`;
-      
-//       localStorage.setItem('userId', userId); 
-//       alert("User logged in successfully. ID stored in localStorage: " + userId); 
-      
-//     } catch (error: any) {
-//       alert(error.response.data);
-//     }
-//   };
-
-//   return (
-//     <form onSubmit={handleSubmit}>
-//       <div className='container2'>
-//         <div className='header23'>
-//           <div className='text1'>Login</div>
-//           <div className='underline1'></div>
-//         </div>
-//         <div className='inputss'>
-//           <div className='inputt'>
-//             <img src={email_icon} height={27} alt="" />
-//             <input type="email" name="email" placeholder='Enter your email' onChange={handleChange} />
-//           </div>
-//           <div className='inputt'>
-//             <img src={password_icon} height={27} alt="" />
-//             <input type="password" name="password" placeholder='Enter password' onChange={handleChange} />
-//           </div>
-//         </div>
-//         <div className='forget-passw'>Forget password? <span onClick={() => setOpen(true)}>Click here!</span>
-//           <Modal
-//             title="Reset Password"
-//             centered
-//             open={open}
-//             onOk={() => setOpen(false)}   
-//             onCancel={() => setOpen(false)}
-//             width={800}
-//           >
-//             <form>
-//               Email: <input type="email" placeholder='Enter email' /><br /><br />
-//               New Password: <input type="password" placeholder='Enter new password' /><br /><br />
-//               Confirm Password: <input type="password" placeholder='Confirm new password' />
-//             </form>
-//           </Modal>
-//         </div>
-//         <div className="submitt1">
-//           <button className='submit1' type='submit'>Login</button>
-//         </div>
-//         <div className='link1'>
-//           <p className="">
-//             Create a new account? <Link to={'/signup'} style={{ fontSize: '15px' }}>SignUp here</Link>
-//           </p> 
-//         </div>
-//       </div>
-//     </form>
-//   );
-// };
-
-// export default Login;
-
-
-
-
-
-
-
-
