@@ -27,7 +27,7 @@ const Contact = () => {
 
 </Col>
 <Col lg={12} style={{position:"relative"}}>
-<div style={{position:"absolute",top:"50px",backgroundColor:"#fff",padding:"50px",left:"130px", boxShadow: "h-shadow v-shadow blur spread color inset"}}>
+<div style={{position:"absolute",top:"50px",backgroundColor:"#fff",padding:"50px",left:"130px", boxShadow: "h-shadow v-shadow blur spread color inset", width:'80%'}}>
 <Form
     name="basic"
     labelCol={{ span: 8 }}
@@ -53,14 +53,14 @@ const Contact = () => {
       name="lastname"
       rules={[{ required: true, message: 'Please input your lastname!' }]}
     >
-      <Input.Password />
+      <Input />
     </Form.Item>
     <Form.Item<FieldType>
       label="Email"
       name="email"
       rules={[{ required: true, message: 'Please input your email !' }]}
     >
-      <Input.Password />
+      <Input />
     </Form.Item>
     
     <Form.Item<FieldType>

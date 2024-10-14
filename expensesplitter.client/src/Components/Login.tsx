@@ -1,13 +1,61 @@
-// import React, { useState } from 'react';
-// import axios from 'axios';
 // import email_icon from '../../public/email.png';
 // import password_icon from '../../public/password.png';
-// import linkedin_icon from '../../public/linkedin.png';
-// import goggle_icon from '../../public/google.png';
-// import { Button, Modal } from 'antd';
-// import { Link } from 'react-router-dom';
-// import './Login.css';
+import './Login.css';
+import React, { useState } from 'react';
+import { Button, Input, Form, message } from 'antd';
+import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
 
+const Login: React.FC = () => {
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const onFinish = async (values: any) => {
+      try {
+          setLoading(true);
+          const response = await axios.post('https://localhost:7194/api/User/login', values);
+          const { data } = response;
+          localStorage.setItem('userId', data.userId); 
+          message.success('Login successful!');
+          navigate('/groups');
+      } catch (error) {
+          message.error('Login failed. Please check your credentials.');
+      } finally {
+          setLoading(false);
+      }
+  };
+
+  return (
+      <Form onFinish={onFinish} className='head'>
+        <div className='container2'>
+        <div className='header23'>
+        <div className='text1'>Login</div>
+        <div className='underline1'></div>
+          </div>
+          <div className='inputss'>
+          <Form.Item  name="Email" rules={[{ required: true, message: 'Please input your email!' }]}>
+              <Input placeholder="Email" className='inputt'/>
+          </Form.Item>
+          <Form.Item name="Password" rules={[{ required: true, message: 'Please input your password!' }]}>
+              <Input.Password placeholder="Password"  className='inputt'/>
+          </Form.Item>
+          </div>
+          {/* <div className="submitt1"> */}
+          <Button type="primary" htmlType="submit" loading={loading} className='w-25 fs-5 p-4 rounded-5 button'>
+              Login
+          </Button>
+          {/* </div> */}
+          <div className='link1'>
+         <p className="mt-5">
+             Create a new account? <Link to={'/signup'} style={{ fontSize: '15px' }}>SignUp here</Link>
+          </p> 
+                  </div>
+        </div>
+      </Form>
+  );
+};
+
+export default Login;
 // const Login = () => {
 //   const [open, setOpen] = useState(false);
 //   const [formData, setFormData] = useState({
@@ -70,10 +118,6 @@
 //         <div className="submitt1">
 //           <button className='submit1' type='submit'>Login</button>
 //         </div>
-//         <div className='social1'>
-//           <img src={goggle_icon} height={24} style={{ paddingLeft: '9px' }} alt="" />
-//           <img src={linkedin_icon} height={24} style={{ paddingLeft: '9px' }} alt="" />
-//         </div>
 //         <div className='link1'>
 //           <p className="">
 //             Create a new account? <Link to={'/signup'} style={{ fontSize: '15px' }}>SignUp here</Link>
@@ -90,45 +134,6 @@
 
 
 
-import React, { useState } from 'react';
-import { Button, Input, Form, message } from 'antd';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
-const Login: React.FC = () => {
-    const [loading, setLoading] = useState(false);
-    const navigate = useNavigate();
 
-    const onFinish = async (values: any) => {
-        try {
-            setLoading(true);
-            const response = await axios.post('https://localhost:7194/api/User/login', values);
-            const { data } = response;
 
-          
-            localStorage.setItem('userId', data.userId); 
-            message.success('Login successful!');
-            navigate('/groups');
-        } catch (error) {
-            message.error('Login failed. Please check your credentials.');
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    return (
-        <Form onFinish={onFinish}>
-            <Form.Item  name="Email" rules={[{ required: true, message: 'Please input your email!' }]}>
-                <Input placeholder="Email" />
-            </Form.Item>
-            <Form.Item name="Password" rules={[{ required: true, message: 'Please input your password!' }]}>
-                <Input.Password placeholder="Password" />
-            </Form.Item>
-            <Button type="primary" htmlType="submit" loading={loading}>
-                Login
-            </Button>
-        </Form>
-    );
-};
-
-export default Login;

@@ -1,6 +1,6 @@
 // import { useEffect, useState } from 'react'
 import { Nav, OverlayTrigger, Popover } from 'react-bootstrap';
-import { RiAccountCircleLine, RiLogoutCircleRFill } from 'react-icons/ri';
+import {RiLogoutCircleRFill } from 'react-icons/ri';
 import { FaBookOpen } from "react-icons/fa";
 import Navbar from 'react-bootstrap/Navbar';
 // import NavDropdown from 'react-bootstrap/NavDropdown'
@@ -22,7 +22,7 @@ const NavbarCom = () => {
 
   const handleButtonClick = () => {
       if(!userExist){
-        navigate('/splitter')
+        navigate('/checkNavRes')
       }else{
         navigate2("/signup")
       }
@@ -125,3 +125,33 @@ export default NavbarCom
         <p style={{ cursor: 'pointer', paddingTop: '15px' }} >Logout</p>
         
       </div> */}
+// export default NavbarCom
+
+{/* <div >
+        <img src='/images.png' width={50} style={{ paddingTop: '5px', paddingLeft: '5px' }} />
+        <p style={{ color: 'blue', fontSize: '38px' }}>Splitify</p>
+      </div> */}
+{/* <NavLink to='/register' style={navStyle} className={({ isActive }) => (isActive ? 'active' : 'inactive')}>Register</NavLink> */ }
+{/* <div style={{ display: 'flex', justifyContent: 'space-between', gap: '10px', fontSize: '20px', color: 'black',marginRight:'-150px' }}>
+        <p style={{ fontSize: '20px', paddingTop: '15px' }}><RiAccountCircleLine /></p>
+        <p style={{ cursor: 'pointer', paddingTop: '15px' }} >Logout</p>
+        
+      </div> */}
+      // <NavLink to="/" className={({ isActive }) =>
+      //   isActive
+      //     ? 'nav-link bg-primary rounded-4 mt-4 ms-lg-3 mb-3 ps-3 pe-3 text-light active'
+      //     : 'nav-link text-primary mt-4'
+      // }><HomeOutlined className='pe-2' />
+      //   Home
+      // </NavLink>
+      // <div style={{ display: 'flex', marginLeft: '550px' }}>
+      //         <OverlayTrigger trigger="click" placement='bottom' overlay={popover}>    
+      //      <div className='d-flex' style={{height:40,marginTop:'25px'}} >
+      //   <img src='' style={{borderRadius:25, width:40, backgroundColor:'grey'}}/>
+      //       </div> 
+      //   </OverlayTrigger>
+                
+      //           <div>
+      //             <button className='p-2 mt-4 ms-5 text-light bg-primary rounded' onClick={handleButtonClick}>Get Start</button>
+      //           </div>
+      //         </div>

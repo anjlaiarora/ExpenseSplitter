@@ -18,9 +18,9 @@ namespace ExpenseSplitter.Server.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllGroups(string userId)
+        public async Task<IActionResult> GetAllGroups()
         {
-            var groups = await _groupService.GetAllGroups(userId);
+            List<Group> groups = await _groupService.GetAllGroups();
             return Ok(groups);
         }
 

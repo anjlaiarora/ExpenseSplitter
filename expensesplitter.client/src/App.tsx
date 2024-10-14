@@ -9,8 +9,9 @@ import Contact from './Components/Contact';
 // import Blog from './Components/Blog';
 import Signup from './Components/Signup';
 import Login from './Components/Login';
-import Splitter from './Components/Splitter';
+// import Splitter  from './Components/Splitter';
 import Profile from './Components/Profile';
+import CheckNavRes from './Components/CheckNavRes';
 
 
 
@@ -39,8 +40,8 @@ const router = createBrowserRouter([
   element:<Profile/>
 },
 {
-path:'/splitter',
-element:<Splitter/>
+path:'/checkNavRes',
+element:<CheckNavRes/>
 },
 
 {
