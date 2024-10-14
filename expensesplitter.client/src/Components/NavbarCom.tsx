@@ -1,6 +1,6 @@
 // import { useEffect, useState } from 'react'
 import { Nav, OverlayTrigger, Popover } from 'react-bootstrap';
-import { RiAccountCircleLine, RiLogoutCircleRFill } from 'react-icons/ri';
+import {RiLogoutCircleRFill } from 'react-icons/ri';
 import { FaBookOpen } from "react-icons/fa";
 import Navbar from 'react-bootstrap/Navbar';
 // import NavDropdown from 'react-bootstrap/NavDropdown'

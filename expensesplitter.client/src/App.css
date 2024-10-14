@@ -118,24 +118,24 @@ body {
   border-color: #1a5cb8;
 } */
 
-.card {
+/* .card {
   background-color: rgba(255, 255, 255, 0.9);
-  /* Semi-transparent background */
+  Semi-transparent background
   border-radius: 15px;
-  /* Rounded corners */
+  Rounded corners
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-  /* Subtle shadow */
-}
+  Subtle shadow
+} */
 
-button {
+/* button {
   background-color: #44c767;
-  /* Green background */
+  Green background
   border-radius: 30px;
-  /* Rounded button */
+  Rounded button
   transition: background-color 0.3s ease;
-}
+} */
 
-button:hover {
+/* button:hover {
   background-color: #5cbf2a;
-  /* Hover effect */
-}
+  Hover effect
+} */

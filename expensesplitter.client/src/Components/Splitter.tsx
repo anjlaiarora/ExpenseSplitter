@@ -19,7 +19,6 @@ interface Groups {
 
 const Splitter: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [current, setCurrent] = useState<number>(0);
   const [groups, setGroups] = useState<Groups[]>([]);
   const [selectedGroup, setSelectedGroup] = useState<string | null>(null);
   const [selectedOpGroup, setSelectedOpGroup] = useState<any>(null);
@@ -40,7 +39,7 @@ const Splitter: React.FC = () => {
   useEffect(() => {
     const fetchGroups = async () => {
       try {
-        const response = await axios.get<any>(`https://localhost:7194/api/Group?ownerId=${userId}`);
+        const response = await axios.get<Groups[]>("https://localhost:7194/api/Group");
         setGroups(response.data);
         let data:any = response?.data?.map((e:any)=>{
           return {
@@ -96,7 +95,7 @@ const Splitter: React.FC = () => {
         setExpenseName("");
         setAmount(0);
         setPayer("");
-        setCurrent(0);
+        // setCurrent(0);
         message.success('Expense added successfully');
       } catch (error) {
         console.error("Error adding expense", error);
@@ -106,13 +105,7 @@ const Splitter: React.FC = () => {
 
   const handleCancel = () => { 
     setIsModalOpen(false);
-    setExpenseName("");
-    setAmount(0);
-    setCurrent(0);
-  };
-
-  const onStepChange = (value: number) => {
-    setCurrent(value);
+    // form.resetFields();
   };
 
   const handleCustomAmountChange = (member: string, value: number) => {
@@ -205,30 +198,21 @@ const Splitter: React.FC = () => {
 
   return (
     <div>
-      <NavbarCom />
-      <div className="d-flex flex-row justify-content-center justify-content-evenly p-5">
-        {/* Group Creation */}
-        <div className="w-25">
-          <Card>
-            <h5>Expense</h5>
-            <Group />
-          </Card>
-        </div>
-
+      {/* <div> */}
+      <div className="d-flex flex-row justify-content-center justify-content-evenly p-5 ">
         {/* Split Expense Section */}
-        <Card className="bg-secondary w-25 text-center">
-          <h5 className="text-light">SPLIT EXPENSES</h5>
+        <div className="bg-light w-100 text-start pb-5 ps-2 pe-2">
           <div className="d-flex flex-row justify-content-between mt-5">
-            {/* Equally Split Card */}
-            <Card className="w-50 text-center me-2 pt-4">
-              <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaR4rSWlR5dnMCXXlCONwjy1MGVcUKalxLerpbJpcMm-xGmt0ro-Z6COeKrzDn-e2wuvw&usqp=CAU"
-                width={50}
-                onClick={() => showModal("Equally")}
-                alt="Equally Split"
-              />
-              <p className="pt-4">Equally</p>
-
+          <h5 className="text-dark">SPLIT EXPENSES</h5>
+            {/* Split Expense Button */}
+            <Button
+              type="primary"
+              className="text-center rounded-5 bg-black ps-5 pe-5"
+              // onClick={showModal}
+            >
+              Split
+            </Button>
+          
               {/* Modal for Equally and Custom Split */}
               <Modal
                 title="Split Evenly"
@@ -238,20 +222,21 @@ const Splitter: React.FC = () => {
               >
                 <Steps
                   direction="vertical"
-                  current={current}
-                  onChange={onStepChange}
+                  // current={current}
+                  // onChange={onStepChange}
                   items={steps}
                 />
               </Modal>
-            </Card>
+            {/* </Card> */}
           </div>          
-        </Card>
+        {/* </Card> */}
 
         {/* Pending Settlement Section */}
         <div className="w-25">
           <h5>Pending Settlement</h5>
         </div>
       </div>
+    </div>
     </div>
   );
 };
