@@ -24,7 +24,7 @@ const NavbarCom = () => {
     
     setUserExist(user)
       if(user!=null){
-        navigate('/splitter')
+        navigate('/checkNavRes')
       }else{
         navigate2("/login")
       }

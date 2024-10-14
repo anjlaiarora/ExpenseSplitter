@@ -22,13 +22,14 @@ namespace ExpenseSplitter.Server.Controllers
             var groups = await _groupService.GetAllGroups(ownerId);
             var groupDtos = groups.Select(group => new GroupConvert
             {
-                Id = group.Id.ToString(), 
+                Id = group.Id.ToString(),
                 GroupName = group.GroupName,
-                Members=group.Members,
-                OwnerId=group.OwnerId
+                Members = group.Members,
+                OwnerId = group.OwnerId
             }).ToList();
             return Ok(groupDtos);
         }
+
 
 
 

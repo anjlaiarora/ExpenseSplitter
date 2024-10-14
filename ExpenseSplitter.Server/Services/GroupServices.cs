@@ -16,15 +16,15 @@ namespace ExpenseSplitter.Server.Services
 
 
 
-        public async Task<List<Group>> GetAllGroups() => await _groups.Find(group => true).ToListAsync();
+        //public async Task<List<Group>> GetAllGroups(string userId) => await _groups.Find(group => true).ToListAsync();
 
 
-        //public async Task<List<Group>> GetAllGroups(string userId)
-        //{
-        //    var filter = Builders<Group>.Filter.Or(
-        //        Builders<Group>.Filter.Eq(g => g.OwnerId, userId),
-        //        Builders<Group>.Filter.AnyEq(g => g.Members, userId)
-        //    );
+        public async Task<List<Group>> GetAllGroups(string userId)
+        {
+            var filter = Builders<Group>.Filter.Or(
+                Builders<Group>.Filter.Eq(g => g.OwnerId, userId),
+                Builders<Group>.Filter.AnyEq(g => g.Members, userId)
+            );
 
 
             return await _groups.Find(filter).ToListAsync();
@@ -41,11 +41,11 @@ namespace ExpenseSplitter.Server.Services
             try
             {
                 await _groups.InsertOneAsync(group);
-                return true; 
+                return true;
             }
             catch (Exception ex)
             {
-                return false; 
+                return false;
             }
         }
     }
