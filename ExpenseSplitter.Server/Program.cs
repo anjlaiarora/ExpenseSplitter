@@ -53,7 +53,7 @@ builder.Services.AddControllers();
 
 // Register MongoDB Client
 builder.Services.AddSingleton<IMongoClient, MongoClient>(sp =>
-    new MongoClient("mongodb+srv://anjaliaroraa908:expensesplitter@cluster0.bmxdz.mongodb.net/"));  // Replace with your MongoDB connection string.
+    new MongoClient("mongodb+srv://anjaliaroraa908:expensesplitter@cluster0.bmxdz.mongodb.net/"));  
 
 // Register custom services
 builder.Services.AddSingleton<GroupService>();
@@ -62,7 +62,7 @@ builder.Services.AddSingleton<ExpenseService>();
 
 
 var app = builder.Build();
-
+    
 app.UseDefaultFiles();
 app.UseStaticFiles();
 

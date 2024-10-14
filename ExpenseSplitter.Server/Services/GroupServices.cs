@@ -1,8 +1,6 @@
 ﻿using ExpenseSplitter.Server.Models;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace ExpenseSplitter.Server.Services
 {
@@ -28,13 +26,27 @@ namespace ExpenseSplitter.Server.Services
                 Builders<Group>.Filter.AnyEq(g => g.Members, userId)
             );
 
+
             return await _groups.Find(filter).ToListAsync();
         }
 
 
 
-        public async Task<Group> GetGroupById(string id) => await _groups.Find(group => group.Id == new ObjectId(id)).FirstOrDefaultAsync();
-
-        public async Task CreateGroup(Group group) => await _groups.InsertOneAsync(group);
+        public async Task<Group> GetGroupById(string ownerId)
+        {
+            return await _groups.Find(group => group.OwnerId == ownerId).FirstOrDefaultAsync();
+        }
+        public async Task<bool> CreateGroup(Group group)
+        {
+            try
+            {
+                await _groups.InsertOneAsync(group);
+                return true; 
+            }
+            catch (Exception ex)
+            {
+                return false; 
+            }
+        }
     }
 }

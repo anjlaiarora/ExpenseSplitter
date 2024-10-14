@@ -20,7 +20,7 @@ const NavbarCom = () => {
 
   const handleButtonClick = () => {
     let user:any =localStorage.getItem("userId")
-    console.log("user ",user);
+    // console.log("user ",user);
     
     setUserExist(user)
       if(user!=null){
@@ -43,7 +43,6 @@ const NavbarCom = () => {
         <Popover.Body>
             <Link className='d-block btn d-flex' to='/profile'><p className='pe-2'><CgProfile /></p>Profile</Link>
             <span className='d-block btn d-flex'onClick={()=>{
-              // localStorage.removeItem('isUser')
               setLogin(false)
             }}><p className='pe-2' onClick={handleprofile}><RiLogoutCircleRFill /></p>Logout</span>
         </Popover.Body>

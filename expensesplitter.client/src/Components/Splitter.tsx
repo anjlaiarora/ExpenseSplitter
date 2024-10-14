@@ -1,8 +1,10 @@
 
 
-import { Card, Modal, Steps, InputNumber, Input, Button, Select, notification } from "antd";
+
+
+import { Card, Modal, Steps, InputNumber, Input, Button, Select, notification, message } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import { useState, useEffect } from "react";
+import { useState, useEffect, SetStateAction } from "react";
 import { useNavigate } from "react-router-dom";
 import Group from "./Group";
 import NavbarCom from "./NavbarCom";
@@ -10,6 +12,7 @@ import axios from "axios";
 import { ExpenseType } from "../common/Enum";
 
 interface Groups {
+  members: SetStateAction<string[]>;
   _id: string;
   groupName: string;
 }
@@ -20,11 +23,14 @@ const Splitter: React.FC = () => {
   const [groups, setGroups] = useState<Groups[]>([]);
   const [selectedGroup, setSelectedGroup] = useState<string | null>(null);
   const [selectedOpGroup, setSelectedOpGroup] = useState<any>(null);
-
+  const [groupMembers, setGroupMembers] = useState<string[]>([]); 
+  const [expType, setExpType] = useState<ExpenseType>(); 
   const [expenseName, setExpenseName] = useState<string>("");
   const [amount, setAmount] = useState<number>(0);
   const [payer, setPayer] = useState<string>("");
-  const [splitMethod, setSplitMethod] = useState<"Equally" | "Custom" | "">(""); // Split method type
+  const [splitMethod, setSplitMethod] = useState<"Equally" | "Custom" | "">(""); 
+
+  const [customAmounts, setCustomAmounts] = useState<{ [key: string]: number }>({});
 
   const userId: any = JSON.parse(localStorage.getItem('userId') || '');
 
@@ -33,7 +39,6 @@ const Splitter: React.FC = () => {
   // Fetch all groups on component mount
   useEffect(() => {
     const fetchGroups = async () => {
-
       try {
         const response = await axios.get<any>(`https://localhost:7194/api/Group?ownerId=${userId}`);
         setGroups(response.data);
@@ -44,8 +49,6 @@ const Splitter: React.FC = () => {
             member:e?.members
           }
         })
-        // console.log("data",response);
-        
         setSelectedOpGroup(data)
       } catch (error) {
         notification.error({ message: "Error fetching groups" });
@@ -54,48 +57,54 @@ const Splitter: React.FC = () => {
     fetchGroups();
   }, [userId]);
 
-
   const showModal = (method: "Equally" | "Custom") => {
     setSplitMethod(method);
     setIsModalOpen(true);
   };
 
-  
   const handleOk = async () => {
-    
-    if (expenseName && amount &&  payer &&selectedGroup) {
-      // if(equal==0){
-      //   var friend= array.forEach(element => {
-      //     return{
-      //       name:el,
-      //       amount:toa/arra.
-      //     }
-      //   }
-      // );
-      // }
+    if (expenseName && amount && payer && selectedGroup) {
       try {
-        const newExpense = {
+        const newExpense: any = {
           expenseName,
-          amount,
+          TotalAmount: amount,
           payer,
           groupId: selectedGroup,
-          splitMethod,
-          
+          SplitType: expType === ExpenseType.Equal ? 0 : 1, // 0 for equal, 1 for custom
         };
+
+        if (expType === ExpenseType.Equal) {
+          let equalLoop = groupMembers.map((e) => {
+            return {
+              name: e,
+              Amount: amount / groupMembers.length,
+            };
+          });
+          newExpense.Friends = equalLoop;
+        } else if (expType === ExpenseType.Custom) {
+          const customSplit = groupMembers.map((member) => {
+            return {
+              name: member,
+              Amount: customAmounts[member] || 0, 
+            };
+          });
+          newExpense.Friends = customSplit;
+        }
+
         await axios.post("https://localhost:7194/api/Expense", newExpense);
         setIsModalOpen(false);
         setExpenseName("");
         setAmount(0);
         setPayer("");
         setCurrent(0);
+        message.success('Expense added successfully');
       } catch (error) {
-        console.error("Error creating expense", error);
+        console.error("Error adding expense", error);
       }
     }
-    
   };
 
-  const handleCancel = () => {
+  const handleCancel = () => { 
     setIsModalOpen(false);
     setExpenseName("");
     setAmount(0);
@@ -105,7 +114,94 @@ const Splitter: React.FC = () => {
   const onStepChange = (value: number) => {
     setCurrent(value);
   };
-  
+
+  const handleCustomAmountChange = (member: string, value: number) => {
+    setCustomAmounts({ ...customAmounts, [member]: value });
+  };
+
+  const steps = [
+    {
+      title: "What was the Expense Name?",
+      description: (
+        <TextArea
+          value={expenseName}
+          onChange={(e) => setExpenseName(e.target.value)}
+          placeholder="Expense Name"
+          autoSize
+        />
+      ),
+    },
+    {
+      title: "Select Group type",   
+      description: (
+        <Select
+          options={[
+            { value: ExpenseType.Equal, label: "Equal" },
+            { value: ExpenseType.Custom, label: "Custom" },
+          ]}
+          onSelect={(value) => setExpType(value)}
+          style={{ width: "100%" }}
+        />
+      ),
+    },
+    {
+      title: "Enter Amount",
+      description: (
+        <InputNumber
+          style={{ width: 250 }}
+          value={amount}
+          onChange={(value) => setAmount(value || 0)}
+          placeholder="Amount"
+        />
+      ),
+    },
+    {
+      title: "Select Group",
+      description: (
+        <Select
+          options={selectedOpGroup}
+          onSelect={(value, record) => {
+            setSelectedGroup(value);
+            setGroupMembers(record?.member);
+          }}
+          style={{ width: "100%" }}
+        />
+      ),
+    },
+    {
+      title: "Select Payer",
+      description: (
+        <Select
+          options={groupMembers.map(member => ({
+            label: member,
+            value: member,
+          }))}
+          onSelect={setPayer}
+          style={{ width: "100%" }}
+        />
+      ),
+    }
+  ];
+
+  if (expType === ExpenseType.Custom) {
+    steps.push({
+      title: "Custom Amounts",
+      description: (
+        <div>
+          {groupMembers.map(member => (
+            <div key={member} className="mb-2">
+              <label>{member}'s share</label>
+              <InputNumber
+                min={0}
+                value={customAmounts[member] || 0} 
+                onChange={(value) => handleCustomAmountChange(member, value || 0)}
+              />
+            </div>
+          ))}
+        </div>
+      ),
+    });
+  }
 
   return (
     <div>
@@ -133,10 +229,10 @@ const Splitter: React.FC = () => {
               />
               <p className="pt-4">Equally</p>
 
-              {/* Modal for Equally Split */}
+              {/* Modal for Equally and Custom Split */}
               <Modal
                 title="Split Evenly"
-                open={isModalOpen && splitMethod === "Equally"}
+                open={isModalOpen && (splitMethod === "Equally" || splitMethod === "Custom")}
                 onOk={handleOk}
                 onCancel={handleCancel}
               >
@@ -144,185 +240,11 @@ const Splitter: React.FC = () => {
                   direction="vertical"
                   current={current}
                   onChange={onStepChange}
-                  items={[
-                    {
-                      title: "What was the Expense Name?",
-                      description: (
-                        <TextArea
-                          value={expenseName}
-                          onChange={(e) => setExpenseName(e.target.value)}
-                          placeholder="Expense Name"
-                          autoSize
-                        />
-                      ),
-                    },
-
-
-                    {
-                      title: "Select Group type",
-                      description: (
-                        <Select
-                          options={[
-                            {
-                              value:ExpenseType.Equal,
-                              label:"Equal"
-                            },
-                            {
-                              value:ExpenseType.Custom,
-                              label:"Custom"
-                            }
-                          ]}
-                          onSelect={(value,record) => {
-                            setSelectedGroup(value)
-                            console.log("recordhtyut5t",record);
-                            
-                          }}
-                          // value={selectedGroup}
-                          style={{ width: "100%" }}
-                        >
-                          {/* {groups.map((group) => (
-                            <Select.Option key={group._id} value={group._id}>
-                              {group.groupName}
-                            </Select.Option>
-                          ))} */}
-                        </Select>
-                      ),
-                    },
-
-                    {
-                      title: "Enter Amount",
-                      description: (
-                        <InputNumber
-                          style={{ width: 250 }}
-                          value={amount}
-                          onChange={(value) => setAmount(value || 0)}
-                          placeholder="Amount"
-                        />
-                      ),
-                    },
-
-
-
-                    
-
-
-                    {
-                      title: "Select Group",
-                      description: (
-                        <Select
-                          options={selectedOpGroup}
-                          onSelect={(value,record) => {
-                            setSelectedGroup(value)
-
-                            console.log("record",record);
-                            
-                          }}
-                          // value={selectedGroup}
-                          style={{ width: "100%" }}
-                        >
-                          {/* {groups.map((group) => (
-                            <Select.Option key={group._id} value={group._id}>
-                              {group.groupName}
-                            </Select.Option>
-                          ))} */}
-                        </Select>
-                      ),
-                    },
-
-
-                    {
-                      title: "Enter the payer",
-                      description: (
-                        <TextArea
-                          value={payer}
-                          onChange={(e) => setPayer(e.target.value)}
-                          placeholder="Enter the payer"
-                          autoSize
-                        />
-                      ),
-                    },
-                  ]}
+                  items={steps}
                 />
               </Modal>
             </Card>
-
-
-            
-
-            {/* Custom Split Card */}
-            <Card className="w-50 text-center me-2">
-              <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaR4rSWlR5dnMCXXlCONwjy1MGVcUKalxLerpbJpcMm-xGmt0ro-Z6COeKrzDn-e2wuvw&usqp=CAU"
-                width={50}
-                onClick={() => showModal("Custom")}
-                alt="Custom Split"
-              />
-              <p className="pt-4">Custom</p>
-
-              {/* Modal for Custom Split */}
-              <Modal
-                title="Split Custom"
-                open={isModalOpen && splitMethod === "Custom"}
-                onOk={handleOk}
-                onCancel={handleCancel}
-              >
-                <Steps
-                  direction="vertical"
-                  current={current}
-                  onChange={onStepChange}
-                  items={[
-                    {
-                      title: "What was the Expense Name?",
-                      description: (
-                        <TextArea
-                          value={expenseName}
-                          onChange={(e) => setExpenseName(e.target.value)}
-                          placeholder="Expense Name"
-                          autoSize
-                        />
-                      ),
-                    },
-
-                    {
-                      title: "Enter Amount",
-                      description: (
-                        <InputNumber
-                          style={{ width: 250 }}
-                          value={amount}
-                          onChange={(value) => setAmount(value || 0)}
-                          placeholder="Amount"
-                        />
-                      ),
-                    },
-
-                  
-
-
-                    {
-                      title: "Select Group",
-                      description: (
-                        <Select
-                          onChange={(value) => setSelectedGroup(value)}
-                          value={selectedGroup}
-                          style={{ width: "100%" }}
-                        >
-                          {groups.map((group) => (
-                            <Select.Option key={group._id} value={group._id}>
-                              {group.groupName}
-                            </Select.Option>
-                          ))}
-                        </Select>
-                      ),
-                    },
-                  ]}
-                />
-              </Modal>
-            </Card>
-          </div>
-          <Card className="w-50 mt-2 ms-auto me-auto">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaR4rSWlR5dnMCXXlCONwjy1MGVcUKalxLerpbJpcMm-xGmt0ro-Z6COeKrzDn-e2wuvw&usqp=CAU" width={50} />
-            <p className="pt-1">Groups</p>
-          </Card>
+          </div>          
         </Card>
 
         {/* Pending Settlement Section */}

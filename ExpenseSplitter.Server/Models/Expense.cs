@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using System.ComponentModel.DataAnnotations;
 
 namespace ExpenseSplitter.Server.Models
 {
@@ -41,12 +42,15 @@ namespace ExpenseSplitter.Server.Models
     public class FriendsExp {
         public string Name { get; set; }
 
-        public long Amount { get; set; }
+        public decimal Amount { get; set; }
     }
 
     public enum ExpenseType
     {
+        [Display(Name = "Equal")]
         Equal,
+        [Display(Name = "Custom")]
         Custom
     }
+
 }

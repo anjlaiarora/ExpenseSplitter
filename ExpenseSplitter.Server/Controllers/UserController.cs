@@ -14,6 +14,7 @@ namespace ExpenseSplitter.Server.Controllers
 
 
         private readonly IUserService _userService;
+        private object objectId;
 
         public UserController(IUserService userService)
         {
@@ -35,25 +36,29 @@ namespace ExpenseSplitter.Server.Controllers
 
             
             user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
-            _userService.CreateUser(user);
-            return Ok("User register successfully");
+
+            var userId = _userService.CreateUser(user);
+            return Ok(new { userId });
+            //return Ok("User register successfully");
         }
 
 
 
         // Login existing user
         [HttpPost("login")]
-        public IActionResult Login([FromBody] Login login)
+        public string Login([FromBody] Login login)
         {
-            var user = _userService.GetUserByEmail(login.Email);
+            User user = _userService.GetUserByEmail(login.Email);
             if (user == null || !BCrypt.Net.BCrypt.Verify(login.Password, user.Password))
             {
-                return Unauthorized("Invalid credentials.");
-            } 
+                return "Invalid credentials.";
+            }
 
-            
-            return Ok("Login successful.");
-        }
+        
+            return user.Id.ToString();
+
+
+        } 
          
             
        
