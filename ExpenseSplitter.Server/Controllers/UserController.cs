@@ -42,7 +42,12 @@ namespace ExpenseSplitter.Server.Controllers
             //return Ok("User register successfully");
         }
 
+        //[HttpGet("register")]
 
+        //public IActionResult Register([FromBody] User user)
+        //{
+
+        //}
 
         // Login existing user
         [HttpPost("login")]

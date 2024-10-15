@@ -38,7 +38,7 @@ const Splitter: React.FC = () => {
 
   const userId: any = localStorage.getItem('userId') || '';
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   // Fetch all groups on component mount
   useEffect(() => {
@@ -46,6 +46,7 @@ const Splitter: React.FC = () => {
 
       try {
         const response = await axios.get<Group[]>(`https://localhost:7194/api/Group?ownerId=${userId}`);
+        
         console.log("response",response);
         
         setGroups(response.data);

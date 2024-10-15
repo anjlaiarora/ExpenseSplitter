@@ -14,6 +14,8 @@ interface Group {
 
 const Group: React.FC = () => {
   const [groups, setGroups] = useState<Group[]>([]);
+  const [groupsData, setGroupsData] = useState<any>();
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const userId = localStorage.getItem('userId');
@@ -22,7 +24,7 @@ const Group: React.FC = () => {
     const fetchGroups = async () => {
       try {
         const response = await axios.get<Group[]>(`https://localhost:7194/api/Group?ownerId=${userId}`);
-        
+        setGroupsData(response.data)
         const userGroups = response.data.filter(group => group.ownerId === userId);
         setGroups(userGroups);
       } catch (error) {
@@ -48,6 +50,9 @@ const Group: React.FC = () => {
       
       setGroups([...groups, response.data]); 
       notification.success({ message: "Group Created Successfully" });
+      // if(Groups == ){
+
+      // }
       setIsModalVisible(false); 
     } catch (error) {
       notification.error({ message: "Error creating group" });
@@ -145,7 +150,7 @@ const Group: React.FC = () => {
         </Form>
       </Modal>
           <br></br>
-      <div><TableOfGroup/></div>
+      <div><TableOfGroup groupsData={groupsData}/></div>
     </>
   );
 };
