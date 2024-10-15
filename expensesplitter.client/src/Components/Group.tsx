@@ -5,7 +5,6 @@ import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import './group.css';
 import TableOfGroup from "./TableOfGroup";
 
-// Group interface definition
 interface Group {
   _id: string;
   groupName: string;
@@ -22,7 +21,8 @@ const Group: React.FC = () => {
   useEffect(() => {
     const fetchGroups = async () => {
       try {
-        const response = await axios.get<Group[]>("https://localhost:7194/api/Group");
+        const response = await axios.get<Group[]>(`https://localhost:7194/api/Group?ownerId=${userId}`);
+        
         const userGroups = response.data.filter(group => group.ownerId === userId);
         setGroups(userGroups);
       } catch (error) {

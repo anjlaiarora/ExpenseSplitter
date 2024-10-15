@@ -6,16 +6,18 @@ import { Card, Modal, Steps, InputNumber, Input, Button, Select, notification, m
 import TextArea from "antd/es/input/TextArea";
 import { useState, useEffect, SetStateAction } from "react";
 import { useNavigate } from "react-router-dom";
-import Group from "./Group";
-import NavbarCom from "./NavbarCom";
+// import NavbarCom from "./NavbarCom";
 import axios from "axios";
 import { ExpenseType } from "../common/Enum";
-import form from "antd/es/form";
+import Group from "./Group";
+// import form from "antd/es/form";
 
 interface Groups {
   members: SetStateAction<string[]>;
   _id: string;
   groupName: string;
+  ownerId: string;
+
 }
 
 const Splitter: React.FC = () => {
@@ -34,7 +36,7 @@ const Splitter: React.FC = () => {
 
   const [customAmounts, setCustomAmounts] = useState<{ [key: string]: number }>({});
 
-  const userId: any = JSON.parse(localStorage.getItem('userId') || '');
+  const userId: any = localStorage.getItem('userId') || '';
 
   const navigate = useNavigate();
 
@@ -43,7 +45,9 @@ const Splitter: React.FC = () => {
     const fetchGroups = async () => {
 
       try {
-        const response = await axios.get<any>(`https://localhost:7194/api/Group?ownerId=${userId}`);
+        const response = await axios.get<Group[]>(`https://localhost:7194/api/Group?ownerId=${userId}`);
+        console.log("response",response);
+        
         setGroups(response.data);
         let data:any = response?.data?.map((e:any)=>{
           return {
@@ -98,7 +102,6 @@ const Splitter: React.FC = () => {
 
         await axios.post("https://localhost:7194/api/Expense", newExpense);
         setIsModalOpen(false);
-    form.resetFields();
 
         setExpenseName("");
         setAmount(0);
@@ -113,7 +116,6 @@ const Splitter: React.FC = () => {
 
   const handleCancel = () => { 
     setIsModalOpen(false);
-    form.resetFields();
   };
 
   const handleCustomAmountChange = (member: string, value: number) => {
@@ -137,7 +139,7 @@ const Splitter: React.FC = () => {
       description: (
         <Select
           options={[
-            { value: ExpenseType.Equal, label: "Equal" },
+            { value: ExpenseType.Equal, label: "Equally" },
             { value: ExpenseType.Custom, label: "Custom" },
           ]}
           onSelect={(value) => setExpType(value)}
@@ -165,10 +167,16 @@ const Splitter: React.FC = () => {
             setSelectedGroup(value);
             setGroupMembers(record?.member);
           }}
+          
           style={{ width: "100%" }}
+          
         />
+        
       ),
+      
+      
     },
+    
     {
       title: "Select Payer",
       description: (
@@ -216,16 +224,19 @@ const Splitter: React.FC = () => {
             <Button
               type="primary"
               className="text-center rounded-5 bg-black ps-5 pe-5"
-              // onClick={showModal}
+              onClick={() => showModal("Equally")}
             >
               Split
             </Button>
           
               {/* Modal for Equally and Custom Split */}
               <Modal
-                title="Split Evenly"
-                open={isModalOpen && (splitMethod === "Equally" || splitMethod === "Custom")}
+                title={`Split ${splitMethod === "Equally" || splitMethod === "Custom"}`}
+                // open={isModalOpen && (splitMethod === "Equally" || splitMethod === "Custom")}
+                open={isModalOpen}
                 onOk={handleOk}
+                // onOk={()=>handleOk()}
+
                 onCancel={handleCancel}
               >
                 <Steps
@@ -240,9 +251,9 @@ const Splitter: React.FC = () => {
         {/* </Card> */}
 
         {/* Pending Settlement Section */}
-        <div className="w-25">
+        {/* <div className="w-25">
           <h5>Pending Settlement</h5>
-        </div>
+        </div> */}
       </div>
     </div>
     </div>
