@@ -43,7 +43,7 @@ namespace ExpenseSplitter.Server.Controllers
         }
 
 
-
+            
         // Login existing user
         [HttpPost("login")]
         public string Login([FromBody] Login login)

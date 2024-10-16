@@ -23,11 +23,13 @@ namespace ExpenseSplitter.Server.Services
             _users = database.GetCollection<User>("Users");
         }
 
+        
+      
         public User GetUserByEmail(string email)
         {  
             var filter = Builders<User>.Filter.Eq(user => user.Email, email);
             return _users.Find(filter).FirstOrDefault();
-
+            
             //return _users.Find(user => user.Email == email).FirstOrDefault();
         }  
           

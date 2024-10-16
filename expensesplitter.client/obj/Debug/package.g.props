@@ -14,6 +14,7 @@
     <PackageJsonDependenciesAxois Condition="$(PackageJsonDependenciesAxois) == ''">^0.0.1-security</PackageJsonDependenciesAxois>
     <PackageJsonDependenciesBcrypt Condition="$(PackageJsonDependenciesBcrypt) == ''">^5.1.1</PackageJsonDependenciesBcrypt>
     <PackageJsonDependenciesBootstrap Condition="$(PackageJsonDependenciesBootstrap) == ''">^5.3.3</PackageJsonDependenciesBootstrap>
+    <PackageJsonDependenciesLucideReact Condition="$(PackageJsonDependenciesLucideReact) == ''">^0.452.0</PackageJsonDependenciesLucideReact>
     <PackageJsonDependenciesReact Condition="$(PackageJsonDependenciesReact) == ''">^18.3.1</PackageJsonDependenciesReact>
     <PackageJsonDependenciesReactBootstrap Condition="$(PackageJsonDependenciesReactBootstrap) == ''">^2.10.5</PackageJsonDependenciesReactBootstrap>
     <PackageJsonDependenciesReactDom Condition="$(PackageJsonDependenciesReactDom) == ''">^18.3.1</PackageJsonDependenciesReactDom>
