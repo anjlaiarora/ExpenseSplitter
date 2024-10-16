@@ -8,7 +8,7 @@
     "C:\\Users\\vikram\\.nuget\\packages\\awssdk.securitytoken\\3.7.100.14\\awssdk.securitytoken.3.7.100.14.nupkg.sha512",
     "C:\\Users\\vikram\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\vikram\\.nuget\\packages\\dnsclient\\1.6.1\\dnsclient.1.6.1.nupkg.sha512",
-    "C:\\Users\\vikram\\.nuget\\packages\\microsoft.aspnetcore.spaproxy\\8.0.8\\microsoft.aspnetcore.spaproxy.8.0.8.nupkg.sha512",
+    "C:\\Users\\vikram\\.nuget\\packages\\microsoft.aspnetcore.spaproxy\\8.0.10\\microsoft.aspnetcore.spaproxy.8.0.10.nupkg.sha512",
     "C:\\Users\\vikram\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
     "C:\\Users\\vikram\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\2.0.0\\microsoft.extensions.logging.abstractions.2.0.0.nupkg.sha512",
     "C:\\Users\\vikram\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",
@@ -31,5 +31,12 @@
     "C:\\Users\\vikram\\.nuget\\packages\\system.security.principal.windows\\5.0.0\\system.security.principal.windows.5.0.0.nupkg.sha512",
     "C:\\Users\\vikram\\.nuget\\packages\\zstdsharp.port\\0.7.3\\zstdsharp.port.0.7.3.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file C:\\Users\\vikram\\Documents\\ExpenseSplitter\\ExpenseSplitter\\ExpenseSplitter.Server\\obj\\project.nuget.cache : Unexpected character encountered while parsing value: <. Path 'expectedPackageFiles', line 7, position 0."
+    }
+  ]
 }

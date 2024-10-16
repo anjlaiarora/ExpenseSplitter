@@ -6,6 +6,6 @@ namespace ExpenseSplitter.Server.Services
     public interface IUserService
     {
         User GetUserByEmail(string email);
-        void CreateUser(User user);
+        string CreateUser(User user);
     }
 }

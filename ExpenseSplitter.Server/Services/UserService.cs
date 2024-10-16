@@ -31,9 +31,10 @@ namespace ExpenseSplitter.Server.Services
             //return _users.Find(user => user.Email == email).FirstOrDefault();
         }  
           
-        public void CreateUser(User user) 
-        {
+        public string CreateUser(User user)  {
             _users.InsertOne(user);
+
+            return user.Id.ToString();
         }
 
 

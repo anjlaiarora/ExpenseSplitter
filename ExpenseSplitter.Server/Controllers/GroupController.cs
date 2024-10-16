@@ -1,8 +1,7 @@
 ﻿using ExpenseSplitter.Server.Models;
 using ExpenseSplitter.Server.Services;
 using Microsoft.AspNetCore.Mvc;
-using MongoDB.Bson;
-using System.Threading.Tasks;
+using System.Collections.Immutable;
 
 namespace ExpenseSplitter.Server.Controllers
 {
@@ -18,24 +17,40 @@ namespace ExpenseSplitter.Server.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllGroups(string userId)
+        public async Task<IActionResult> GetAllGroups(string ownerId)
         {
-            var groups = await _groupService.GetAllGroups(userId);
-            return Ok(groups);
+            var groups = await _groupService.GetAllGroups(ownerId);
+            var groupDtos = groups.Select(group => new GroupConvert
+            {
+                Id = group.Id.ToString(),
+                GroupName = group.GroupName,
+                Members = group.Members,
+                OwnerId = group.OwnerId
+            }).ToList();
+            return Ok(groupDtos);
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetGroupById(string id)
-        {
-            var group = await _groupService.GetGroupById(id);
-            return group == null ? NotFound() : Ok(group);
-        }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateGroup([FromBody] Group group)
+
+
+
+
+        //[HttpGet("{ownerId}")]
+        //public async Task<IActionResult> GetGroupById(string ownerId)
+        //{
+        //    var group = await _groupService.GetGroupById(ownerId);
+
+        //    return group == null ? NotFound() : Ok(group);
+        //}
+
+
+
+        [HttpPost("CreatingGroup")]
+        public async Task<bool> CreateGroup([FromBody] Group group)
         {
-            await _groupService.CreateGroup(group);
-            return CreatedAtAction(nameof(GetGroupById), new { id = group.Id.ToString() }, group);
+           
+            var response = await _groupService.CreateGroup(group);
+            return response;
         }
     }
 }

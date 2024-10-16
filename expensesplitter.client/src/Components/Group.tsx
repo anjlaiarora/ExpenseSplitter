@@ -1,12 +1,10 @@
-
-
 import { useState, useEffect } from "react";
-import { Form, Input, Button, List, notification } from "antd";
+import { Form, Input, Button, List, notification, Modal } from "antd";
 import axios from "axios";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import './group.css';
+import TableOfGroup from "./TableOfGroup";
 
-// Group interface definition
 interface Group {
   _id: string;
   groupName: string;
@@ -16,18 +14,17 @@ interface Group {
 
 const Group: React.FC = () => {
   const [groups, setGroups] = useState<Group[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isFormVisible, setIsFormVisible] = useState(false);
+  const [groupsData, setGroupsData] = useState<any>();
 
-  
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const userId = localStorage.getItem('userId');
 
-  
   useEffect(() => {
     const fetchGroups = async () => {
       try {
-        const response = await axios.get<Group[]>("https://localhost:7194/api/Group");
-        
+        const response = await axios.get<Group[]>(`https://localhost:7194/api/Group?ownerId=${userId}`);
+        setGroupsData(response.data)
         const userGroups = response.data.filter(group => group.ownerId === userId);
         setGroups(userGroups);
       } catch (error) {
@@ -37,12 +34,10 @@ const Group: React.FC = () => {
     fetchGroups();
   }, [userId]);
 
-  
-  const toggleFormVisibility = () => {
-    setIsFormVisible(!isFormVisible);
+  const toggleModalVisibility = () => {
+    setIsModalVisible(!isModalVisible);
   };
 
-  
   const onFinish = async (values: { groupName: string; members: string[] }) => {
     try {
       setIsLoading(true);
@@ -50,10 +45,15 @@ const Group: React.FC = () => {
         ...values,
         ownerId: userId, 
       };
-      const response = await axios.post<Group>("https://localhost:7194/api/Group", groupData);
+      console.log("respone", groupData)
+      const response = await axios.post<Group>("https://localhost:7194/api/Group/CreatingGroup", groupData);
+      
       setGroups([...groups, response.data]); 
       notification.success({ message: "Group Created Successfully" });
-      setIsFormVisible(false); 
+      // if(Groups == ){
+
+      // }
+      setIsModalVisible(false); 
     } catch (error) {
       notification.error({ message: "Error creating group" });
     } finally {
@@ -63,14 +63,22 @@ const Group: React.FC = () => {
 
   return (
     <>
-      <button 
-        className="btn btn-primary mb-3 w-75"
-        onClick={toggleFormVisibility}
-      >
-        {isFormVisible ? 'Hide Form' : 'Create Group'}
-      </button>
+      <h1 className="fs-5 ps-2">Create Group
+        <Button 
+          className="float-end ps-5 pe-5 rounded-5 bg-black"
+          type="primary"
+          onClick={toggleModalVisibility}
+        >
+          Add
+        </Button>
+      </h1>
 
-      {isFormVisible && (
+      <Modal
+        title="Create Group"
+        visible={isModalVisible}
+        onCancel={toggleModalVisibility}
+        footer={null}  // Let the form handle submission
+      >
         <Form
           name="group_form"
           onFinish={onFinish}
@@ -140,16 +148,9 @@ const Group: React.FC = () => {
             </Button>
           </Form.Item>
         </Form>
-      )}
-
-      {/* Display list of groups */}
-      <List
-        dataSource={groups}
-        renderItem={(group) => (
-          <List.Item>{group.groupName}</List.Item>
-        )}
-        style={{ marginTop: "20px" }}
-      />
+      </Modal>
+          <br></br>
+      <div><TableOfGroup groupsData={groupsData}/></div>
     </>
   );
 };

@@ -23,3 +23,4 @@ namespace ExpenseSplitter.Server.Services
         public async Task CreateExpense(Expense expense) => await _expenses.InsertOneAsync(expense); 
     }
 }
+

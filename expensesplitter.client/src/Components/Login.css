@@ -10,7 +10,9 @@
    margin-bottom: 20px;
    
 }
-
+.head{
+    margin-left: 35%;
+}
 .header23{
     display: flex;
     flex-direction: column;
@@ -48,7 +50,8 @@
     margin: auto;
     width: 430px;
     height: 56px;
-    background: #eaeaea;
+    border: 1px solid black;
+    /* background: #eaeaea; */
     border-radius: 6px;
 }
 
@@ -81,12 +84,13 @@
     font-size: 15px;
 }
 
-.submitt1{
-    display: flex;
-    gap:30px ;
-    margin: 60px auto;
-    margin-top: 40px;
-}
+ .button{
+    background: #4c00b4;
+    left: 38%;
+    top: 20px;
+    
+    /* transform: translateX(-50%); */
+ }
 
 .submit1{
     display: flex;

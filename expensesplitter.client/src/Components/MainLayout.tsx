@@ -6,11 +6,10 @@ const MainLayout = () => {
   return (
     <>
         <NavbarCom/>
-        <hr/>
         <Outlet/>
         <Footer/>
     </>
   )
 }
-
+                                                                                                             
 export default MainLayout

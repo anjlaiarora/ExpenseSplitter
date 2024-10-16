@@ -1,17 +1,15 @@
-
-// import { Nav, OverlayTrigger, Popover } from 'react-bootstrap';
-import { RiAccountCircleLine, RiLogoutCircleRFill } from 'react-icons/ri';
+// import { useEffect, useState } from 'react'
+import { Nav, OverlayTrigger, Popover } from 'react-bootstrap';
+import {RiLogoutCircleRFill } from 'react-icons/ri';
 import { FaBookOpen } from "react-icons/fa";
 import Navbar from 'react-bootstrap/Navbar';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { HomeOutlined } from '@ant-design/icons';
 import { IoMdContacts } from "react-icons/io";
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import UserContext from './UserContext';
 import { CgProfile } from 'react-icons/cg';
 import { Row,Col } from 'antd';
-
-
 
 const NavbarCom = () => {
   const navigate2 = useNavigate(); //const variable for useNavigate.
@@ -21,12 +19,19 @@ const NavbarCom = () => {
 
 
   const handleButtonClick = () => {
-      if(!userExist){
-        navigate('/splitter')
+    let user:any =localStorage.getItem("userId")
+    // console.log("user ",user);
+    
+    setUserExist(user)
+      if(user!=null){
+        navigate('/checkNavRes')
       }else{
-        navigate2("/signup")
+        navigate2("/login")
       }
   };
+
+
+
 
   const nav1 = useNavigate();
 
@@ -36,11 +41,10 @@ const NavbarCom = () => {
   const popover =(
     <Popover id='popover-basic'>
         <Popover.Body>
-            <Link classNameName='d-block btn d-flex' to='/profile'><p classNameName='pe-2'><CgProfile /></p>Profile</Link>
-            <span classNameName='d-block btn d-flex'onClick={()=>{
-              // localStorage.removeItem('isUser')
+            <Link className='d-block btn d-flex' to='/profile'><p className='pe-2'><CgProfile /></p>Profile</Link>
+            <span className='d-block btn d-flex'onClick={()=>{
               setLogin(false)
-            }}><p classNameName='pe-2' onClick={handleprofile}><RiLogoutCircleRFill /></p>Logout</span>
+            }}><p className='pe-2' onClick={handleprofile}><RiLogoutCircleRFill /></p>Logout</span>
         </Popover.Body>
     </Popover>
     )
@@ -59,18 +63,18 @@ const NavbarCom = () => {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" classNameName='float-sm-left' />
           <Navbar.Collapse id="responsive-navbar-nav" classNameName='w-25'>
             <Nav classNameName="bg-body-light text-center ms-lg-5">
-              <NavLink to="/" classNameName={({ isActive }) =>
+              <NavLink to="/" className={({ isActive }) =>
                 isActive
                   ? 'nav-link bg-primary rounded-4 mt-4 ms-lg-3 mb-3 ps-3 pe-3 text-light active'
                   : 'nav-link text-primary mt-4'
-              }><HomeOutlined classNameName='pe-2' />
+              }><HomeOutlined className='pe-2' />
                 Home
-              </NavLink>
-              <NavLink to="/aboutus" classNameName={({ isActive }) =>
+              </NavLink>  
+              <NavLink to="/aboutus" className={({ isActive }) =>
                 isActive
                   ? 'nav-link bg-primary mt-4 rounded-4 ms-lg-5 mb-3 ps-3 pe-3 text-light active'
                   : 'nav-link text-primary mt-4 ms-5'
-              }><FaBookOpen classNameName='pe-2 fs-3' />
+              }><FaBookOpen className='pe-2 fs-3' />
                 About
               </NavLink>
               {/* <NavLink to="/blog" classNameName={({ isActive }) =>
@@ -80,22 +84,22 @@ const NavbarCom = () => {
               }>
                 Blog
               </NavLink> */}
-              <NavLink to="/contact" classNameName={({ isActive }) =>
+              <NavLink to="/contact" className={({ isActive }) =>
                 isActive
                   ? 'nav-link bg-primary rounded-4  ms-lg-5 mt-4 mb-3 ps-3 pe-3 text-light active'
                   : 'nav-link text-primary mt-4 ms-5'
-              }><IoMdContacts classNameName='pe-2 fs-3' />
+              }><IoMdContacts className='pe-2 fs-3' />
                 Contact
               </NavLink>
               <div style={{ display: 'flex', marginLeft: '550px' }}>
               <OverlayTrigger trigger="click" placement='bottom' overlay={popover}>    
-           <div classNameName='d-flex' style={{height:40,marginTop:'25px'}} >
+           <div className='d-flex' style={{height:40,marginTop:'25px'}} >
         <img src='' style={{borderRadius:25, width:40, backgroundColor:'grey'}}/>
             </div> 
         </OverlayTrigger>
                 
                 <div>
-                  <button classNameName='p-2 mt-4 ms-5 text-light bg-primary rounded' onClick={handleButtonClick}>Get Start</button>
+                  <button className='p-2 mt-4 ms-5 text-light bg-primary rounded' onClick={handleButtonClick}>Get Start</button>
                 </div>
               </div>
             </Nav >
