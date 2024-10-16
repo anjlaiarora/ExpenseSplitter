@@ -1,8 +1,8 @@
 // import { useEffect, useState } from 'react';
 import './index.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Dashboard from './Components/Dashboard';
+// import Dashboard from './Components/Dashboard';
 import MainLayout from './Components/MainLayout';
 import About from './Components/About';
 import Contact from './Components/Contact';
@@ -11,6 +11,8 @@ import Signup from './Components/Signup';
 import Login from './Components/Login';
 import Splitter from './Components/Splitter';
 import Profile from './Components/Profile';
+
+
 
 
 
