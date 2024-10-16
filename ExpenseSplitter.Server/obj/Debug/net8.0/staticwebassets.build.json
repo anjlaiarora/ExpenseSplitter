@@ -1,13 +1,13 @@
 {
   "Version": 1,
-  "Hash": "rif0Dj1iqB1kVHrtyISCqluAVzXnC5sgTH2qqPncakU=",
+  "Hash": "PSlKdf4ROOOObkFImtsvUvbPTt7g/lUvYht2m8muQio=",
   "Source": "ExpenseSplitter.Server",
   "BasePath": "_content/ExpenseSplitter.Server",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [
     {
-      "Identity": "C:\\Users\\vikram\\Documents\\ExpenseSplitter\\ExpenseSplitter\\expensesplitter.client\\expensesplitter.client.esproj",
+      "Identity": "E:\\ExpenseSplitter\\expensesplitter.client\\expensesplitter.client.esproj",
       "Version": 2,
       "Source": "expensesplitter.client",
       "GetPublishAssetsTargets": "GetCurrentProjectPublishStaticWebAssetItems",
