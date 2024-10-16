@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table, Button, Modal, Form, Input, InputNumber } from 'antd';
 import type { TableColumnsType } from 'antd';
+import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
+
 
 interface DataType {
   key: React.Key;
@@ -8,32 +10,50 @@ interface DataType {
   members: number;
   description: string;
 }
+const formItemLayout = {
+  labelCol: {
+    xs: { span: 24 },
+    sm: { span: 4 },
+  },
+  wrapperCol: {
+    xs: { span: 24 },
+    sm: { span: 20 },
+  },
+};
 
-const TableOfGroup = () => {
+const formItemLayoutWithOutLabel = {
+  wrapperCol: {
+    xs: { span: 24, offset: 0 },
+    sm: { span: 20, offset: 4 },
+  },
+};
+const TableOfGroup = ({groupsData}:any) => {
   // Initial state with the data
   const [dataSource, setDataSource] = useState<DataType[]>([
     {
       key: 1,
       name: 'John Brown',
       members: 0,
-      description: 'sssss',
+      description: '',
     },
     {
       key: 2,
       name: 'Jim Green',
       members: 0,
-      description: 'My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.',
+      description: '',
     },
     {
       key: 4,
       name: 'Joe Black',
       members: 0,
-      description: 'My name is Joe Black, I am 32 years old, living in Sydney No. 1 Lake Park.',
+      description: '',
     },
   ]);
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [editing, setEditing] = useState<DataType | null>(null);
+
+  
 
   // Delete function to remove a record by key
   const deleteAction = (key: React.Key) => {
@@ -47,7 +67,7 @@ const TableOfGroup = () => {
   };
 
   // Handle form submission and update data in the table
-  const handleUpdate = (values: { name: string; members: number; description: string }) => {
+  const handleUpdate = (values: { name: string; members: number; AddField: string }) => {
     setDataSource((prevData) =>
       prevData.map((item) =>
         item.key === editing?.key ? { ...item, ...values } : item
@@ -65,8 +85,9 @@ const TableOfGroup = () => {
 
   // Table columns with the update and delete actions
   const columns: TableColumnsType<DataType> = [
-    { title: 'Group Name', dataIndex: 'name', key: 'name' },
+    { title: 'Group Name', dataIndex: 'groupName', key: 'name' },
     { title: 'Members', dataIndex: 'members', key: 'members' },
+    // { title: 'Add Field', dataIndex: 'Add Field', key:},
     {
       title: 'Action',
       key: 'action',
@@ -82,15 +103,17 @@ const TableOfGroup = () => {
       ),
     },
   ];
-
+  // const onFinish = (values: any) => {
+  //   console.log('Received values of form:', values);
+  // };
   return (
     <div>
       <Table<DataType>
         columns={columns}
         expandable={{
-          expandedRowRender: (record) => <p style={{ margin: 0 }}>{record.description}</p>,
+          expandedRowRender: (record) => <p style={{ margin: 0 }}>{record.members}</p>,
         }}
-        dataSource={dataSource}
+        dataSource={groupsData}
       />
 
       {/* Modal for updating the record */}
@@ -105,9 +128,14 @@ const TableOfGroup = () => {
             initialValues={{
               name: editing.name,
               members: editing.members,
-              description: editing.description,
+              AddField: editing,
+              // description: editing.description,
             }}
             onFinish={handleUpdate}
+            name="dynamic_form_item"
+            {...formItemLayoutWithOutLabel}
+            // onFinish={onFinish}
+            style={{ maxWidth: 600 }}
           >
             <Form.Item
               name="name"
@@ -123,13 +151,81 @@ const TableOfGroup = () => {
             >
               <InputNumber min={0} />
             </Form.Item>
-            <Form.Item
-              name="description"
-              label="Description"
-              rules={[{ required: true, message: 'Please enter the description' }]}
+
+            <Form.List
+              name="names"
+              rules={[
+                {
+                  validator: async (_, names) => {
+                    // if (!names || names.length < 2) {
+                    //   return Promise.reject(new Error('At least 2 passengers'));
+                    // }
+                  },
+                },
+              ]}
             >
-              <Input.TextArea />
-            </Form.Item>
+              {(fields, { add, remove }, { errors }) => (
+                <>
+                  {fields.map((field, index) => (
+                    <Form.Item
+                      {...(index === 0 ? formItemLayout : formItemLayoutWithOutLabel)}
+                      label={index === 0 ? 'Members' : ''}
+                      required={false}
+                      key={field.key}
+                    >
+                      <Form.Item
+                        {...field}
+                        validateTrigger={['onChange', 'onBlur']}
+                        rules={[
+                          {
+                            required: true,
+                            whitespace: true,
+                            message: "Please input Member's name or delete this field.",
+                          },
+                        ]}
+                        noStyle
+                      >
+                        <Input placeholder="members name" style={{ width: '60%' }} />
+                      </Form.Item>
+                      {fields.length > 1 ? (
+                        <MinusCircleOutlined
+                          className="dynamic-delete-button"
+                          onClick={() => remove(field.name)}
+                        />
+                      ) : null}
+                    </Form.Item>
+                  ))}
+                  <Form.Item>
+                    
+                    <Button
+                      type="dashed"
+                      onClick={() => add()}
+                      style={{ width: '60%' }}
+                      icon={<PlusOutlined />}
+                    >
+                      Add field
+                    </Button>
+                    {/* <Button
+                      type="dashed"
+                      onClick={() => {
+                        add('The head item', 0);
+                      }}
+                      style={{ width: '60%', marginTop: '20px' }}
+                      icon={<PlusOutlined />}
+                    >
+                      Add field at head
+                    </Button>*/}
+                    <Form.ErrorList errors={errors} /> 
+                  </Form.Item>
+                </>
+              )}
+            </Form.List>
+            {/* <Form.Item>
+              <Button type="primary" htmlType="submit">
+                Submit
+              </Button>
+            </Form.Item> */}
+
             <Form.Item>
               <Button type="primary" htmlType="submit" >
                 Update

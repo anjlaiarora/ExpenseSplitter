@@ -35,6 +35,9 @@ const Signup: React.FC = () => {
       const { data } = response;
       if (response.status === 200) {
         localStorage.setItem('userId',JSON.stringify(data.userId));
+
+        // console.log('username', data.username)
+        localStorage.setItem('userName',formData.username);
         message.success('User registered successfully!');
         setFormData({ username: '', email: '', password: '' });
         navigate('/checkNavRes');

@@ -1,3 +1,4 @@
 C:\Users\Suraj Arora\Desktop\ExpenseSplitter\expensesplitter.client\obj\Debug\expensesplitter.client.esproj.CoreCompileInputs.cache
 D:\splitterMain\ExpenseSplitter\expensesplitter.client\obj\Debug\expensesplitter.client.esproj.CoreCompileInputs.cache
 E:\ExpenseSplitter\expensesplitter.client\obj\Debug\expensesplitter.client.esproj.CoreCompileInputs.cache
+C:\Users\vikram\Documents\ExpenseSplitter\ExpenseSplitter\expensesplitter.client\obj\Debug\expensesplitter.client.esproj.CoreCompileInputs.cache

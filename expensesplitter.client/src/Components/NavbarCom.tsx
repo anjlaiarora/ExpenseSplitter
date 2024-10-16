@@ -3,13 +3,14 @@ import { Button, Nav, OverlayTrigger, Popover } from 'react-bootstrap';
 import { RiLogoutCircleRFill } from 'react-icons/ri';
 import { FaBookOpen } from "react-icons/fa";
 import Navbar from 'react-bootstrap/Navbar';
-// import NavDropdown from 'react-bootstrap/NavDropdown'
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { HomeOutlined } from '@ant-design/icons';
 import { IoMdContacts } from "react-icons/io";
 import { useContext, useEffect, useState } from 'react';
 import UserContext from './UserContext';
 import { CgProfile } from 'react-icons/cg';
+import { Row,Col } from 'antd';
+
 const NavbarCom = () => {
   const navigate2 = useNavigate(); //const variable for useNavigate.
   const navigate = useNavigate();
@@ -50,7 +51,7 @@ const NavbarCom = () => {
 
 
 
-  // const navStyle = {color:'blue',textAlign:'center',borderRadius:'15px', marginTop:'20px'};
+
 
   return (
     <div>
@@ -76,7 +77,7 @@ const NavbarCom = () => {
               }><FaBookOpen className='pe-2 fs-3' />
                 About
               </NavLink>
-              {/* <NavLink to="/blog" className={({ isActive }) =>
+              {/* <NavLink to="/blog" classNameName={({ isActive }) =>
                 isActive
                   ? 'nav-link bg-primary rounded-4  ms-lg-5 mt-4 mb-3 ps-3 pe-3 text-light active'
                   : 'nav-link text-primary mt-4 ms-5'
@@ -113,6 +114,10 @@ const NavbarCom = () => {
 
 
     </div>
+    
+
+    
+
   )
 }
 
