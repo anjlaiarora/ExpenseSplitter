@@ -27,10 +27,9 @@ const AboutUs = () => {
 
 
 
-
       
 
-      <section className="text-center py-12 px-4">
+      <section className="text-center py-12 px-28">
 
 
         <h2 className="text-2xl font-bold">Our Key Features</h2>
@@ -52,9 +51,9 @@ const AboutUs = () => {
           <div className="p-4 shadow-lg rounded-lg bg-black/80 hover:bg-black/50 text-white transition-colors">
             <h3 className="text-xl font-bold">Settle Up</h3>
           </div>
-          <div className="p-4 shadow-lg rounded-lg bg-black/80 hover:bg-black/50 text-white transition-colors">
+          {/* <div className="p-4 shadow-lg rounded-lg bg-black/80 hover:bg-black/50 text-white transition-colors">
             <h3 className="text-xl font-bold">Expense Tracking</h3>
-          </div>
+          </div> */}
          
         </div>
       </section>
@@ -67,18 +66,18 @@ const AboutUs = () => {
       <section className="bg-gray-100 py-12 px-4">
         <h2 className="text-2xl font-bold text-center">User-Friendly Technology</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8 max-w-5xl mx-auto">
-          <div className="p-4 shadow-lg rounded-lg bg-white hover:shadow-xl transition-shadow">
-            <h3 className="text-xl font-bold">Mobile Accessibility</h3>
-            <p className="text-gray-700 mt-2">Manage your expenses anytime, anywhere through our mobile app.</p>
-          </div>
-          <div className="p-4 shadow-lg rounded-lg bg-white hover:shadow-xl transition-shadow">
-            <h3 className="text-xl font-bold">Secure Transactions</h3>
-            <p className="text-gray-700 mt-2">We prioritize your privacy and security in every transaction.</p>
-          </div>
-          <div className="p-4 shadow-lg rounded-lg bg-white hover:shadow-xl transition-shadow">
-            <h3 className="text-xl font-bold">Instant Notifications</h3>
-            <p className="text-gray-700 mt-2">Stay updated with real-time notifications about your expenses.</p>
-          </div>
+        <div className="p-4 shadow-lg rounded-lg bg-white hover:shadow-xl transition-shadow">
+      <h3 className="text-xl font-bold">Track Settlements</h3>
+      <p className="text-gray-700 mt-2">Keep track of who has paid and who still owes with real-time.</p>
+    </div>
+    <div className="p-4 shadow-lg rounded-lg bg-white hover:shadow-xl transition-shadow">
+      <h3 className="text-xl font-bold">Expense Categories</h3>
+      <p className="text-gray-700 mt-2">Organize expenses into categories for a clearer financial.</p>
+    </div>
+    <div className="p-4 shadow-lg rounded-lg bg-white hover:shadow-xl transition-shadow">
+      <h3 className="text-xl font-bold">Instant Expense Splitting</h3>
+      <p className="text-gray-700 mt-2">Quickly calculate and divide expenses with precision.</p>
+    </div>
           <div className="p-4 shadow-lg rounded-lg bg-white hover:shadow-xl transition-shadow">
             <h3 className="text-xl font-bold">Detailed Reports</h3>
             <p className="text-gray-700 mt-2">Get insights into your spending habits with our detailed reports.</p>
@@ -89,7 +88,7 @@ const AboutUs = () => {
           
       
 
-      <section className="bg-black/70 text-white text-center py-12 mb-10 px-4">
+      {/* <section className="bg-black/70 text-white text-center py-12 mb-10 px-4">
       
         <h2 className="text-2xl font-bold">User Testimonials</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-8 max-w-5xl mx-auto">
@@ -106,7 +105,7 @@ const AboutUs = () => {
             <h3 className="mt-4 font-bold">- User C</h3>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* <section className="text-center py-12 px-4 w-full">
         <h2 className="text-2xl font-bold">Frequently Asked Questions</h2>

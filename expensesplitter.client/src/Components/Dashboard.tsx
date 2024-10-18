@@ -65,6 +65,7 @@ const Dashboard = () => {
                 alt="Group Expense Management"
                 className="w-full h-64 object-cover"
               />
+           
               <div className="p-6 text-center">
                 <h3 className="text-xl font-medium text-gray-800 mb-2">
                   Effortless Group Expense Management
