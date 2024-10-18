@@ -53,4 +53,18 @@ namespace ExpenseSplitter.Server.Models
         Custom
     }
 
+
+    public class SettlementResult
+    {
+        public string Payer { get; set; }
+        public List<SettlementDetail> Settlements { get; set; } = new List<SettlementDetail>();
+    }
+
+    public class SettlementDetail
+    {
+        public string Payee { get; set; }
+        public decimal Amount { get; set; }
+    }
+
+
 }

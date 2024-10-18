@@ -1,124 +1,149 @@
-import { Carousel, Col, Container, Image, Row } from "react-bootstrap";
+import { Carousel } from "antd";
+import FaQs from "./FaQs";
+import React from "react";
+import imgs1 from './imges/6203338.jpg'
 
 const Dashboard = () => {
+  const contentStyle: React.CSSProperties = {
+    height: "550px",
+   color: "#fff",
   
+   textAlign: "center",
+   
+   maxHeight:"550px",
+   width:"100%",
 
-  return (
-    <>
-      <div className="">
-        {/* <Row className="justify-content-center relative">
-          <Col xs={12} md={6} className="pt-5 ps-5">
-            <p className="text-primary fs-5 ms-4">SPLIT YOUR AMOUNT</p>
-            <p className=" fs-5 bold ms-4">A split payment is when a total purchase cost is divided<br /> up among multiple payment methods or sources.<br /> This can be useful when sharing expenses with roommates,<br /> buying group gifts, or dining out with friends.</p>
-          </Col>
-          <Col xs={6} md={4} className="me-5">
-            <Image className="img-fluid max-w-full" src="https://media.istockphoto.com/id/1291977082/vector/a-young-woman-multitasking-abstract-concept-of-active-work-deadline-information-search-on.jpg?s=612x612&w=0&k=20&c=Hb_4Ywd1d3diVk4CH3D1REnzg388TR6DeRFidMGsYKo=" />
-          </Col>
-        </Row> */}
-        <Carousel data-bs-theme="dark">
-      <Carousel.Item>
-        <div className="d-flex flex-row">
-        <img
-          className="d-block w-50"
-          src="https://media.gettyimages.com/id/1142243912/photo/group-of-friends-paying-with-a-credit-card-at-a-restaurant-and-splitting-the-bill.jpg?s=612x612&w=0&k=20&c=-ai3qtpcRXlSo-syi68qGL1Lx9hRiu1DkGXPEBu81zA="
-          alt="First slide"
-        />
-        <img
-          className="d-block w-50"
-          src="https://media.gettyimages.com/id/1312208687/photo/two-men-look-at-a-bill-in-a-cafe-and-divide-payment-with-mobile-application-shot-from-above.jpg?s=612x612&w=0&k=20&c=zsj-IcoztlZ6rfQ2nXJGTxatnfl6Z8OT7Is_DjjQtzs="
-          alt="First slide"
-        /></div>
-        <Carousel.Caption className="text-light">
-          <h5 className="fs-1">Split Restaurant & Cafe Bills</h5>
-          <p className="bold fs-5">Splitify is developed to resolve complex itemized calculations<br/> on the spot and easily share with your friends. Assign each item and let the app calculate tip and taxes.</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <div className="d-flex flex-row">
-        <img
-          className="d-block w-50"
-          src="https://www.togetherprice.com/us/static/6b52ad2e41287219c2f2207d29fc1642/2b1ae/3a4b719a-577e-4f39-8751-f9af68f6ccb5.jpg"
-          alt="Second slide"
-        /> 
-        <img
-        className="d-block w-50"
-        src="https://stories.td.com/volumes/default/article/_1094xAUTO_crop_center-center_100_none/travelhacks_hero.png"
-        alt="Second slide"
-      /></div>
-        <Carousel.Caption className="text-light">
-          <h5 className="fs-1">Split Travel Expenses</h5>
-          <p className="fs-5">Figuring out splitting expenses during your vacation sure would<br/> be tiring with big group. Splitify here to help with splitting travel expenses with different participants for each activity.</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <div className="d-flex flex-row ">
-        <img
-          className="d-block w-50"
-          src="https://www.honorsociety.org/sites/default/files/styles/fb_sharing/public/How_to_Find_a_Roommate_For_College.jpeg?itok=Fsld3Gz7
- "
-          alt="Third slide"
-        />
-        <img
-          className="d-block w-50"
-          src="https://res.cloudinary.com/apartmentlist/image/fetch/f_auto,q_auto,t_renter_life_article/https://images.ctfassets.net/jeox55pd4d8n/2Y7u7y3t5W43RmXoRb86Ak/b14d5ee8185f5e5b56da456566564d3c/Two_roommates_checking_bank_mails_on_line_with_a_laptop_sitting_on_a_couch_in_the_living_room_at_home.jpg"
-          alt="Third slide"
-        /></div>
-        <Carousel.Caption className="text-light">
-          <h5 className="fs-1">Split Rent, Utilities with Roommates</h5>
-          <p className="fs-5">
-          Use Splitify as a roommate expense tracker to freely add <br/>your monthly expenses such as groceries, rent, utilities and so on with an ability of sharing through a simple link.
-          </p>
-        </Carousel.Caption>
-      </Carousel.Item>
-    </Carousel>
-    <div className="pt-5 text-dark text-center">
-      <p className="fs-1">Split Bills Easily
-      <p className="fs-4">Easily manage shared expenses with our convenient expense sharing app</p></p>
+ };
+ return (
+   <>
+   
+     <Carousel effect="scrollx" autoplay={true}>
+ <div>
+ <img src="./pixeel.jpg" style={contentStyle}></img>
+ </div>
+ <div>
+  
+   <img src="./6203338.jpg" style={contentStyle} alt="" />
+   
+   </div>
+ {/* <div>
+   <div style={contentStyle} className="imgcover bg-[url('https://img.freepik.com/free-vector/hand-drawn-illustrated-business-planning_52683-76277.jpg?w=996&t=st=1729157895~exp=1729158495~hmac=7721115e07790c8cfb44e766d0d2fb02c2322b5e5c061b67ef4a3d66b29a2401')] bg-center bg-cover bg-no-repeat ">
 
-      <div className="d-flex flex-row justify-content-center">
-        <>
-        <p>
-        <p className="bg-primary fs-2 text-light p-5">Easy to use
-        <p className="fs-5">Quickly add expenses with one click using the quick<br/> expense feature</p></p>
-        <p className="fs-2 text-dark p-5 bg-info">Registration needed
-        <p className="fs-5">Create and share expenses directly without signing up.<br/> Or you can sign-in with Gmail, AppleID or Email to track<br/> your expense.</p></p>
-        </p>
-        </>
-        <>
-        <p>
-        <p className="bg-info fs-2 text-light p-5">Collaboration made easy
-        <p className="fs-5">After creating your group simply hit "Share Group Link".<br/> You can send the create link to your group to expense together.</p></p>
-        <p className="bg-primary fs-2 text-light p-5">One click to pay
-        <p className="fs-5">Splitify makes payments easier! After<br/> settling, you can pay or request your expense amount<br/> with others.</p></p>
-        </p>
-        </>  
-      </div>
-    </div>
-    <div className="text-center">
-    <p className="fs-2">Have a Question?</p>
-      <p className="fs-3">FAQ</p>
-      <p className="fs-5">Here you can discover more about to Splitify. How to work this app and all details are avalable! <a href="/aboutus"> Click here</a></p>
-    </div>
-      </div>
-    </>
+   </div>
+   
+ </div> */}
+ <div>
+ <img src="/download2.png" style={contentStyle}></img>
+ </div>
+</Carousel>
 
-  );
+<section className="py-10" id="services">
+ <div className="container mx-auto px-4">
+   <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center ">
+     Our Services
+   </h2>
+   <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+     <div className="bg-white rounded-lg shadow-md overflow-hidden">
+       <img
+         // src="https://splitpal.io/wp-content/uploads/2022/12/group-of-friends-travel-together-driving-a-car-and-2022-09-05-22-26-08-utc-768x512.jpg.webp"
+
+         src="https://img.freepik.com/free-vector/hand-drawn-flat-tourists-illustration_23-2149051160.jpg?t=st=1729231925~exp=1729235525~hmac=3efda7384ae7181d4a0d77877502f0c6803c9fca1b89a9a1977f6d9cb2db3dc9&w=1060"
+
+         alt="Group Travel Expense Management"
+         className="w-full h-64 object-cover"
+       />
+       <div className="p-6 text-center">
+         <h3 className="text-xl font-medium text-gray-800 mb-2">
+            Travel Expense Management
+         </h3>
+         <p className="text-gray-700 text-base">
+           Going on a road trip with friends? Keep track of fuel, lodging, and
+           meal expenses effortlessly. Our tool ensures all costs are shared
+           fairly, so you can focus on the fun while we handle the math.
+         </p>
+       </div>
+     </div>
+
+     <div className="bg-white rounded-lg shadow-md overflow-hidden">
+       <img
+         // src="https://splitpal.io/wp-content/uploads/2022/12/friends-splitting-the-bill-in-restaurant-2022-05-08-22-16-16-utc-768x512.jpg.webp"
+
+         src="https://img.freepik.com/free-vector/flat-design-business-coffee-illustration_23-2149484588.jpg?t=st=1729232268~exp=1729235868~hmac=64847fe1aac5a1b840a1341cc7b8a21aa2097d391d4749ef639b65493e5b0800&w=740"
+
+         alt="Splitting Restaurant Bills"
+         className="w-full h-64 object-cover"
+       />
+       <div className="p-6 text-center">
+         <h3 className="text-xl font-medium text-gray-800 mb-2">
+          Restaurant Bill Splitting
+         </h3>
+         <p className="text-gray-700 text-base">
+           Eating out with friends? Split the restaurant bill with ease. Our
+           app helps you divide the costs fairly, making sure everyone pays
+           their share, whether it’s drinks, appetizers, or the main course.
+         </p>
+       </div>
+     </div>
+
+     <div className="bg-white rounded-lg shadow-md overflow-hidden">
+       <img
+         // src="https://splitpal.io/wp-content/uploads/2022/12/two-female-roommates-using-their-smartphones-onlin-2022-06-14-17-34-44-utc-768x512.jpg.webp"
+
+         src="https://img.freepik.com/free-vector/two-girls-sitting-couch-dringking-coffee-gossiping-inside-home_1150-39736.jpg?t=st=1729232681~exp=1729236281~hmac=00239abfff066a65dfb0bbdf6f74a885564e400f3e558ad3d8a6f39c1390cec6&w=740"
+         
+         alt="Roommate Expense Sharing"
+         className="w-full h-64 object-cover"
+       />
+       <div className="p-6 text-center">
+         <h3 className="text-xl font-medium text-gray-800 mb-2">
+           Roommate Expense Sharing
+         </h3>
+         <p className="text-gray-700 text-base">
+           Living with roommates? Easily split household expenses like rent,
+           utilities, and groceries. Our tool keeps everything organized, so
+           you can focus on living together harmoniously without financial
+           confusion.
+         </p>
+       </div>
+     </div>
+   </div>
+ </div>
+</section>
+
+
+     <section className="bg-gray-100" id="aboutus ">
+ <div className="container mx-auto py-1 px-4 sm:px-6 lg:px-8 ">
+   <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-8">
+     <div className="max-w-lg ml-6">
+       <h2 className=" font-bold text-gray-800 mb-8 text-left text-4xl ">
+         Why Choose Us
+       </h2>
+       <p className="mt-4 text-gray-600 text-xl">
+         Our expense splitter platform makes group finances easy and transparent. Whether you're planning a trip with friends, sharing household expenses, or managing group activities, we simplify the process of splitting costs, ensuring fairness for everyone involved.
+       </p>
+     </div>
+     <div className="mt-12 md:mt-0 ">
+       <img
+         
+         // src="https://img.freepik.com/free-vector/questions-concept-illustration_114360-2383.jpg?t=st=1729234162~exp=1729237762~hmac=fdf1eed02055e44340273bb99988e4549939645a14429e9dca04af173bc819fc&w=740"
+
+         src="./download2.png"
+
+
+         alt="Expense Management"
+         // className="object-cover rounded-lg shadow-md"
+       />
+     </div>
+   </div>
+ </div>
+</section>
+
+
+     <div className="px-0 py-12">
+       <FaQs />
+     </div>
+   </>
+ );
 };
 
 export default Dashboard;
-
-{/* <div style={{ display: 'flex', justifyContent: 'space-between', gap: '20px'}}>
-<Col lg="2">
-
-    <div >
-      <p style={{ color: 'blue', fontSize: '28px', fontWeight: 'bold', paddingTop: '50px' }}>SPLIT YOUR AMOUNT</p>
-      <p style={{ color: 'black', fontSize: '17px', paddingTop: '5px' }}>A split payment is when a total purchase cost is divided<br /> up among multiple payment methods or sources.<br /> This can be useful when sharing expenses with roommates,<br /> buying group gifts, or dining out with friends.
-      </p>
-    </div>
-    </Col>
-    <div>
-      <Col md="auto">
-        <img src="https://media.istockphoto.com/id/1291977082/vector/a-young-woman-multitasking-abstract-concept-of-active-work-deadline-information-search-on.jpg?s=612x612&w=0&k=20&c=Hb_4Ywd1d3diVk4CH3D1REnzg388TR6DeRFidMGsYKo=" alt="" width={300}/>
-      </Col>
-    </div>
-    </div> */}

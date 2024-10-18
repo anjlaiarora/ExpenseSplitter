@@ -7,7 +7,7 @@ import UserContext from './UserContext';
 const { Title } = Typography;
 
 const Signup: React.FC = () => {
-  const navigate = useNavigate();  // Ensure useNavigate is called within the component
+  const navigate = useNavigate(); 
 
   const {setUsername} = useContext(UserContext);
 
@@ -19,7 +19,6 @@ const Signup: React.FC = () => {
 
   const [loading, setLoading] = useState(false);
 
-  // Handle form field changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
@@ -32,14 +31,12 @@ const Signup: React.FC = () => {
     setLoading(true);
 
     try {
-      // Make POST request to the backend
       const response = await axios.post('https://localhost:7194/api/User/register', {
         Username: formData.username,
         Email: formData.email,
         Password: formData.password,
       });
       const { data } = response;
-      // Handle success
       if (response.status === 200) {
         localStorage.setItem('userId',JSON.stringify(data.userId));
         let uname= localStorage.setItem('userName',JSON.stringify(formData.username));
@@ -55,7 +52,6 @@ const Signup: React.FC = () => {
       }
 
     } catch (error: any) {
-      // Handle error
       if (error.response && error.response.data) {
         message.error(error.response.data);
       } else {
@@ -82,7 +78,7 @@ const Signup: React.FC = () => {
           <Form
             name="signup"
             layout="vertical"
-            onFinish={handleSubmit}  // Attach handleSubmit on form submit
+            onFinish={handleSubmit}  
           >
             <Form.Item
               name="Username"

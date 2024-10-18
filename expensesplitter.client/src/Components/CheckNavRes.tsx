@@ -3,6 +3,7 @@ import { Tabs } from 'antd';
 import type { TabsProps } from 'antd';
 import Group from './Group';
 import Splitter from './Splitter';
+import PendingSettle from './PendingSettle';
 import { CgProfile } from 'react-icons/cg';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 import { useContext, useEffect, useState } from 'react';
@@ -32,7 +33,7 @@ const items: TabsProps['items'] = [
   {
     key: '3',
     label: 'Pending Settlement',
-    children: 'Panding Settlement',
+    children: <PendingSettle/>
    
   },
 ];
@@ -41,19 +42,13 @@ const CheckNavRes = () => {
   
   const nav1 = useNavigate();
    const user: any = localStorage.getItem('userName') || '';
-  // const [userData , setUserData] = useState('');
   const handleprofile = () => {
     localStorage.removeItem("userId")
     localStorage.removeItem('userName')
     nav1('/login');
     window.location.reload()
   }
-  // useEffect(() => {
-  //  axios.get(`https://localhost:7194/api/User/register`).then((res)=>{
-  //     setUserData(res.data);
-  //     console.log(userData);
-  //   });
-  // })
+  
   const popover =(
     <Popover>
         <Popover.Body  >
@@ -70,9 +65,9 @@ const CheckNavRes = () => {
       <div className='d-flex flex-row justify-content-between'>
         <h5 className='ps-4 pt-4 fs-2'>Splitify</h5>
       <OverlayTrigger trigger="click" placement='bottom' overlay={popover}>    
-           <div className='d-flex'>
-        <div className="fs-2 me-4 mt-4"><CgProfile /></div>
-        <p className='pt-5 pe-4'>{user}</p>
+           <div className='d-flex flex-row'>
+        <div className="float-end"><CgProfile /></div>
+        <p className=''>{user}</p>
             </div> 
         </OverlayTrigger>
       </div>

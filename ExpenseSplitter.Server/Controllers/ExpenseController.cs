@@ -36,6 +36,15 @@ namespace ExpenseSplitter.Server.Controllers
             await _expenseService.CreateExpense(expense);
             return CreatedAtAction(nameof(GetExpenseById), new { id = expense.Id.ToString() }, expense);
         }
+
+
+
+        [HttpPost("Cal")]   
+        public async Task<IActionResult> CreateSettle([FromBody] string expenId)
+        {
+            List<SettlementResult> result = await _expenseService.CalculateSettlements(expenId);
+            return Ok(result);
+        }
     }
 }
 

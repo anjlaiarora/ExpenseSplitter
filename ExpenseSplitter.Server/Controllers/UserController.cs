@@ -44,11 +44,7 @@ namespace ExpenseSplitter.Server.Controllers
 
         //[HttpGet("register")]
 
-        //public IActionResult Register([FromBody] User user)
-        //{
-
-        //}
-
+            
         // Login existing user
         [HttpPost("login")]
         public string Login([FromBody] Login login)

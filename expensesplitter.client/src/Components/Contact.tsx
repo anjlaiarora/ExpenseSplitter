@@ -51,27 +51,31 @@ const Contact = () => {
     <Form.Item<FieldType>
       label="LastName"
       name="lastname"
-      rules={[{ required: true, message: 'Please input your lastname!' }]}
+      rules={[{ required: true, message: 'Please enter your lastname!' }]}
     >
+    
       <Input />
     </Form.Item>
+
+
     <Form.Item<FieldType>
       label="Email"
       name="email"
-      rules={[{ required: true, message: 'Please input your email !' }]}
+      rules={[{ required: true, message: 'Please enter your email!' }]}
     >
-      <Input />
+   <Input type='email' />
     </Form.Item>
     
     <Form.Item<FieldType>
       label="Message"
       name="message"
-      rules={[{ required: true, message: 'Please input your password!' }]}
+      rules={[{ required: true, message: 'Please enter your message!' }]}
     >
       <Input.TextArea />
     </Form.Item>
     {/* <Form.Item<FieldType>
       name="remember"
+      
       valuePropName="checked"
       wrapperCol={{ offset: 8, span: 16 }}
     >

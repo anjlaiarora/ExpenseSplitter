@@ -1,11 +1,13 @@
 import { Outlet } from "react-router-dom"
-import NavbarCom from "./NavbarCom"
+// import NavbarCom from "./NavbarCom"
 import Footer from "./Footer"
+import NavBar from "./NavBar"
 
 const MainLayout = () => {
   return (
     <>
-        <NavbarCom/>
+        {/* <NavbarCom/> */}
+        <NavBar/>
         <Outlet/>
         <Footer/>
     </>
