@@ -4,26 +4,47 @@ import { Form, Input, Button, Row, Col, Card, Typography, message } from 'antd';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import UserContext from './UserContext';
 
 
 const { Title } = Typography;
 
-const Login: React.FC = () => {
+const Login: React.FC = ({email}:any) => {
 
     const [loading, setLoading] = useState(false);
-    const navigate = useNavigate();
+    // const [formData, setFormData] = useState({
+    //     username: '',
+    //     email: '',
+    //     password: '',
+    //   });
+    //   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //     setFormData({
+    //       ...formData,
+    //       [e.target.name]: e.target.value,
+    //     });
+    //   };
+    
 
+    const navigate = useNavigate();
+    //  const {userName} = useContext(UserContext);
     const onFinish = async (values: any) => {
         try {
-            setLoading(true);
+            
+           
             const response:any = await axios.post('https://localhost:7194/api/User/login', values);
             // const { data } = response;
-            // console.log("response",response);
-            
+            console.log("response",response);
+            // setUsername()
 
             localStorage.setItem('userId', JSON.stringify(response.data));
-        
+            // localStorage.setItem('email', JSON.stringify(email));
+
+            // localStorage.getItem('unsername', JSON.stringify(uname))
+            // localStorage.setItem('userName', JSON.stringify(userName))
+            // localStorage.setItem('userName', JSON.stringify(formData.username));
+            // localStorage.setItem('email',response.email);
+            setLoading(true)
             message.success('Login successful!');
             navigate('/checkNavRes');
 
@@ -33,7 +54,15 @@ const Login: React.FC = () => {
             setLoading(false);
         }
     };
+//    useEffect(()=>{
+//     let na = localStorage.getItem('unsername', JSON.stringify(uname));
+//     setUnames(uname)
+//     let em = localStorage.getItem('email', JSON.stringify(email));
+//     setUemail(email)
 
+//     // localStorage.getItem('email', JSON.stringify(email))
+//     // localStorage.getItem('unsername', JSON.stringify(uname))
+//    },[unames , uemail])
 
     return (
         <Row justify="center" align="middle" style={{ minHeight: '100vh', backgroundColor: '#f0f2f5' }}>
@@ -77,7 +106,6 @@ const Login: React.FC = () => {
 
                         <Form.Item>
                             <Button
-                                // type="primary"
                                 htmlType="submit"
                                 loading={loading}
                                 style={{ width: '100%', height: "40px", marginTop: "15px", borderRadius: '50px', background: "blueviolet", color: "white", fontWeight: "bold" }}

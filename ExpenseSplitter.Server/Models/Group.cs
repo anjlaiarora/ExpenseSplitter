@@ -11,7 +11,7 @@ namespace ExpenseSplitter.Server.Models
         [BsonIgnoreIfDefault, BsonIgnoreIfNull]
         [BsonElement("_id"),BsonRepresentation(BsonType.ObjectId)]
         //[BsonId]
-        public ObjectId Id { get; set; }
+        public string? Id { get; set; }
       
         [BsonIgnoreIfDefault, BsonIgnoreIfNull]
         public string GroupName { get; set; }
@@ -30,4 +30,10 @@ namespace ExpenseSplitter.Server.Models
         public List<string> Members { get; set; }
         public string OwnerId { get; set; }
     }
+    //public class UpdateGroup
+    //{
+    //    public string Id { get; set; }
+    //    public string GroupName { get; set; }
+    //    public List<string> Members { get; set; }
+    //}
 }

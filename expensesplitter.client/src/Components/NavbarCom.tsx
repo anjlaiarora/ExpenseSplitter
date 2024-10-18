@@ -26,7 +26,7 @@ const NavbarCom = () => {
       if(user!=null){
         navigate('/checkNavRes')
       }else{
-        navigate2("/login")
+        navigate2("/signup")
       }
   };
 

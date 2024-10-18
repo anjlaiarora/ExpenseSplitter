@@ -1,12 +1,15 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Form, Input, Button, Row, Col, Card, Typography, message } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
+import UserContext from './UserContext';
 
 const { Title } = Typography;
 
 const Signup: React.FC = () => {
   const navigate = useNavigate();  // Ensure useNavigate is called within the component
+
+  const {setUsername} = useContext(UserContext);
 
   const [formData, setFormData] = useState({
     username: '',
@@ -25,6 +28,7 @@ const Signup: React.FC = () => {
   };
 
   const handleSubmit = async () => {
+  
     setLoading(true);
 
     try {
@@ -38,9 +42,13 @@ const Signup: React.FC = () => {
       // Handle success
       if (response.status === 200) {
         localStorage.setItem('userId',JSON.stringify(data.userId));
-
+        let uname= localStorage.setItem('userName',JSON.stringify(formData.username));
+        // localStorage.setItem('email', JSON.stringify(formData.email));
+        // setUsername(formData.username)
+        let email = localStorage.setItem('email', JSON.stringify(formData.email));
+       
         // console.log('username', data.username)
-        localStorage.setItem('userName',formData.username);
+        // localStorage.setItem('userName',formData.username);
         message.success('User registered successfully!');
         setFormData({ username: '', email: '', password: '' });
         navigate('/checkNavRes');
@@ -57,6 +65,8 @@ const Signup: React.FC = () => {
       setLoading(false);
     }
   };
+
+
 
   
   return (

@@ -1,6 +1,7 @@
 ﻿using ExpenseSplitter.Server.Models;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using SimpleAuthApi.Models;
 
 namespace ExpenseSplitter.Server.Services
 {
@@ -34,7 +35,7 @@ namespace ExpenseSplitter.Server.Services
 
         public async Task<Group> GetGroupById(string ownerId)
         {
-            return await _groups.Find(group => group.OwnerId == ownerId).FirstOrDefaultAsync();
+            return await _groups.Find(group => group.Id == ownerId).FirstOrDefaultAsync();
         }
         public async Task<bool> CreateGroup(Group group)
         {
@@ -48,5 +49,11 @@ namespace ExpenseSplitter.Server.Services
                 return false;
             }
         }
+        public async Task UpdateAsync(string id, Group updatedGroup) =>
+         await _groups.ReplaceOneAsync(x => x.Id == id, updatedGroup);
+
+        public async Task RemoveAsync(string id) =>
+            await _groups.DeleteOneAsync(x => x.Id == id);
+
     }
 }

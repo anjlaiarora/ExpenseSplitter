@@ -52,5 +52,37 @@ namespace ExpenseSplitter.Server.Controllers
             var response = await _groupService.CreateGroup(group);
             return response;
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(string id,[FromBody] Group updateGroup)
+        {
+            var book = await _groupService.GetGroupById(id);
+
+            if (book is null)
+            {
+                return NotFound();
+            }
+
+            updateGroup.Id = book.Id;
+
+            await _groupService.UpdateAsync(id, updateGroup);
+
+            return Ok(true);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(string id)
+        {
+            var book = await _groupService.GetGroupById(id);
+
+            if (book is null)
+            {
+                return NotFound();
+            }
+
+            await _groupService.RemoveAsync(id);
+
+            return Ok(true);
+        }
     }
 }

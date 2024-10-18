@@ -12,12 +12,16 @@ import Login from './Components/Login';
 // import Splitter  from './Components/Splitter';
 import Profile from './Components/Profile';
 import CheckNavRes from './Components/CheckNavRes';
-
+import UserContext from './Components/UserContext';
+import { useContext, useState } from 'react';
 
 
 function App() {
    
-   
+  const [userName , setUsername] = useState<string>('');
+  const [email, setEmail] = useState<string>('')
+
+  //  const {form} = useContext(UserContext);
 const router = createBrowserRouter([
 
 // {
@@ -32,7 +36,7 @@ const router = createBrowserRouter([
 
 {
   path:'/login',
-  element:<Login/>
+  element:<Login />
 },
 {
   path:'/profile',
@@ -67,15 +71,17 @@ element:<CheckNavRes/>
 }
 ])
   return (
+    <UserContext.Provider value={{userName , setUsername, email, setEmail}}>
     <>
     <div  className='mx-auto w-100 overflow-hidden'>
       
-    <RouterProvider router={router}>
+    <RouterProvider router={router} >
       
     </RouterProvider>
     </div>
 
     </>
+    </UserContext.Provider>
   );
 }
 
