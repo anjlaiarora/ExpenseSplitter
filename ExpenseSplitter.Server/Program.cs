@@ -51,6 +51,8 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddControllers();
 
+//services.AddScoped<ContactService>();
+
 // Register MongoDB Client
 builder.Services.AddSingleton<IMongoClient, MongoClient>(sp =>
     new MongoClient("mongodb+srv://anjaliaroraa908:expensesplitter@cluster0.bmxdz.mongodb.net/"));  
@@ -60,7 +62,7 @@ builder.Services.AddSingleton<GroupService>();
 builder.Services.AddSingleton<ExpenseService>();
 
 
-
+builder.Services.AddScoped<ContactService>();
 var app = builder.Build();
     
 app.UseDefaultFiles();

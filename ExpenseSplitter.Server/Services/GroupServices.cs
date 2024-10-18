@@ -13,7 +13,7 @@ namespace ExpenseSplitter.Server.Services
             var database = config.GetDatabase("Expensespitter");
             _groups = database.GetCollection<Group>("Groups");
         }
-
+            
 
 
         //public async Task<List<Group>> GetAllGroups(string userId) => await _groups.Find(group => true).ToListAsync();

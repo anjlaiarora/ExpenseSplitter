@@ -83,11 +83,13 @@ const Group: React.FC = () => {
           name="group_form"
           onFinish={onFinish}
           style={{ maxWidth: 600 }}
+          
         >
           <Form.Item
             name="groupName"
             rules={[{ required: true, message: "Enter group name" }]}
           >
+            
             <Input placeholder="Group Name" />
           </Form.Item>
 
