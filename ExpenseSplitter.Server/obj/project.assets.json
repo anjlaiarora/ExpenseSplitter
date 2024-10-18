@@ -1287,19 +1287,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\vikram\\.nuget\\packages\\": {}
+    "C:\\Users\\Mahesh\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\vikram\\Documents\\ExpenseSplitter\\ExpenseSplitter\\ExpenseSplitter.Server\\ExpenseSplitter.Server.csproj",
+      "projectUniqueName": "E:\\ExpenseSplitter\\ExpenseSplitter.Server\\ExpenseSplitter.Server.csproj",
       "projectName": "ExpenseSplitter.Server",
-      "projectPath": "C:\\Users\\vikram\\Documents\\ExpenseSplitter\\ExpenseSplitter\\ExpenseSplitter.Server\\ExpenseSplitter.Server.csproj",
-      "packagesPath": "C:\\Users\\vikram\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\vikram\\Documents\\ExpenseSplitter\\ExpenseSplitter\\ExpenseSplitter.Server\\obj\\",
+      "projectPath": "E:\\ExpenseSplitter\\ExpenseSplitter.Server\\ExpenseSplitter.Server.csproj",
+      "packagesPath": "C:\\Users\\Mahesh\\.nuget\\packages\\",
+      "outputPath": "E:\\ExpenseSplitter\\ExpenseSplitter.Server\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\vikram\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Mahesh\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
