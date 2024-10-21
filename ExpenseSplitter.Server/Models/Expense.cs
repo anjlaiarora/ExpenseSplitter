@@ -52,8 +52,12 @@ namespace ExpenseSplitter.Server.Models
         [Display(Name = "Custom")]
         Custom
     }
-
-
+    [BsonIgnoreExtraElements]
+    public class Settle
+    {
+        [BsonIgnoreIfDefault,BsonIgnoreIfNull]
+        public string GroupId { get; set; }
+    }
     public class SettlementResult
     {
         public string Payer { get; set; }

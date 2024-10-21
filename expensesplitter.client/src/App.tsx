@@ -8,7 +8,7 @@ import MainLayout from './Components/MainLayout';
 // import Blog from './Components/Blog';
 import Signup from './Components/Signup';
 import Login from './Components/Login';
-// import Splitter  from './Components/Splitter';
+import Splitter  from './Components/Splitter';
 import Profile from './Components/Profile';
 import CheckNavRes from './Components/CheckNavRes';
 import UserContext from './Components/UserContext';
@@ -28,10 +28,10 @@ function App() {
   //  const {form} = useContext(UserContext);
 const router = createBrowserRouter([
 
-// {
-//   path:'footer',
-//   element:<Footer/>
-// },
+{
+  path:'/splitter',
+  element:<Splitter/>
+},
 
 {
   path:'signup',

@@ -26,14 +26,9 @@ const Dashboard = () => {
    <img src="./6203338.jpg" style={contentStyle} alt="" />
    
    </div>
- {/* <div>
-   <div style={contentStyle} className="imgcover bg-[url('https://img.freepik.com/free-vector/hand-drawn-illustrated-business-planning_52683-76277.jpg?w=996&t=st=1729157895~exp=1729158495~hmac=7721115e07790c8cfb44e766d0d2fb02c2322b5e5c061b67ef4a3d66b29a2401')] bg-center bg-cover bg-no-repeat ">
-
-   </div>
-   
- </div> */}
+ 
  <div>
- <img src="/download2.png" style={contentStyle}></img>
+ <img src="/pixeel.jpg" style={contentStyle}></img>
  </div>
 </Carousel>
 

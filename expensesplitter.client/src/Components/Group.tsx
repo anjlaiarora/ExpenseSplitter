@@ -5,6 +5,7 @@ import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import './group.css';
 import TableOfGroup from "./TableOfGroup";
 
+
 interface Group {
   _id: string;
   groupName: string;
@@ -17,27 +18,32 @@ const Group: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [editingGroup, setEditingGroup] = useState<any>(null);
-  const [refresh,setRefresh] = useState<any>(false);
-  const userId = localStorage.getItem('userId');
+  const [refresh, setRefresh] = useState<any>(false);
   const [groupsData, setGroupsData] = useState<any>();
-
+  const [userId,setUserId]=useState<any>()
+  
+  const [form] = Form.useForm();
+  const fetchGroups = async () => {
+    try {
+      const user = localStorage.getItem('userId');
+      setUserId(user)
+      const response = await axios.get<Group[]>(`https://localhost:7194/api/Group?ownerId=${userId}`);
+      setGroupsData(response.data);
+      const userGroups = response.data.filter(group => group.ownerId === userId);
+      setGroups(userGroups);
+      setRefresh((pr: any) => !pr)
+    } catch (error) {
+      notification.error({ message: "Error fetching groups" });
+    }
+  };
   useEffect(() => {
-    const fetchGroups = async () => {
-      try {
-        const response = await axios.get<Group[]>(`https://localhost:7194/api/Group?ownerId=${userId}`);
-        setGroupsData(response.data);
-        const userGroups = response.data.filter(group => group.ownerId === userId);
-        setGroups(userGroups);
-        setRefresh((pr:any)=>!pr)
-      } catch (error) {
-        notification.error({ message: "Error fetching groups" });
-      }
-    };
+   
     fetchGroups();
-  }, [userId ,refresh]);
+  }, [userId]);
 
   const toggleModalVisibility = () => {
     setIsModalVisible(!isModalVisible);
+    form.resetFields();
   };
 
   const onFinish = async (values: { groupName: string; members: string[] }) => {
@@ -45,7 +51,6 @@ const Group: React.FC = () => {
       setIsLoading(true);
 
       if (editingGroup) {
-        // console.log("fhfyfyr", editingGroup)
         await axios.put(`https://localhost:7194/api/Group/${editingGroup.id}`, {
           ...values,
           ownerId: userId,
@@ -68,7 +73,7 @@ const Group: React.FC = () => {
 
       setIsModalVisible(false);
       // setIsmodelVisible((pr:any)=>!pr)
-      setEditingGroup(null); 
+      setEditingGroup(null);
     } catch (error) {
       notification.error({ message: editingGroup ? "Error updating group" : "Error creating group" });
     } finally {
@@ -89,7 +94,7 @@ const Group: React.FC = () => {
           className="float-end ps-5 pe-5 rounded-5 bg-black me-3"
           type="primary"
           onClick={() => {
-            setEditingGroup(null); 
+            setEditingGroup(null);
             toggleModalVisibility();
           }}
         >
@@ -98,27 +103,29 @@ const Group: React.FC = () => {
       </h1>
 
       <Modal
-        title={editingGroup ? "Edit Group" : "Create Group"} 
+        title={editingGroup ? "Edit Group" : "Create Group"}
         visible={isModalVisible}
         onCancel={toggleModalVisibility}
-        footer={null}  
+        footer={null}
       >
         <Form
           name="group_form"
           onFinish={onFinish}
-          initialValues={editingGroup ? editingGroup : { groupName: '', members: [''] }} 
+          initialValues={editingGroup ? editingGroup : { groupName: '', members: [''] }}
           style={{ maxWidth: 600 }}
-          
+          form={form}
         >
           <Form.Item
             name="groupName"
             rules={[{ required: true, message: "Enter group name" }]}
           >
-            
-            <Input placeholder="Group Name" />
+
+            <Input placeholder="Group Name"
+              onInput={(e: any) => e.target.value = e.target.value.length > 1 ? e.target.value : e.target.value.toUpperCase()}
+            />
           </Form.Item>
 
-         
+
           <Form.List
             name="members"
             rules={[
@@ -141,7 +148,9 @@ const Group: React.FC = () => {
                       rules={[{ required: true, message: "Enter member's name or remove this field." }]}
                       noStyle
                     >
-                      <Input placeholder="Member's Name" style={{ width: '60%' }} />
+                      <Input placeholder="Member's Name" style={{ width: '60%' }}
+                        onInput={(e: any) => e.target.value = e.target.value.length > 1 ? e.target.value : e.target.value.toUpperCase()}
+                      />
                     </Form.Item>
                     {fields.length > 1 ? (
                       <MinusCircleOutlined
@@ -168,7 +177,7 @@ const Group: React.FC = () => {
 
           <Form.Item>
             <Button type="primary" htmlType="submit" loading={isLoading}>
-              {editingGroup ? 'Update' : 'Submit'} 
+              {editingGroup ? 'Update' : 'Submit'}
             </Button>
           </Form.Item>
         </Form>

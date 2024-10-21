@@ -35,7 +35,7 @@ namespace ExpenseSplitter.Server.Services
             var expenses =await  _expenses.Find(e => e.GroupId == groupId).ToListAsync();
             var balance = new Dictionary<string, decimal>();
 
-            // Calculate total expenses per member
+            
             foreach (var expense in expenses)
             {
                 foreach (var friend in expense.Friends)
@@ -46,16 +46,16 @@ namespace ExpenseSplitter.Server.Services
                     if (!balance.ContainsKey(member))
                         balance[member] = 0;
 
-                    balance[member] -= amount; // Deduct what the friend has paid
+                    balance[member] -= amount; 
 
                     if (!balance.ContainsKey(expense.Payer))
                         balance[expense.Payer] = 0;
 
-                    balance[expense.Payer] += amount; // Add to the payer's balance
+                    balance[expense.Payer] += amount; 
                 }
             }
 
-            // Calculate settlements
+            
             var settlementResults = new List<SettlementResult>();
 
             foreach (var payer in balance.Keys)
@@ -78,20 +78,22 @@ namespace ExpenseSplitter.Server.Services
                             balance[payer] -= amount;
                             balance[other] += amount;
                         }
-                    }
+                    }                                
                 }
-
+                       
                 if (settlementResult.Settlements.Count > 0)
                 {
                     settlementResults.Add(settlementResult);
                 }
             }
 
-            return settlementResults; // This will give you a structured list of settlements
+            return settlementResults; 
         }
 
-
-
+        internal async Task<List<SettlementResult>> CalculateSettlements(object groupId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

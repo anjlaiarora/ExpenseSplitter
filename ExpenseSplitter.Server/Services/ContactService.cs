@@ -14,29 +14,17 @@ namespace ExpenseSplitter.Server.Services
             _contact = database.GetCollection<Contact>("Contact");
         }
 
-
-
-        public async Task<IActionResult> AddContact([FromBody] Contact contact)
+        public async Task<IActionResult> AddContact(Contact contact)
         {
             try
             {
                 await _contact.InsertOneAsync(contact);
-                return Ok("Contact added successfully.");
+                return new OkObjectResult("Contact added successfully.");
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex.Message); 
+                return new StatusCodeResult(500);
             }
-        }
-
-        private IActionResult StatusCode(int v, string message)
-        {
-            throw new NotImplementedException();
-        }
-
-        private IActionResult Ok(string v)
-        {
-            throw new NotImplementedException();
         }
     }
 }

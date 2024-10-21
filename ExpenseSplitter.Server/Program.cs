@@ -55,7 +55,7 @@ builder.Services.AddControllers();
 
 // Register MongoDB Client
 builder.Services.AddSingleton<IMongoClient, MongoClient>(sp =>
-    new MongoClient("mongodb+srv://anjaliaroraa908:expensesplitter@cluster0.bmxdz.mongodb.net/"));  
+    new MongoClient("mongodb+srv://anjaliaroraa908:expensesplitter@cluster0.bmxdz.mongodb.net/"));
 
 // Register custom services
 builder.Services.AddSingleton<GroupService>();

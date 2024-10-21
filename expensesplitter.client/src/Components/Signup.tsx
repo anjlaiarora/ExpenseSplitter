@@ -19,7 +19,7 @@ const Signup: React.FC = () => {
 
   const [loading, setLoading] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -32,7 +32,7 @@ const Signup: React.FC = () => {
 
     try {
       const response = await axios.post('https://localhost:7194/api/User/register', {
-        Username: formData.username,
+      Username: formData.username,
         Email: formData.email,
         Password: formData.password,
       });
@@ -40,12 +40,8 @@ const Signup: React.FC = () => {
       if (response.status === 200) {
         localStorage.setItem('userId',JSON.stringify(data.userId));
         let uname= localStorage.setItem('userName',JSON.stringify(formData.username));
-        // localStorage.setItem('email', JSON.stringify(formData.email));
-        // setUsername(formData.username)
-        let email = localStorage.setItem('email', JSON.stringify(formData.email));
+        
        
-        // console.log('username', data.username)
-        // localStorage.setItem('userName',formData.username);
         message.success('User registered successfully!');
         setFormData({ username: '', email: '', password: '' });
         navigate('/checkNavRes');
@@ -84,12 +80,14 @@ const Signup: React.FC = () => {
               name="Username"
               label="Username"
               rules={[{ required: true, message: 'Please input your username!' }]}
+              
             >
               <Input
                 name="username"
                 placeholder="Enter your username"
                 onChange={handleChange}
                 value={formData.username}
+                onInput={(e: any) => e.target.value = e.target.value.length > 1 ? e.target.value : e.target.value.toUpperCase()}
               />
             </Form.Item>
 

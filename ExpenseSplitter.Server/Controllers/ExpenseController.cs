@@ -40,11 +40,15 @@ namespace ExpenseSplitter.Server.Controllers
 
 
         [HttpPost("Cal")]   
-        public async Task<IActionResult> CreateSettle([FromBody] string expenId)
+        public async Task<IActionResult> CreateSettle([FromBody] Settle group)
         {
-            List<SettlementResult> result = await _expenseService.CalculateSettlements(expenId);
+            List<SettlementResult> result = await _expenseService.CalculateSettlements(group.GroupId);
             return Ok(result);
         }
+
+
+
+
     }
 }
 

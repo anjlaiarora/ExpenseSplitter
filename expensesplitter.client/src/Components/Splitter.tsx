@@ -5,18 +5,20 @@ import { Select } from 'antd';
 import axios from "axios";
 import { ExpenseType } from "../common/Enum";
 import Group from "./Group";
+import form from "antd/es/form";
 
 
 
 export interface Groups {
   id: any;
-  members: SetStateAction<string[]>;  
+  members: SetStateAction<string[]>;
   _id: string;
   groupName: string;
   ownerId: string;
+  
 }
 
- export interface Expense {
+export interface Expense {
   groupId: any;
   expenseName: string;
   TotalAmount: number;
@@ -37,7 +39,7 @@ const Splitter: React.FC = () => {
   const [splitMethod, setSplitMethod] = useState<"Equally" | "Custom" | "">("");
   const [customAmounts, setCustomAmounts] = useState<{ [key: string]: number }>({});
   const [expenses, setExpenses] = useState<Expense[]>([]);
-  const [filteredExpenses, setFilteredExpenses] = useState<Expense[]>([]); // For filtered expenses
+  const [filteredExpenses, setFilteredExpenses] = useState<Expense[]>([]); 
   const userId: any = localStorage.getItem('userId') || '';
 
   useEffect(() => {
@@ -48,20 +50,22 @@ const Splitter: React.FC = () => {
         let data: any = response?.data?.map((e: any) => ({
           label: e?.groupName,
           value: e?.id,
-          member: e?.members
+          member: e?.members,
+          // amount : e?.amount
+
         }));
         setSelectedOpGroup(data);
 
-        
+
         const savedGroupId = localStorage.getItem('selectedGroup');
         if (savedGroupId) {
           setSelectedGroup(savedGroupId);
         } else if (response.data.length > 0) {
           const firstGroupId = response.data[0].id;
           setSelectedGroup(firstGroupId);
-          localStorage.setItem('selectedGroup', firstGroupId); 
+          localStorage.setItem('selectedGroup', firstGroupId);
         }
-        
+
       } catch (error) {
         notification.error({ message: "Error fetching groups" });
       }
@@ -74,6 +78,7 @@ const Splitter: React.FC = () => {
       if (selectedGroup) {
         try {
           const response = await axios.get<Expense[]>(`https://localhost:7194/api/Expense/${selectedGroup}`);
+        
           setExpenses(response.data);
         } catch (error) {
           notification.error({ message: "Error fetching expenses" });
@@ -87,52 +92,65 @@ const Splitter: React.FC = () => {
 
     const filtered = expenses.filter((expense) => expense.groupId === selectedGroup);
     setFilteredExpenses(filtered);
-  }, [selectedGroup, expenses]);    
+  }, [selectedGroup, expenses]);
 
   const showModal = (method: "Equally" | "Custom") => {
     setSplitMethod(method);
     setIsModalOpen(true);
   };
 
-  const handleOk = async () => {
-    if (expenseName && amount && payer && selectedGroup) {
-      try {
-        const newExpense: any = {
-          expenseName,
-          TotalAmount: amount,
-          payer,
-          groupId: selectedGroup,
-          SplitType: expType === ExpenseType.Equal ? 0 : 1,
-        };
+ const handleOk = async () => {
+  if (expenseName && amount && payer && selectedGroup) {
+    try {
+      const newExpense: any = {
+        expenseName,
+        TotalAmount: amount,
+        payer,
+        groupId: selectedGroup,
+        SplitType: expType === ExpenseType.Equal ? 0 : 1,
+      };
 
-        if (expType === ExpenseType.Equal) {
-          newExpense.Friends = groupMembers.map((e) => ({
-            name: e,
-            Amount: amount / groupMembers.length,
-          }));
-        } else if (expType === ExpenseType.Custom) {
-          const customSplit = groupMembers.map((member) => ({
-            name: member,
-            Amount: customAmounts[member] || 0,
-          }));
-          newExpense.Friends = customSplit;
-        }
-
-        await axios.post("https://localhost:7194/api/Expense", newExpense);
-
-        // Update expenses list with the new expense
-        setExpenses((prevExpenses) => [...prevExpenses, newExpense]);
-        setIsModalOpen(false);
-        setExpenseName("");
-        setAmount(0);
-        setPayer("");
-        setCurrent(0);
-        message.success('Expense added successfully');
-      } catch (error) {
-        console.error("Error adding expense", error);
+      if (expType === ExpenseType.Equal) {
+        newExpense.Friends = groupMembers.map((e) => ({
+          name: e,
+          Amount: amount / groupMembers.length,
+        }));
       }
+      else if (expType === ExpenseType.Custom) {
+        const customSplit = groupMembers.map((member) => ({
+          name: member,
+          Amount: customAmounts[member] || 0,
+        }));
+        newExpense.Friends = customSplit;
+
+        const totalCustomAmount = customSplit.reduce((total, member) => total + member.Amount, 0);
+        
+        if (totalCustomAmount !== amount) {
+          notification.error({
+            message: "Custom amounts do not match the total expense amount",
+            description: `Total custom amounts: ${totalCustomAmount}, expected: ${amount}`,
+          });
+          return;
+        }
+      }
+
+      // Save the expense if validation passes
+      await axios.post("https://localhost:7194/api/Expense", newExpense);
+
+      // Update expenses list with the new expense
+      setExpenses((prevExpenses) => [...prevExpenses, newExpense]);
+      setIsModalOpen(false);
+      setExpenseName("");
+      setAmount(0);
+      setPayer("");
+      setCurrent(0);
+      message.success('Expense added successfully');
+    } catch (error) {
+      console.error("Error adding expense", error);
     }
-  };
+  }
+};
+
 
   const handleCancel = () => {
     setIsModalOpen(false);
@@ -151,6 +169,8 @@ const Splitter: React.FC = () => {
           onChange={(e) => setExpenseName(e.target.value)}
           placeholder="Expense Name"
           autoSize
+
+          onInput={(e: any) => e.target.value = e.target.value.length > 1 ? e.target.value : e.target.value.toUpperCase()}
         />
       ),
     },
@@ -178,7 +198,8 @@ const Splitter: React.FC = () => {
           onChange={(value) => setAmount(value || 0)}
           placeholder="Amount"
           required
-       
+          min={0}
+          
         />
       ),
     },
@@ -190,10 +211,10 @@ const Splitter: React.FC = () => {
           onSelect={(value, record) => {
             setSelectedGroup(value);
             setGroupMembers(record?.member);
-            localStorage.setItem('selectedGroup', value); 
+            localStorage.setItem('selectedGroup', value);
           }}
           style={{ width: "100%" }}
-          value={selectedGroup} 
+          value={selectedGroup}
         />
       ),
     },
@@ -240,7 +261,7 @@ const Splitter: React.FC = () => {
         style={{ width: '20%' }}
         onSelect={(value) => {
           setSelectedGroup(value);
-          localStorage.setItem('selectedGroup', value); 
+          localStorage.setItem('selectedGroup', value);
         }}
         options={groups.map((group) => ({
           label: group.groupName,
@@ -275,7 +296,7 @@ const Splitter: React.FC = () => {
             </Modal>
 
             <Table
-              dataSource={filteredExpenses} // Use filtered expenses
+              dataSource={filteredExpenses} 
               columns={[
                 {
                   title: 'Expense Name',
@@ -284,8 +305,8 @@ const Splitter: React.FC = () => {
                 },
                 {
                   title: 'Amount',
-                  dataIndex: 'TotalAmount',
-                  key: 'TotalAmount',
+                  dataIndex: 'totalAmount',
+                  key: 'totalAmount',
                 },
                 {
                   title: 'Payer',

@@ -13,37 +13,19 @@ const { Title } = Typography;
 const Login: React.FC = ({email}:any) => {
 
     const [loading, setLoading] = useState(false);
-    // const [formData, setFormData] = useState({
-    //     username: '',
-    //     email: '',
-    //     password: '',
-    //   });
-    //   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    //     setFormData({
-    //       ...formData,
-    //       [e.target.name]: e.target.value,
-    //     });
-    //   };
-    
 
     const navigate = useNavigate();
-    //  const {userName} = useContext(UserContext);
     const onFinish = async (values: any) => {
         try {
             
            
             const response:any = await axios.post('https://localhost:7194/api/User/login', values);
-            // const { data } = response;
+            
             console.log("response",response);
-            // setUsername()
+            
 
             localStorage.setItem('userId', JSON.stringify(response.data));
-            // localStorage.setItem('email', JSON.stringify(email));
-
-            // localStorage.getItem('unsername', JSON.stringify(uname))
-            // localStorage.setItem('userName', JSON.stringify(userName))
-            // localStorage.setItem('userName', JSON.stringify(formData.username));
-            // localStorage.setItem('email',response.email);
+            
             setLoading(true)
             message.success('Login successful!');
             navigate('/checkNavRes');
@@ -54,15 +36,7 @@ const Login: React.FC = ({email}:any) => {
             setLoading(false);
         }
     };
-//    useEffect(()=>{
-//     let na = localStorage.getItem('unsername', JSON.stringify(uname));
-//     setUnames(uname)
-//     let em = localStorage.getItem('email', JSON.stringify(email));
-//     setUemail(email)
 
-//     // localStorage.getItem('email', JSON.stringify(email))
-//     // localStorage.getItem('unsername', JSON.stringify(uname))
-//    },[unames , uemail])
 
     return (
         <Row justify="center" align="middle" style={{ minHeight: '100vh', backgroundColor: '#f0f2f5' }}>

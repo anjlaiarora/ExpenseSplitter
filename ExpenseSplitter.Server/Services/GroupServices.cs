@@ -55,5 +55,9 @@ namespace ExpenseSplitter.Server.Services
         public async Task RemoveAsync(string id) =>
             await _groups.DeleteOneAsync(x => x.Id == id);
 
+        internal async Task GetAllGroupsAsync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

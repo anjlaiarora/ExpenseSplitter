@@ -24,7 +24,7 @@ namespace ExpenseSplitter.Server.Controllers
             {
                 Id = group.Id.ToString(),
                 GroupName = group.GroupName,
-                Members = group.Members,
+                Members = group.Members, 
                 OwnerId = group.OwnerId
             }).ToList();
             return Ok(groupDtos);
@@ -84,5 +84,9 @@ namespace ExpenseSplitter.Server.Controllers
 
             return Ok(true);
         }
+
+
+
+
     }
 }

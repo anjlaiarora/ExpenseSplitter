@@ -45,6 +45,11 @@ const CheckNavRes = () => {
   const handleprofile = () => {
     localStorage.removeItem("userId")
     localStorage.removeItem('userName')
+
+    //add the line
+    localStorage.removeItem('email')
+    localStorage.removeItem('selectedGroup')
+    
     nav1('/login');
     window.location.reload()
   }
