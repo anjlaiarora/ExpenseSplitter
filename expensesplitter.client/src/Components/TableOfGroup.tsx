@@ -10,12 +10,13 @@ interface DataType {
   description: string;
 }
 
-const TableOfGroup = ({ groupsData, handleEditGroup }: any) => {
+const TableOfGroup = ({ groupsData, handleEditGroup,setRefresh }: any) => {
   const [expendedRowKey, setExpendedRowKey] = useState<string | null>(null);
 
   const deleteAction = async (id: string) => {
     try {
       await axios.delete(`https://localhost:7194/api/Group/${id}`);
+      setRefresh((pre:any)=>!pre);
       // Optionally, you can refresh the groups data here
       message.success('Group deleted successfully');
     } catch (error) {
@@ -29,7 +30,7 @@ const TableOfGroup = ({ groupsData, handleEditGroup }: any) => {
       title: 'Members',
       dataIndex: 'members',
       key: 'members',
-      render: (members: string[]) => members.length,
+      render: (members: string[]) => members?.length,
     },
     {
       title: 'Action',

@@ -73,18 +73,18 @@ const Splitter: React.FC = () => {
     fetchGroups();
   }, [userId]);
 
-  useEffect(() => {
-    const fetchExpenses = async () => {
-      if (selectedGroup) {
-        try {
-          const response = await axios.get<Expense[]>(`https://localhost:7194/api/Expense/${selectedGroup}`);
-        
-          setExpenses(response.data);
-        } catch (error) {
-          notification.error({ message: "Error fetching expenses" });
-        }
+  const fetchExpenses = async () => {
+    if (selectedGroup) {
+      try {
+        const response = await axios.get<Expense[]>(`https://localhost:7194/api/Expense/${selectedGroup}`);
+      
+        setExpenses(response.data);
+      } catch (error) {
+        notification.error({ message: "Error fetching expenses" });
       }
-    };
+    }
+  };
+  useEffect(() => {
     fetchExpenses();
   }, [selectedGroup]);
 
@@ -144,6 +144,7 @@ const Splitter: React.FC = () => {
       setAmount(0);
       setPayer("");
       setCurrent(0);
+      fetchExpenses()
       message.success('Expense added successfully');
     } catch (error) {
       console.error("Error adding expense", error);
@@ -304,7 +305,7 @@ const Splitter: React.FC = () => {
                   key: 'expenseName',
                 },
                 {
-                  title: 'Amount',
+                  title: 'Total Amount',
                   dataIndex: 'totalAmount',
                   key: 'totalAmount',
                 },

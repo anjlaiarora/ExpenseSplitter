@@ -7,6 +7,7 @@ import TableOfGroup from "./TableOfGroup";
 
 
 interface Group {
+  id: any;
   _id: string;
   groupName: string;
   members: string[];
@@ -24,16 +25,16 @@ const Group: React.FC = () => {
   const userId = localStorage.getItem('userId');
   const [form] = Form.useForm();
 
+  const fetchGroups = async () => {
+    try {
+      const response = await axios.get<Group[]>(`https://localhost:7194/api/Group?ownerId=${userId}`);
+      const userGroups = response.data.filter(group => group.ownerId === userId);
+      setGroups(userGroups);
+    } catch (error) {
+      notification.error({ message: "Error fetching groups" });
+    }
+  };
   useEffect(() => {
-    const fetchGroups = async () => {
-      try {
-        const response = await axios.get<Group[]>(`https://localhost:7194/api/Group?ownerId=${userId}`);
-        const userGroups = response.data.filter(group => group.ownerId === userId);
-        setGroups(userGroups);
-      } catch (error) {
-        notification.error({ message: "Error fetching groups" });
-      }
-    };
     fetchGroups();
   }, [userId, refresh]);
 
@@ -50,17 +51,22 @@ const Group: React.FC = () => {
       setGroups(prev => [...prev, response.data]);
       notification.success({ message: "Group Created Successfully" });
       form.resetFields(); // Reset form fields after creation
+      fetchGroups();
+
     } catch (error) {
       notification.error({ message: "Error creating group" });
     } finally {
       setIsLoading(false);
+      fetchGroups();
     }
   };
 
   const updateGroup = async (values: { groupName: string; members: string[] }) => {
     try {
       setIsLoading(true);
-      await axios.put(`https://localhost:7194/api/Group/${editingGroup!._id}`, {
+      console.log("edit",editingGroup);
+      
+      await axios.put(`https://localhost:7194/api/Group/${editingGroup!.id}`, {
         ...values,
         ownerId: userId,
       });
@@ -74,6 +80,8 @@ const Group: React.FC = () => {
       notification.error({ message: "Error updating group" });
     } finally {
       setIsLoading(false);
+      fetchGroups();
+
     }
   };
 
@@ -85,6 +93,7 @@ const Group: React.FC = () => {
     }
     setIsModalVisible(false);
     setEditingGroup(null);
+    
   };
 
   const handleEditGroup = (group: Group) => {
@@ -114,6 +123,7 @@ const Group: React.FC = () => {
         title={editingGroup ? "Edit Group" : "Create Group"}
         visible={isModalVisible}
         onCancel={toggleModalVisibility}
+        footer={null}
       >
         <Form
           form={form} // Assign the form instance
@@ -187,7 +197,7 @@ const Group: React.FC = () => {
       </Modal>
       <br />
       <div>
-        <TableOfGroup groupsData={groups} handleEditGroup={handleEditGroup} />
+        <TableOfGroup groupsData={groups} handleEditGroup={handleEditGroup} setRefresh={setRefresh}/>
       </div>
     </>
   );
