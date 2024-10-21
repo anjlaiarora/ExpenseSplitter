@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, Button, message } from 'antd';
+import { Table, Button, message, Card } from 'antd';
 import type { TableColumnsType } from 'antd';
 import axios from 'axios';
 
@@ -11,18 +11,14 @@ interface DataType {
 }
 
 const TableOfGroup = ({ groupsData, handleEditGroup }: any) => {
-  const [dataSource, setDataSource] = useState<DataType[]>(groupsData);
-  // const [refresh, setRefresh] = useState(false)
-//  const [deletegroup, setDeleteGroup] = useState<any>()
+  const [expendedRowKey, setExpendedRowKey] = useState<string | null>(null);
+
   const deleteAction = async (id: string) => {
-    
     try {
       await axios.delete(`https://localhost:7194/api/Group/${id}`);
-      console.log("nbajhag", id)
-      setDataSource([])
+      // Optionally, you can refresh the groups data here
       message.success('Group deleted successfully');
     } catch (error) {
-      // console.error('Failed to delete group:', error);
       message.error('Failed to delete group');
     }
   };
@@ -33,7 +29,7 @@ const TableOfGroup = ({ groupsData, handleEditGroup }: any) => {
       title: 'Members',
       dataIndex: 'members',
       key: 'members',
-      render: (members: string[]) => members.length, 
+      render: (members: string[]) => members.length,
     },
     {
       title: 'Action',
@@ -42,7 +38,7 @@ const TableOfGroup = ({ groupsData, handleEditGroup }: any) => {
         <>
           <Button
             type="link"
-            onClick={() => handleEditGroup(group)}  
+            onClick={() => handleEditGroup(group)}
             className="bg-primary text-light me-5"
           >
             Update
@@ -59,20 +55,35 @@ const TableOfGroup = ({ groupsData, handleEditGroup }: any) => {
     },
   ];
 
+  // const handleExpand = (expanded: boolean, record: DataType) => {
+  //   setExpendedRowKey((prev) =>
+  //     expanded ? [...prev, record.id] : prev.filter((key) => key !== record.id)
+  //   );
+  // };
+
   return (
     <div>
-      <Table<DataType>
-        columns={columns}
-        expandable={{
-          expandedRowRender: (record) => (
-            <div>
-              <p style={{ margin: 0, fontWeight:'bold'}}>Members: {record.members.join(', ')}</p>
-              
-            </div>
-          ),
-          rowExpandable: (record) => record.members.length > 0, 
-        }}
+      <Table
+        rowKey="id"
         dataSource={groupsData}
+        columns={columns}
+        onRow={(record) => ({
+          // onClick: () => console.log(record)
+        })}
+        expandable={{
+          expandedRowRender: (record) => {
+            return (
+              <>
+                <p style={{ margin: 0, fontWeight: 'bold' }}>Members: {record.members.join(', ')}</p>
+              </>
+            )
+          },
+          expandedRowKeys: expendedRowKey ? [expendedRowKey] : [],
+          onExpand: (expended, record) => {
+            // console.log(expended, record)
+            setExpendedRowKey(expended ? record.id : null)
+          },
+        }}
       />
     </div>
   );

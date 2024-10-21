@@ -7,5 +7,7 @@ namespace ExpenseSplitter.Server.Services
     {
         User GetUserByEmail(string email);
         string CreateUser(User user);
+        //Task<User> GetUserAsync(object userName);
+        //Task<User> GetUserAsync(string userName);
     }
 }

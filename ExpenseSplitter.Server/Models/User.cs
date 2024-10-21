@@ -6,18 +6,18 @@ namespace SimpleAuthApi.Models
     [BsonIgnoreExtraElements]
     public class User
     {
-
+       
 
         [BsonIgnoreIfDefault, BsonIgnoreIfNull]
 
-        [BsonId]  // This ensures MongoDB treats this as the document ID
-        [BsonRepresentation(BsonType.ObjectId)] // Represents as an ObjectId type
-        [BsonElement("_id")]
-        public ObjectId Id { get; set; } 
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId), BsonElement("_id")]
 
-        [BsonElement("Username")]
-        public string Username { get; set; }
+        public string? Id { get; set; }
 
+        [BsonElement("userName")]
+        public string UserName { get; set; }
+        
         [BsonElement("Email")]
         public string Email { get; set; }
 
@@ -27,9 +27,9 @@ namespace SimpleAuthApi.Models
     public class Login
     {
 
-        [BsonId]
-        [BsonElement("_id")]
-        public ObjectId Id { get; set; }
+        //[BsonId]
+        //[BsonElement("_id")]
+        //public string? Id { get; set; }
 
         [BsonElement("Email")]
         public string Email { get; set; }
