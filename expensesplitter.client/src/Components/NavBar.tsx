@@ -37,7 +37,7 @@ const NavBar = () => {
 <nav className="bg-white  w-full z-20 sticky top-0  shadow-md  ">
   <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
   <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-      <span className="self-center text-3xl font-semibold whitespace-nowrap text-black  ">Splitify</span>
+      <span className="self-center text-3xl font-semibold whitespace-nowrap text-black">SPLITIFY</span>
   </a>
   <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
       <button type="button" className="text-white bg-black   focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center " onClick={handleButtonClick}>Get started</button>

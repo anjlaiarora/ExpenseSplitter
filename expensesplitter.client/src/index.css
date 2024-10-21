@@ -65,21 +65,32 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 } */
-/* @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Overpass:ital,wght@0,100..900;1,100..900&display=swap');
-:root {
-  font-family: "Caveat", cursive;
-  font-optical-sizing: auto;
-  font-weight: '400';
-  font-style: normal;
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Playwrite+GB+S:ital,wght@0,100..400;1,100..400&display=swap');.crimson-text-regular {
+    font-family: "Playwrite GB S", cursive;
+    font-optical-sizing: auto;
+    font-weight: weight;
+    font-style: normal;
+  }
 
-} */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 
   :where(.css-dev-only-do-not-override-5wsri9).ant-tooltip .ant-tooltip-inner{
+  width: 120%;
+  text-align: center;
   background-color: white;
-  align-items: center;
-  margin-right: 16px;
+  color: black;
   }
+  /* .ant-flex {
+        display: flex;
+  }
+  .ant-flex-justify-center {
+    justify-content: none; 
+
+  }
+  .ant-flex-align-center{
+        align-items: none;
+
+  } */

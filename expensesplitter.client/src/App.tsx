@@ -21,9 +21,12 @@ import ContectUs from './Components/ContectUs';
 
 
 function App() {
-   
-  const [userName , setUsername] = useState<string>('');
-  const [email, setEmail] = useState<string>('')
+  const [userData, setUserData] = useState({
+    userName: '',
+    email: '',
+  });
+  // const [userName , setUsername] = useState<string>('');
+  // const [email, setEmail] = useState<string>('')
 
   //  const {form} = useContext(UserContext);
 const router = createBrowserRouter([
@@ -75,9 +78,9 @@ element:<CheckNavRes/>
 }
 ])
   return (
-    <UserContext.Provider value={{userName , setUsername, email, setEmail}}>
+    <UserContext.Provider value={{userData,setUserData}}>
     <>
-    <div  className='mx-auto w-100 overflow-hidden'>
+    <div  className='mx-auto w-100 overflow-hidden font-semibold'>
       
     <RouterProvider router={router} >
       

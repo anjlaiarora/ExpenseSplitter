@@ -31,16 +31,22 @@ namespace ExpenseSplitter.Server.Services
             return _users.Find(filter).FirstOrDefault();
             
             //return _users.Find(user => user.Email == email).FirstOrDefault();
-        }  
-          
+        }
+
+        public async Task<User> GetUserAsync(string userName)
+        {
+            return await _users.Find(u => u.UserName == userName).FirstOrDefaultAsync();
+        }
+
         public string CreateUser(User user)  {
             _users.InsertOne(user);
 
             return user.Id.ToString();
         }
 
-
-
-
+        //public Task<User> GetUserAsync(object userName)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

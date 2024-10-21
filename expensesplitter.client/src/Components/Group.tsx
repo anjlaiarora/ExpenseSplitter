@@ -17,72 +17,79 @@ const Group: React.FC = () => {
   const [groups, setGroups] = useState<Group[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [editingGroup, setEditingGroup] = useState<any>(null);
-  const [refresh, setRefresh] = useState<any>(false);
-  const [groupsData, setGroupsData] = useState<any>();
-  const [userId,setUserId]=useState<any>()
-  
+  const [editingGroup, setEditingGroup] = useState<Group | null>(null);
+  const [refresh, setRefresh] = useState<boolean>(false);
+
+
+  const userId = localStorage.getItem('userId');
   const [form] = Form.useForm();
-  const fetchGroups = async () => {
-    try {
-      const user = localStorage.getItem('userId');
-      setUserId(user)
-      const response = await axios.get<Group[]>(`https://localhost:7194/api/Group?ownerId=${userId}`);
-      setGroupsData(response.data);
-      const userGroups = response.data.filter(group => group.ownerId === userId);
-      setGroups(userGroups);
-      setRefresh((pr: any) => !pr)
-    } catch (error) {
-      notification.error({ message: "Error fetching groups" });
-    }
-  };
+
   useEffect(() => {
-   
+    const fetchGroups = async () => {
+      try {
+        const response = await axios.get<Group[]>(`https://localhost:7194/api/Group?ownerId=${userId}`);
+        const userGroups = response.data.filter(group => group.ownerId === userId);
+        setGroups(userGroups);
+      } catch (error) {
+        notification.error({ message: "Error fetching groups" });
+      }
+    };
     fetchGroups();
-  }, [userId]);
+  }, [userId, refresh]);
 
   const toggleModalVisibility = () => {
     setIsModalVisible(!isModalVisible);
     form.resetFields();
   };
 
-  const onFinish = async (values: { groupName: string; members: string[] }) => {
+  const createGroup = async (values: { groupName: string; members: string[] }) => {
     try {
       setIsLoading(true);
-
-      if (editingGroup) {
-        await axios.put(`https://localhost:7194/api/Group/${editingGroup.id}`, {
-          ...values,
-          ownerId: userId,
-        });
-
-        const updatedGroups = groups.map(group =>
-          group._id === editingGroup._id ? { ...group, ...values } : group
-        );
-        setGroups(updatedGroups);
-        notification.success({ message: "Group Updated Successfully" });
-      } else {
-        const groupData = {
-          ...values,
-          ownerId: userId,
-        };
-        const response = await axios.post<Group>("https://localhost:7194/api/Group/CreatingGroup", groupData);
-        setGroups([...groups, response.data]);
-        notification.success({ message: "Group Created Successfully" });
-      }
-
-      setIsModalVisible(false);
-      // setIsmodelVisible((pr:any)=>!pr)
-      setEditingGroup(null);
+      const groupData = { ...values, ownerId: userId };
+      const response = await axios.post<Group>("https://localhost:7194/api/Group/CreatingGroup", groupData);
+      setGroups(prev => [...prev, response.data]);
+      notification.success({ message: "Group Created Successfully" });
+      form.resetFields(); // Reset form fields after creation
     } catch (error) {
-      notification.error({ message: editingGroup ? "Error updating group" : "Error creating group" });
+      notification.error({ message: "Error creating group" });
     } finally {
       setIsLoading(false);
     }
   };
 
+  const updateGroup = async (values: { groupName: string; members: string[] }) => {
+    try {
+      setIsLoading(true);
+      await axios.put(`https://localhost:7194/api/Group/${editingGroup!._id}`, {
+        ...values,
+        ownerId: userId,
+      });
+
+      const updatedGroups = groups.map(group =>
+        group._id === editingGroup!._id ? { ...group, ...values } : group
+      );
+      setGroups(updatedGroups);
+      notification.success({ message: "Group Updated Successfully" });
+    } catch (error) {
+      notification.error({ message: "Error updating group" });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const onFinish = (values: { groupName: string; members: string[] }) => {
+    if (editingGroup) {
+      updateGroup(values);
+    } else {
+      createGroup(values);
+    }
+    setIsModalVisible(false);
+    setEditingGroup(null);
+  };
+
   const handleEditGroup = (group: Group) => {
     setEditingGroup(group);
+    form.setFieldsValue(group); // Set the form fields to the editing group's values
     setIsModalVisible(true);
   };
 
@@ -95,6 +102,7 @@ const Group: React.FC = () => {
           type="primary"
           onClick={() => {
             setEditingGroup(null);
+            form.resetFields(); // Reset form when adding a new group
             toggleModalVisibility();
           }}
         >
@@ -106,25 +114,20 @@ const Group: React.FC = () => {
         title={editingGroup ? "Edit Group" : "Create Group"}
         visible={isModalVisible}
         onCancel={toggleModalVisibility}
-        footer={null}
       >
         <Form
+          form={form} // Assign the form instance
           name="group_form"
           onFinish={onFinish}
-          initialValues={editingGroup ? editingGroup : { groupName: '', members: [''] }}
+          initialValues={{ groupName: '', members: [''] }} // Default initial values
           style={{ maxWidth: 600 }}
-          form={form}
         >
           <Form.Item
             name="groupName"
             rules={[{ required: true, message: "Enter group name" }]}
           >
-
-            <Input placeholder="Group Name"
-              onInput={(e: any) => e.target.value = e.target.value.length > 1 ? e.target.value : e.target.value.toUpperCase()}
-            />
+            <Input placeholder="Group Name" />
           </Form.Item>
-
 
           <Form.List
             name="members"
@@ -184,7 +187,7 @@ const Group: React.FC = () => {
       </Modal>
       <br />
       <div>
-        <TableOfGroup groupsData={groupsData} handleEditGroup={handleEditGroup} />
+        <TableOfGroup groupsData={groups} handleEditGroup={handleEditGroup} />
       </div>
     </>
   );

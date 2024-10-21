@@ -7,9 +7,9 @@ import UserContext from './UserContext';
 const { Title } = Typography;
 
 const Signup: React.FC = () => {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();  // Ensure useNavigate is called within the component
 
-  const {setUsername} = useContext(UserContext);
+  const {setUserData} = useContext(UserContext);
 
   const [formData, setFormData] = useState({
     username: '',
@@ -19,7 +19,8 @@ const Signup: React.FC = () => {
 
   const [loading, setLoading] = useState(false);
 
-   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // Handle form field changes
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -31,23 +32,33 @@ const Signup: React.FC = () => {
     setLoading(true);
 
     try {
+      // Make POST request to the backend
       const response = await axios.post('https://localhost:7194/api/User/register', {
       Username: formData.username,
         Email: formData.email,
         Password: formData.password,
       });
       const { data } = response;
+      // Handle success
       if (response.status === 200) {
         localStorage.setItem('userId',JSON.stringify(data.userId));
         let uname= localStorage.setItem('userName',JSON.stringify(formData.username));
-        
-       
+        // localStorage.setItem('email', JSON.stringify(formData.email));
+        // setUsername(formData.username)
+        let email = localStorage.setItem('email', JSON.stringify(formData.email));
+        setUserData({
+          userName: formData.username,
+          email: formData.email,
+        });
+        // console.log('username', data.username)
+        // localStorage.setItem('userName',formData.username);
         message.success('User registered successfully!');
         setFormData({ username: '', email: '', password: '' });
         navigate('/checkNavRes');
       }
 
     } catch (error: any) {
+      // Handle error
       if (error.response && error.response.data) {
         message.error(error.response.data);
       } else {
@@ -74,7 +85,7 @@ const Signup: React.FC = () => {
           <Form
             name="signup"
             layout="vertical"
-            onFinish={handleSubmit}  
+            onFinish={handleSubmit}  // Attach handleSubmit on form submit
           >
             <Form.Item
               name="Username"
