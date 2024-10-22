@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
-import { Form, Input, Button, notification, Modal } from "antd";
-import axios from "axios";
-import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
-import './group.css';
-import TableOfGroup from "./TableOfGroup";
 
+
+
+import React, { useState, useEffect } from "react";
+import { Form, Input, Button, notification, Modal, Table, Popconfirm } from "antd";
+import axios from "axios";
+import { MinusCircleOutlined, PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 
 interface Group {
   id: any;
@@ -21,7 +21,6 @@ const Group: React.FC = () => {
   const [editingGroup, setEditingGroup] = useState<Group | null>(null);
   const [refresh, setRefresh] = useState<boolean>(false);
 
-
   const userId = localStorage.getItem('userId');
   const [form] = Form.useForm();
 
@@ -34,6 +33,7 @@ const Group: React.FC = () => {
       notification.error({ message: "Error fetching groups" });
     }
   };
+
   useEffect(() => {
     fetchGroups();
   }, [userId, refresh]);
@@ -50,27 +50,22 @@ const Group: React.FC = () => {
       const response = await axios.post<Group>("https://localhost:7194/api/Group/CreatingGroup", groupData);
       setGroups(prev => [...prev, response.data]);
       notification.success({ message: "Group Created Successfully" });
-      form.resetFields(); // Reset form fields after creation
+      form.resetFields();
       fetchGroups();
-
     } catch (error) {
       notification.error({ message: "Error creating group" });
     } finally {
       setIsLoading(false);
-      fetchGroups();
     }
   };
 
   const updateGroup = async (values: { groupName: string; members: string[] }) => {
     try {
       setIsLoading(true);
-      console.log("edit",editingGroup);
-      
       await axios.put(`https://localhost:7194/api/Group/${editingGroup!.id}`, {
         ...values,
         ownerId: userId,
       });
-
       const updatedGroups = groups.map(group =>
         group._id === editingGroup!._id ? { ...group, ...values } : group
       );
@@ -81,7 +76,6 @@ const Group: React.FC = () => {
     } finally {
       setIsLoading(false);
       fetchGroups();
-
     }
   };
 
@@ -93,113 +87,214 @@ const Group: React.FC = () => {
     }
     setIsModalVisible(false);
     setEditingGroup(null);
-    
   };
 
   const handleEditGroup = (group: Group) => {
     setEditingGroup(group);
-    form.setFieldsValue(group); // Set the form fields to the editing group's values
+    form.setFieldsValue(group);
     setIsModalVisible(true);
   };
 
-  return (
-    <>
-      <h1 className="fs-5 ps-2">
-        Create Group
-        <Button
-          className="float-end ps-5 pe-5 rounded-5 bg-black me-3"
-          type="primary"
-          onClick={() => {
-            setEditingGroup(null);
-            form.resetFields(); // Reset form when adding a new group
-            toggleModalVisibility();
-          }}
-        >
-          Add
-        </Button>
-      </h1>
+  const handleDelete = async (id: string) => {
+    try {
+      await axios.delete(`https://localhost:7194/api/Group/${id}`);
+      notification.success({ message: 'Group Deleted Successfully' });
+      setRefresh(prev => !prev);
+    } catch (error) {
+      notification.error({ message: 'Error deleting group' });
+    }
+  };
 
-      <Modal
-        title={editingGroup ? "Edit Group" : "Create Group"}
-        visible={isModalVisible}
-        onCancel={toggleModalVisibility}
-        footer={null}
-      >
-        <Form
-          form={form} // Assign the form instance
-          name="group_form"
-          onFinish={onFinish}
-          initialValues={{ groupName: '', members: [''] }} // Default initial values
-          style={{ maxWidth: 600 }}
-        >
-          <Form.Item
-            name="groupName"
-            rules={[{ required: true, message: "Enter group name" }]}
+  const columns = [
+    {
+      title: 'Group Name',
+      dataIndex: 'groupName',
+      key: 'groupName',
+      render: (text: string) => <span className="font-semibold">{text}</span>,
+    },
+    {
+      title: 'Members',
+      dataIndex: 'members',
+      key: 'members',
+
+      // render: (members: string[]) => (
+      //   <div className="max-h-24 overflow-y-auto">
+      //     {members.map((member, index) => (
+      //       <span key={index} className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+      //         {member}
+      //       </span>
+      //     ))}
+      //   </div>
+      // ),
+      render: (members: string[]) => (
+        <div className="max-h-24 overflow-y-auto">
+          {members?.map((member, index) => (
+            <span key={index} className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+              {member}
+            </span>
+          ))}
+        </div>
+      ),
+      
+    },
+    {
+      title: 'Actions',
+      key: 'actions',
+      render: (_: any, record: Group) => (
+        <div className="space-x-2">
+          <Button
+            type="primary"
+            icon={<EditOutlined />}
+            onClick={() => handleEditGroup(record)}
+            className="bg-blue-500 hover:bg-blue-600"
           >
-            <Input placeholder="Group Name" />
-          </Form.Item>
-
-          <Form.List
-            name="members"
-            rules={[
-              {
-                validator: async (_, members) => {
-                  if (!members || members.length < 2) {
-                    return Promise.reject(new Error('At least 2 members are required.'));
-                  }
-                },
-              },
-            ]}
+            Edit
+          </Button>
+          <Popconfirm
+            title="Are you sure you want to delete this group?"
+            onConfirm={() => handleDelete(record.id)}
+            okText="Yes"
+            cancelText="No"
           >
-            {(fields, { add, remove }, { errors }) => (
-              <>
-                {fields.map((field, index) => (
-                  <Form.Item required={false} key={field.key}>
-                    <Form.Item
-                      {...field}
-                      validateTrigger={['onChange', 'onBlur']}
-                      rules={[{ required: true, message: "Enter member's name or remove this field." }]}
-                      noStyle
-                    >
-                      <Input placeholder="Member's Name" style={{ width: '60%' }}
-                        onInput={(e: any) => e.target.value = e.target.value.length > 1 ? e.target.value : e.target.value.toUpperCase()}
-                      />
-                    </Form.Item>
-                    {fields.length > 1 ? (
-                      <MinusCircleOutlined
-                        className="dynamic-delete-button"
-                        onClick={() => remove(field.name)}
-                      />
-                    ) : null}
-                  </Form.Item>
-                ))}
-                <Form.Item>
-                  <Button
-                    type="dashed"
-                    onClick={() => add()}
-                    style={{ width: '60%' }}
-                    icon={<PlusOutlined />}
-                  >
-                    Add a member
-                  </Button>
-                  <Form.ErrorList errors={errors} />
-                </Form.Item>
-              </>
-            )}
-          </Form.List>
-
-          <Form.Item>
-            <Button type="primary" htmlType="submit" loading={isLoading}>
-              {editingGroup ? 'Update' : 'Submit'}
+            <Button
+              type="primary"
+              danger
+              icon={<DeleteOutlined />}
+              className="bg-red-500 hover:bg-red-600"
+            >
+              Delete
             </Button>
-          </Form.Item>
-        </Form>
-      </Modal>
-      <br />
-      <div>
-        <TableOfGroup groupsData={groups} handleEditGroup={handleEditGroup} setRefresh={setRefresh}/>
+          </Popconfirm>
+        </div>
+      ),
+    },
+  ];
+
+  return (
+    <div className="p-6  min-h-screen ">
+      <div className="max-w-10xl mx-auto">
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-2xl font-bold">Manage Groups</h1>
+          <Button
+            type="primary"
+            onClick={() => {
+              setEditingGroup(null);
+              form.resetFields();
+              toggleModalVisibility();
+            }}
+            className="bg-black hover:bg-green-600"
+            icon={<PlusOutlined />}
+          >
+            Add Group
+          </Button>
+        </div>
+
+        <div className="bg-white rounded-lg shadow-md overflow-hidden">
+        <Table
+  dataSource={groups && groups.length > 0 ? groups : []}  // Ensure groups is a valid array
+  columns={columns}
+  rowKey="id"
+  pagination={{ pageSize: 5 }}
+/>
+
+        </div>
+
+        <Modal
+          title={editingGroup ? "Edit Group" : "Create Group"}
+          visible={isModalVisible}
+          onCancel={toggleModalVisibility}
+          footer={null}
+        >
+          <Form
+            form={form}
+            name="group_form"
+            onFinish={onFinish}
+            initialValues={{ groupName: '', members: [''] }}
+            layout="vertical"
+          >
+            <Form.Item
+              name="groupName"
+              label="Group Name"
+              rules={[{ required: true, message: "Enter group name" }]}
+            >
+              <Input
+                placeholder="Group Name"
+                onInput={(e: React.FormEvent<HTMLInputElement>) => {
+                  const target = e.target as HTMLInputElement;
+                  target.value = target.value.length > 1 ? target.value : target.value.toUpperCase();
+                }}
+              />
+            </Form.Item>
+
+            <Form.List
+              name="members"
+              rules={[
+                {
+                  validator: async (_, members) => {
+                    if (!members || members.length < 2) {
+                      return Promise.reject(new Error('At least 2 members are required.'));
+                    }
+                  },
+                },
+              ]}
+            >
+              {(fields, { add, remove }, { errors }) => (
+                <>
+                  {fields.map((field, index) => (
+                    <Form.Item
+                      required={false}
+                      key={field.key}
+                      label={index === 0 ? "Members" : ""}
+                    >
+                      <div className="flex items-center">
+                        <Form.Item
+                          {...field}
+                          validateTrigger={['onChange', 'onBlur']}
+                          rules={[{ required: true, message: "Enter member's name or remove this field." }]}
+                          noStyle
+                        >
+                          <Input
+                            placeholder="Member's Name"
+                            className="flex-grow"
+                            onInput={(e: React.FormEvent<HTMLInputElement>) => {
+                              const target = e.target as HTMLInputElement;
+                              target.value = target.value.length > 1 ? target.value : target.value.toUpperCase();
+                            }}
+                          />
+                        </Form.Item>
+                        {fields.length > 1 && (
+                          <MinusCircleOutlined
+                            className="ml-2 flex-shrink-0"
+                            onClick={() => remove(field.name)}
+                          />
+                        )}
+                      </div>
+                    </Form.Item>
+                  ))}
+                  <Form.Item>
+                    <Button
+                      type="dashed"
+                      onClick={() => add()}
+                      icon={<PlusOutlined />}
+                      className="w-full"
+                    >
+                      Add a member
+                    </Button>
+                    <Form.ErrorList errors={errors} />
+                  </Form.Item>
+                </>
+              )}
+            </Form.List>
+
+            <Form.Item>
+              <Button type="primary" htmlType="submit" loading={isLoading} className="w-full">
+                {editingGroup ? 'Update' : 'Submit'}
+              </Button>
+            </Form.Item>
+          </Form>
+        </Modal>
       </div>
-    </>
+    </div>
   );
 };
 

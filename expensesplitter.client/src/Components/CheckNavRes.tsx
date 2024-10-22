@@ -117,6 +117,7 @@ const CheckNavRes: React.FC = () => {
             </Flex> 
           </Flex>
         </ConfigProvider> */}
+        
         <ConfigProvider button={{ style: { width: buttonWidth, margin: 4} }}>
       <Flex vertical justify="center" align="center" className="demo" style={{marginLeft:'1300px'}}>
         <Flex justify="center" align="center" style={{ whiteSpace: 'nowrap' }}>
@@ -124,6 +125,8 @@ const CheckNavRes: React.FC = () => {
           <Tooltip placement="bottomLeft" title={text} arrow={mergedArrow}>
             <div style={{fontSize:'30px'}}><CgProfile /></div>
           </Tooltip>
+
+
           <p style={{paddingLeft:'5px'}}>{userData.userName}</p>
         </Flex>
       </Flex>

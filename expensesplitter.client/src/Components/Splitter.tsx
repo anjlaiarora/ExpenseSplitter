@@ -15,7 +15,7 @@ export interface Groups {
   _id: string;
   groupName: string;
   ownerId: string;
-  
+
 }
 
 export interface Expense {
@@ -77,7 +77,7 @@ const Splitter: React.FC = () => {
     if (selectedGroup) {
       try {
         const response = await axios.get<Expense[]>(`https://localhost:7194/api/Expense/${selectedGroup}`);
-      
+
         setExpenses(response.data);
       } catch (error) {
         notification.error({ message: "Error fetching expenses" });
@@ -124,7 +124,7 @@ const Splitter: React.FC = () => {
         newExpense.Friends = customSplit;
 
         const totalCustomAmount = customSplit.reduce((total, member) => total + member.Amount, 0);
-        
+
         if (totalCustomAmount !== amount) {
           notification.error({
             message: "Custom amounts do not match the total expense amount",
@@ -200,7 +200,7 @@ const Splitter: React.FC = () => {
           placeholder="Amount"
           required
           min={0}
-          
+
         />
       ),
     },
@@ -215,7 +215,7 @@ const Splitter: React.FC = () => {
             localStorage.setItem('selectedGroup', value);
           }}
           style={{ width: "100%" }}
-          value={selectedGroup}
+          // value={selectedGroup}
         />
       ),
     },
@@ -274,14 +274,17 @@ const Splitter: React.FC = () => {
       <div className="d-flex flex-row justify-content-center justify-content-evenly p-5">
         <div className="bg-light w-100 text-start pb-5 ps-2 pe-2">
           <div className="d-flex flex-row justify-content-between mt-5">
-            <h5 className="text-dark">SPLIT EXPENSES</h5>
+          <div style={{display:"flex",justifyContent:"space-between"}}>
+          <h1 className="text-2xl font-bold mb-5">SPLIT EXPENSES</h1>
             <Button
               type="primary"
+             
               className="text-center rounded-5 bg-black ps-5 pe-5"
               onClick={() => showModal("Equally")}
             >
               Split
             </Button>
+          </div>
 
             <Modal
               title={`Split ${splitMethod === "Equally" || splitMethod === "Custom"}`}
@@ -324,6 +327,11 @@ const Splitter: React.FC = () => {
 };
 
 export default Splitter;
+
+
+
+
+
 
 
 

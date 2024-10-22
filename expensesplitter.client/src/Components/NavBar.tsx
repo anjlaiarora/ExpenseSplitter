@@ -7,7 +7,7 @@ const NavBar = () => {
     const navigate2 = useNavigate(); //const variable for useNavigate.
   const navigate = useNavigate();
   const [userExist, setUserExist] = useState();
-  const { setLogin } = useContext(UserContext)
+  // const { setLogin } = useContext(UserContext)
 
 
   
