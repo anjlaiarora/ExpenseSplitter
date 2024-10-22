@@ -25,7 +25,7 @@ export interface Expense {
   payer: string;
 }
 
-const Splitter: React.FC = () => {
+const Splitter: any = (props:any) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [current, setCurrent] = useState<number>(0);
   const [groups, setGroups] = useState<Groups[]>([]);
@@ -71,7 +71,7 @@ const Splitter: React.FC = () => {
       }
     };
     fetchGroups();
-  }, [userId]);
+  }, [userId,props.r]);
 
   const fetchExpenses = async () => {
     if (selectedGroup) {

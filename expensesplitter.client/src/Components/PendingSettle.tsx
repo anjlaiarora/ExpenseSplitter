@@ -148,7 +148,7 @@
 
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { notification, Button, Spin, Card, Row, Col } from 'antd';
+import { notification, Button, Spin, Card, Row, Col, Modal } from 'antd';
 
 interface Group {
   id: string;
@@ -171,10 +171,18 @@ interface SettlementResult {
 const PendingSettle = () => {
   const [groups, setGroups] = useState<Group[]>([]);
   const [loading, setLoading] = useState(true);
+  const [open, setOpen] = useState(false);
   const [settlements, setSettlements] = useState<any>();
   const [loadingSettlements, setLoadingSettlements] = useState<Record<string, boolean>>({});
   const userId = localStorage.getItem('userId');
 
+  const showModal = () => {
+    setOpen(true);
+  };
+
+  const handleCancel = () => {
+    setOpen(false);
+  };
   useEffect(() => {
     const fetchGroups = async () => {
       try {
@@ -226,20 +234,38 @@ const PendingSettle = () => {
         <div>
           {groups.length > 0 ? (
             <Row gutter={[16, 16]}>
-              {groups.map((group) => (
+              {groups.map((group,index) => (
                 <Col span={24} key={group._id}>
                   <Card
                     title={group.groupName}
                     extra={
                       <Button
-                        onClick={() => handleFetchSettlements(group.id)}
+                      className='bg-black text-white'
+                        onClick={() => {
+                          handleFetchSettlements(group.id)
+                          showModal()
+                        }}
                         loading={loadingSettlements[group._id]}
                       >
                         Show Settlements
                       </Button>
                     }
                   >
-                    {settlements?.length>0?
+                    
+                      {/* <Card
+                      key={index}
+                      type="inner"
+                      title={`Payer: ${settlements?.[index]?.payer||""}`}
+                      style={{ marginBottom: '16px' }}
+                    >
+                      {settlements?.[index]?.settlements?.map((detail:any, idx:any) => (
+                        <p key={idx}>
+                          {detail.payee} owes {settlements?.[index]?.payer} ₹ {detail.amount.toFixed(2)}
+                        </p>
+                      ))}
+                    </Card> */}
+                    
+                    {/* {settlements?.length>0?
                     (settlements?.map((e:any,index:number)=>(
                       <Card
                       key={index}
@@ -254,8 +280,8 @@ const PendingSettle = () => {
                       ))}
                     </Card>
                     ))):(
-                      <div>No Data for settlement</div>
-                    )}
+                      <div></div>
+                    )} */}
                     {/* {settlements[group._id] ? (
                       settlements[group._id].length > 0 ? (
                         settlements[group._id].map((settlement, index) => (
@@ -310,6 +336,31 @@ const PendingSettle = () => {
           )}
         </div>
       )}
+      <Modal
+        open={open}
+        title="Settlements"
+        // onOk={handleOk}
+        onCancel={handleCancel}
+       footer={null}
+      >
+        {settlements?.length>0?
+                    (settlements?.map((e:any,index:number)=>(
+                      <Card
+                      key={index}
+                      type="inner"
+                      title={`Payer: ${e.payer}`}
+                      style={{ marginBottom: '16px' }}
+                    >
+                      {e?.settlements?.map((detail:any, idx:any) => (
+                        <p key={idx}>
+                          {detail.payee} owes {e.payer} ₹ {detail.amount.toFixed(2)}
+                        </p>
+                      ))}
+                    </Card>
+                    ))):(
+                      <div>No Expenses for settlements</div>
+                    )}
+      </Modal>
     </div>
   );
 };

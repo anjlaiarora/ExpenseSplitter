@@ -14,7 +14,7 @@ interface Group {
   ownerId: string;
 }
 
-const Group: React.FC = () => {
+const Group :any= (props:any) => {
   const [groups, setGroups] = useState<Group[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -52,6 +52,7 @@ const Group: React.FC = () => {
       notification.success({ message: "Group Created Successfully" });
       form.resetFields();
       fetchGroups();
+      props.setR((pre:any)=>!pre)
     } catch (error) {
       notification.error({ message: "Error creating group" });
     } finally {
@@ -191,11 +192,11 @@ const Group: React.FC = () => {
 
         <div className="bg-white rounded-lg shadow-md overflow-hidden">
         <Table
-  dataSource={groups && groups.length > 0 ? groups : []}  // Ensure groups is a valid array
-  columns={columns}
-  rowKey="id"
-  pagination={{ pageSize: 5 }}
-/>
+        dataSource={groups && groups.length > 0 ? groups : []}  // Ensure groups is a valid array
+        columns={columns}
+        rowKey="id"
+        pagination={{ pageSize: 5 }}
+      />
 
         </div>
 

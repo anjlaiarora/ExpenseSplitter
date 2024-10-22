@@ -20,7 +20,7 @@ const CheckNavRes: React.FC = () => {
   // const nav = useNavigate();
 
   const [arrow, setArrow] = useState<'Show' | 'Hide' | 'Center'>('Show');
-
+  const [r,setR]=useState<any>(false);
   const mergedArrow = useMemo<TooltipProps['arrow']>(() => {
     if (arrow === 'Hide') {
       return false;
@@ -119,7 +119,7 @@ const CheckNavRes: React.FC = () => {
         </ConfigProvider> */}
         
         <ConfigProvider button={{ style: { width: buttonWidth, margin: 4} }}>
-      <Flex vertical justify="center" align="center" className="demo" style={{marginLeft:'1300px'}}>
+      <Flex vertical justify="center" align="center" className="demo" style={{marginLeft:'1100px'}}>
         <Flex justify="center" align="center" style={{ whiteSpace: 'nowrap' }}>
           
           <Tooltip placement="bottomLeft" title={text} arrow={mergedArrow}>
@@ -143,7 +143,7 @@ const CheckNavRes: React.FC = () => {
           </span>
         }
       >
-        <Group />
+        <Group setR={setR}/>
       </Tabs.TabPane>
       <Tabs.TabPane key="2" tab={
         <span style={{display:'flex', paddingTop:'6px',gap:'5px'}}>
@@ -151,7 +151,7 @@ const CheckNavRes: React.FC = () => {
         Split Your Expense
         </span>
       }>
-        <Splitter />
+        <Splitter r={r}/>
       </Tabs.TabPane>
       <Tabs.TabPane key="3" tab={
         <span style={{display:'flex', paddingTop:'6px',gap:'5px'}}>
