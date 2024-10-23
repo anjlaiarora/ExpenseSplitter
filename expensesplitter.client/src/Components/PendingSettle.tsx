@@ -214,7 +214,7 @@ const PendingSettle = () => {
         'https://localhost:7194/api/Expense/Cal',
         { groupId }
       );
-      console.log("groupId",response.data)
+      console.log("groupId", response.data)
       // setSettlements((prev) => ({ ...prev, [groupId]: response.data }));
       setSettlements(response.data);
 
@@ -234,13 +234,13 @@ const PendingSettle = () => {
         <div>
           {groups.length > 0 ? (
             <Row gutter={[16, 16]}>
-              {groups.map((group,index) => (
+              {groups.map((group, index) => (
                 <Col span={24} key={group._id}>
                   <Card
                     title={group.groupName}
                     extra={
                       <Button
-                      className='bg-black text-white'
+                        className='bg-black text-white'
                         onClick={() => {
                           handleFetchSettlements(group.id)
                           showModal()
@@ -251,81 +251,6 @@ const PendingSettle = () => {
                       </Button>
                     }
                   >
-                    
-                      {/* <Card
-                      key={index}
-                      type="inner"
-                      title={`Payer: ${settlements?.[index]?.payer||""}`}
-                      style={{ marginBottom: '16px' }}
-                    >
-                      {settlements?.[index]?.settlements?.map((detail:any, idx:any) => (
-                        <p key={idx}>
-                          {detail.payee} owes {settlements?.[index]?.payer} ₹ {detail.amount.toFixed(2)}
-                        </p>
-                      ))}
-                    </Card> */}
-                    
-                    {/* {settlements?.length>0?
-                    (settlements?.map((e:any,index:number)=>(
-                      <Card
-                      key={index}
-                      type="inner"
-                      title={`Payer: ${e.payer}`}
-                      style={{ marginBottom: '16px' }}
-                    >
-                      {e?.settlements?.map((detail:any, idx:any) => (
-                        <p key={idx}>
-                          {detail.payee} owes {e.payer} ₹ {detail.amount.toFixed(2)}
-                        </p>
-                      ))}
-                    </Card>
-                    ))):(
-                      <div></div>
-                    )} */}
-                    {/* {settlements[group._id] ? (
-                      settlements[group._id].length > 0 ? (
-                        settlements[group._id].map((settlement, index) => (
-                          <Card
-                            key={index}
-                            type="inner"
-                            title={`Payer: ${settlement.payer}`}
-                            style={{ marginBottom: '16px' }}
-                          >
-                            {settlement.settlements.map((detail, idx) => (
-                              <p key={idx}>
-                                {detail.payee} owes {settlement.payer} $ {detail.amount.toFixed(2)}
-                              </p>
-                            ))}
-                          </Card>
-                        ))
-                      ) : (
-                        <p>No settlements found for this group.</p>
-                      )
-                    ) : (
-                      <p>No settlements to display</p>
-                    )} */}
-                    {/* {settlements[group._id] ? (
-                      settlements.length > 0 ? (
-                        settlements[group._id].map((settlement, index) => (
-                          <Card
-                            key={index}
-                            type="inner"
-                            title={`Payer: ${settlement.payer}`}
-                            style={{ marginBottom: '16px' }}
-                          >
-                            {settlement.settlements.map((detail, idx) => (
-                              <p key={idx}>
-                                {detail.payee} owes {settlement.payer} $ {detail.amount.toFixed(2)}
-                              </p>
-                            ))}
-                          </Card>
-                        ))
-                      ) : (
-                        <p>No settlements found for this group.</p>
-                      )
-                    ) : (
-                      <p>No settlements to display</p>
-                    )} */}
 
                   </Card>
                 </Col>
@@ -341,25 +266,25 @@ const PendingSettle = () => {
         title="Settlements"
         // onOk={handleOk}
         onCancel={handleCancel}
-       footer={null}
+        footer={null}
       >
-        {settlements?.length>0?
-                    (settlements?.map((e:any,index:number)=>(
-                      <Card
-                      key={index}
-                      type="inner"
-                      title={`Payer: ${e.payer}`}
-                      style={{ marginBottom: '16px' }}
-                    >
-                      {e?.settlements?.map((detail:any, idx:any) => (
-                        <p key={idx}>
-                          {detail.payee} owes {e.payer} ₹ {detail.amount.toFixed(2)}
-                        </p>
-                      ))}
-                    </Card>
-                    ))):(
-                      <div>No Expenses for settlements</div>
-                    )}
+        {settlements?.length > 0 ?
+          (settlements?.map((e: any, index: number) => (
+            <Card
+              key={index}
+              type="inner"
+              title={`Payer: ${e.payer}`}
+              style={{ marginBottom: '16px' }}
+            >
+              {e?.settlements?.map((detail: any, idx: any) => (
+                <p key={idx}>
+                  {detail.payee} owes {e.payer} ₹ {detail.amount.toFixed(2)}
+                </p>
+              ))}
+            </Card>
+          ))) : (
+            <div>No Expenses for settlements</div>
+          )}
       </Modal>
     </div>
   );

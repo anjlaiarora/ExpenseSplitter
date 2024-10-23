@@ -1,3 +1,161 @@
+// import axios from 'axios';
+// import React, { useContext, useEffect, useState } from 'react';
+// import { Form, Input, Button, Row, Col, Card, Typography, message } from 'antd';
+// import { Link, useNavigate } from 'react-router-dom';
+// import UserContext from './UserContext';
+
+// const { Title } = Typography;
+
+// const Signup: React.FC = () => {
+//   const navigate = useNavigate();  // Ensure useNavigate is called within the component
+
+//   const {setUserData} = useContext(UserContext);
+
+//   const [formData, setFormData] = useState({
+//     username: '',
+//     email: '',
+//     password: '',
+//   });
+
+//   const [loading, setLoading] = useState(false);
+
+//   // Handle form field changes
+//   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+//     setFormData({
+//       ...formData,
+//       [e.target.name]: e.target.value,
+//     });
+//   };
+
+//   const handleSubmit = async () => {
+  
+//     setLoading(true);
+
+//     try {
+//       // Make POST request to the backend
+//       const response = await axios.post('https://localhost:7194/api/User/register', {
+//       Username: formData.username,
+//         Email: formData.email,
+//         Password: formData.password,
+//       });
+//       const { data } = response;
+//       // Handle success
+//       if (response.status === 200) {
+//         localStorage.setItem('userId',JSON.stringify(data.userId));
+//         let uname= localStorage.setItem('userName',JSON.stringify(formData.username));
+//         // localStorage.setItem('email', JSON.stringify(formData.email));
+//         // setUsername(formData.username)
+//         let email = localStorage.setItem('email', JSON.stringify(formData.email));
+//         setUserData({
+//           userName: formData.username,
+//           email: formData.email,
+//         });
+//         // console.log('username', data.username)
+//         // localStorage.setItem('userName',formData.username);
+//         message.success('User registered successfully!');
+//         setFormData({ username: '', email: '', password: '' });
+//         navigate('/checkNavRes');
+//       }
+
+//     } catch (error: any) {
+//       // Handle error
+//       if (error.response && error.response.data) {
+//         message.error(error.response.data);
+//       } else {
+//         message.error('Failed to register user.');
+//       }
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+
+
+  
+//   return (
+//     <Row justify="center" align="middle" style={{ minHeight: '100vh', backgroundColor: '#f4f6f8' }}>
+//       <Col xs={22} sm={16} md={12} lg={8}>
+//         <Card
+//           style={{ borderRadius: '10px', padding: '20px', boxShadow: '0 8px 24px rgba(0, 0, 0, 0.15)' }}
+//           bordered={false}
+//         >
+//           <Title level={3} style={{ textAlign: 'center', marginBottom: '20px', color: "blueviolet", fontSize: "40px", fontWeight: "bold" }}>
+//             Sign Up
+//           </Title>
+//           <Form
+//             name="signup"
+//             layout="vertical"
+//             onFinish={handleSubmit}  // Attach handleSubmit on form submit
+//           >
+//             <Form.Item
+//               name="Username"
+//               label="Username"
+//               rules={[{ required: true, message: 'Please input your username!' }]}
+              
+//             >
+//               <Input
+//                 name="username"
+//                 placeholder="Enter your username"
+//                 onChange={handleChange}
+//                 value={formData.username}
+//                 onInput={(e: any) => e.target.value = e.target.value.length > 1 ? e.target.value : e.target.value.toUpperCase()}
+//               />
+//             </Form.Item>
+
+//             <Form.Item
+//               name="email"
+//               label="Email"
+//               rules={[
+//                 { required: true, message: 'Please input your email!' },
+//                 { type: 'email', message: 'The input is not valid E-mail!' }
+//               ]}
+//             >
+//               <Input
+//                 name="email"
+//                 placeholder="Enter your email"
+//                 onChange={handleChange}
+//                 value={formData.email}
+//               />
+//             </Form.Item>
+
+//             <Form.Item
+//               name="Password"
+//               label="Password"
+//               rules={[{ required: true, message: 'Please input your password!' }]}
+//             >
+//               <Input.Password
+//                 name="password"
+//                 placeholder="Enter your password"
+//                 onChange={handleChange}
+//                 value={formData.password}
+//               />
+//             </Form.Item>
+
+//             <Form.Item>
+//               <Button
+//                 type="primary"
+//                 htmlType="submit"
+//                 loading={loading}
+//                 style={{ width: '100%', height: "40px", marginTop: "15px", borderRadius: '50px', background: "blueviolet", color: "white", fontWeight: "bold" }}
+//               >
+//                 Sign Up
+//               </Button>
+//             </Form.Item>
+//             Already have an account? <Link to={'/login'} style={{ fontSize: '15px' }}>Login here</Link>
+//           </Form>
+//         </Card>
+//       </Col>
+//     </Row>
+//   );
+// };
+
+// export default Signup;
+
+
+
+
+
+
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
 import { Form, Input, Button, Row, Col, Card, Typography, message } from 'antd';
@@ -7,9 +165,9 @@ import UserContext from './UserContext';
 const { Title } = Typography;
 
 const Signup: React.FC = () => {
-  const navigate = useNavigate();  // Ensure useNavigate is called within the component
+  const navigate = useNavigate();
 
-  const {setUserData} = useContext(UserContext);
+  const { setUserData } = useContext(UserContext);
 
   const [formData, setFormData] = useState({
     username: '',
@@ -27,36 +185,47 @@ const Signup: React.FC = () => {
     });
   };
 
+  const validateEmail = (_: any, value: string) => {
+    if (value !== value.toLowerCase()) {
+      return Promise.reject(new Error('Email must be in proper formate'));
+    }
+    return Promise.resolve();
+  };
+
+  const validatePassword = (_: any, value: string) => {
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    if (!passwordRegex.test(value)) {
+      return Promise.reject(
+        new Error('Minimum 8 characters,At least 1 number and special character.')
+      );
+    }
+    return Promise.resolve();
+  };
+
   const handleSubmit = async () => {
-  
     setLoading(true);
 
     try {
-      // Make POST request to the backend
       const response = await axios.post('https://localhost:7194/api/User/register', {
-      Username: formData.username,
+        Username: formData.username,
         Email: formData.email,
         Password: formData.password,
       });
       const { data } = response;
+
       // Handle success
       if (response.status === 200) {
-        localStorage.setItem('userId',JSON.stringify(data.userId));
-        let uname= localStorage.setItem('userName',JSON.stringify(formData.username));
-        // localStorage.setItem('email', JSON.stringify(formData.email));
-        // setUsername(formData.username)
+        localStorage.setItem('userId', JSON.stringify(data.userId));
+        let uname = localStorage.setItem('userName', JSON.stringify(formData.username));
         let email = localStorage.setItem('email', JSON.stringify(formData.email));
         setUserData({
           userName: formData.username,
           email: formData.email,
         });
-        // console.log('username', data.username)
-        // localStorage.setItem('userName',formData.username);
         message.success('User registered successfully!');
         setFormData({ username: '', email: '', password: '' });
         navigate('/checkNavRes');
       }
-
     } catch (error: any) {
       // Handle error
       if (error.response && error.response.data) {
@@ -69,9 +238,6 @@ const Signup: React.FC = () => {
     }
   };
 
-
-
-  
   return (
     <Row justify="center" align="middle" style={{ minHeight: '100vh', backgroundColor: '#f4f6f8' }}>
       <Col xs={22} sm={16} md={12} lg={8}>
@@ -85,13 +251,12 @@ const Signup: React.FC = () => {
           <Form
             name="signup"
             layout="vertical"
-            onFinish={handleSubmit}  // Attach handleSubmit on form submit
+            onFinish={handleSubmit}
           >
             <Form.Item
-              name="Username"
+              name="username"
               label="Username"
               rules={[{ required: true, message: 'Please input your username!' }]}
-              
             >
               <Input
                 name="username"
@@ -106,8 +271,9 @@ const Signup: React.FC = () => {
               name="email"
               label="Email"
               rules={[
-                { required: true, message: 'Please input your email!' },
-                { type: 'email', message: 'The input is not valid E-mail!' }
+                // { required: true, message: 'Please input your email!' },
+                { type: 'email', message: 'The input is not valid E-mail!' },
+                { validator: validateEmail }, // Validate email lowercase
               ]}
             >
               <Input
@@ -119,9 +285,12 @@ const Signup: React.FC = () => {
             </Form.Item>
 
             <Form.Item
-              name="Password"
+              name="password"
               label="Password"
-              rules={[{ required: true, message: 'Please input your password!' }]}
+              rules={[
+                { required: true, message: 'Please input your password!' },
+                { validator: validatePassword }, // Password validation for length, number, and special character
+              ]}
             >
               <Input.Password
                 name="password"
